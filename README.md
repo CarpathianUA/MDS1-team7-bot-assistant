@@ -44,6 +44,24 @@ pip uninstall bot-assistant
 
 ### Setup
 
+Create a virtual environment:
+
+```bash
+python -m venv bot-assistant
+```
+
+Activate the virtual environment:
+
+```bash
+Linux:
+source bot-assistant/bin/activate
+
+Windows:
+bot-assistant\Scripts\activate.bat
+```
+
+You can use any other virtual environment managers, like [poetry](https://python-poetry.org) or [pipenv](https://pipenv.pypa.io/en/latest/). It's up to you.
+
 Install the development requirements:
 
 ```bash
