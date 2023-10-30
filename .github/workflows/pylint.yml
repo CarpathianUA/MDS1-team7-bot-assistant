@@ -21,6 +21,9 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         pylint --disable=C,I,R $(git ls-files '*.py')
+    - name: Test basic regression
+      run: |
+        python -m tests.bot_assistant.main
     - name: Test package installation
       run: pip install .
     - name: Test bot-assistant CLI
