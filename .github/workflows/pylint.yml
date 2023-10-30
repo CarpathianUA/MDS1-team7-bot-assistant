@@ -23,3 +23,6 @@ jobs:
         pylint --disable=C,I,R $(git ls-files '*.py')
     - name: Test package installation
       run: pip install .
+    - name: Test bot-assistant CLI
+      run: |
+        echo -e "hello\nbye" | bot-assistant
