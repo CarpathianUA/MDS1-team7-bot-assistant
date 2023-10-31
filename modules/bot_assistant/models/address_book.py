@@ -126,12 +126,11 @@ class Record:
             self.email.value = new_email
 
     def find_email(self, email):
-        for p in self.email:
-            if p.value == email:
-                return p
+        if self.email and self.email.value == email:
+            self.email.value = new_email
 
     def remove_email(self, email):
-        self.phones = [p for p in self.email if p.value != email]
+        self.email = [p for p in self.email if p.value != email]
 
     def add_birthday(self, birthday):
         self.birthday = Birthday(birthday)
