@@ -11,7 +11,7 @@ def input_error(func):
         try:
             return func(*args, **kwargs)
         except exceptions.InvalidArgsError:
-            return "Invalid number of arguments."
+            return "Invalid number of arguments. Type 'help' to see available commands and their usage."
         except exceptions.ContactAlreadyExistsError:
             return "Contact already exists."
         except exceptions.ContactDoesNotExistError:
@@ -20,6 +20,8 @@ def input_error(func):
             return "Phone doesn't exist."
         except exceptions.InvalidPhoneError:
             return "Invalid phone number. Phone number must contain 10 digits, with or without '+' sign"
+        except exceptions.AddressDoesNotExistError:
+            return "Address doesn't exist."
         except exceptions.InvalidBirthdayFormatError:
             return "Invalid birthday format. Please use DD.MM.YYYY format."
 

@@ -7,10 +7,15 @@ COMMANDS = {
     "change": contact_handlers.change_contact,
     "phone": contact_handlers.get_contact_phone,
     "remove-phone": contact_handlers.remove_phone,
+    "add-address": contact_handlers.add_address,
+    "change-address": contact_handlers.change_address,
+    "show-address": contact_handlers.show_address,
+    "remove-address": contact_handlers.remove_address,
     "all": contact_handlers.get_all_contacts,
     "add-birthday": contact_handlers.add_birthday,
     "show-birthday": contact_handlers.show_birthday,
     "birthdays": contact_handlers.show_birthdays_per_week,
+    "help": None,  # we define and call help in cli_handlers.py
 }
 
 COMMANDS_INFO = {
@@ -31,6 +36,19 @@ COMMANDS_INFO = {
     "remove-phone": (
         "Remove a contact's phone.",
         "Example: remove-phone AlanWake 0987654321",
+    ),
+    "add-address": (
+        "Add a contact's address",
+        "Example: add-address AlanWake str.Sevchenko,18/5",
+    ),
+    "change-address": (
+        "Change a contact's address",
+        "Example: change-address AlanWake ave.Khmelnitsky,40/32",
+    ),
+    "show-address": ("Show a contact's address.", "Example: show-address AlanWake"),
+    "remove-address": (
+        "Remove a contact's address.",
+        "Example: remove-address AlanWake",
     ),
     "all": ("Show all contacts.", "Example: all"),
     "add-birthday": (

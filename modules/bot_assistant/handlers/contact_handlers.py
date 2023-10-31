@@ -67,7 +67,6 @@ def remove_phone(args, address_book):
     else:
         raise exceptions.PhoneDoesNotExistError
 
-
 @input_error
 def delete_contact(args, address_book):
     if len(args) != 1:
@@ -80,6 +79,54 @@ def delete_contact(args, address_book):
     else:
         raise exceptions.ContactDoesNotExistError
 
+@input_error
+def add_address(args, address_book):
+    name, address = args
+    if name in address_book:
+        record = address_book.data[name]
+        record.add_address(address)
+        return f"Address for {name} added."
+    else:
+        raise exceptions.ContactDoesNotExistError
+    
+@input_error
+def change_address(args, address_book):
+    name, address = args
+    if name in address_book:
+        record = address_book.data[name]
+        record.add_address(address)
+        return f"Address for {name} chnaged."
+    else:
+        raise exceptions.ContactDoesNotExistError
+
+@input_error
+def show_address(args, address_book):
+    if len(args) != 1:
+        raise exceptions.InvalidArgsError
+    name = args[0]
+    if name in address_book:
+        record = address_book.data[name]
+        if hasattr(record, "address"):
+            return f"{name}'s address: {record.address}"
+        else:
+            raise exceptions.AddressDoesNotExistError
+    else:
+        raise exceptions.ContactDoesNotExistError
+    
+@input_error
+def remove_address(args, address_book):
+    if len(args) != 1:
+        raise exceptions.InvalidArgsError
+    name = args[0]
+    if name in address_book:
+        record = address_book.data[name]
+        if hasattr(record, "address"):
+            record.remove_address()
+        else:   
+            raise exceptions.AddressDoesNotExistError
+        return f"Address removed from {name}."
+    else:
+        raise exceptions.ContactDoesNotExistError
 
 def get_all_contacts(address_book):
     if not address_book:

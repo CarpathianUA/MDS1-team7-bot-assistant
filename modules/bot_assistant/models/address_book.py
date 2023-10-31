@@ -13,7 +13,6 @@ from modules.bot_assistant.models.exceptions import (
 from modules.bot_assistant.utils.birthdays import is_valid_birth_date
 from modules.bot_assistant.utils.phone_numbers import is_valid_phone
 
-
 class Field:
     def __init__(self, value):
         self.value = value
@@ -45,6 +44,21 @@ class Phone(Field):
     @staticmethod
     def _validate_phone(phone):
         return is_valid_phone(phone)
+
+
+class Address(Field):
+    def __init__(self, value):
+        super().__init__(value)
+        self._value = None
+        self.value = value
+
+    @property
+    def value(self):
+        return self._value
+    
+    @value.setter
+    def value(self, value):
+        self._value = value
 
 
 class Birthday(Field):
@@ -90,6 +104,15 @@ class Record:
     def remove_phone(self, phone):
         self.phones = [p for p in self.phones if p.value != phone]
 
+    def add_address(self, address):
+        self.address = Address(address)
+
+    def edit_address(self, address):
+        self.address = Address(address)
+
+    def remove_address(self):
+        delattr(self, "address")
+
     def add_birthday(self, birthday):
         self.birthday = Birthday(birthday)
 
@@ -108,7 +131,12 @@ class Record:
             if self.birthday and self.birthday.value
             else "No birthday available"
         )
-        return f"Contact name: {self.name.value}, phones: {phones_str}, birthday: {birthday_str}"
+        address_str = (
+            self.address.value
+            if hasattr(self, "address")
+            else "No address available"
+        )
+        return f"Contact name: {self.name.value}, phones: {phones_str}, birthday: {birthday_str}, address: {address_str}"
 
 
 # TO-DO: Move birthdays methods to handlers

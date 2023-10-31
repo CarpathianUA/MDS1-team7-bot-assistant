@@ -10,6 +10,10 @@ class PhoneDoesNotExistError(ValueError):
     pass
 
 
+class AddressDoesNotExistError(ValueError):
+    pass
+
+
 class InvalidPhoneError(ValueError):
     pass
 
