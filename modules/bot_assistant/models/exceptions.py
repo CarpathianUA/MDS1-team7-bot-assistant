@@ -24,3 +24,7 @@ class InvalidArgsError(ValueError):
 
 class InvalidBirthdayRangeError(ValueError):
     pass
+
+
+class InvalidSearchPatternError(ValueError):
+    pass

@@ -131,6 +131,21 @@ def show_birthday(args, address_book):
 
 
 @input_error
+def find_contact(args, address_book):
+    if len(args) != 1:
+        raise exceptions.InvalidArgsError
+    symbols = args[0]
+
+    if len(symbols) < 2:
+        raise exceptions.InvalidSearchPatternError
+
+    result = address_book.find_record(symbols)
+    if result:
+        return result
+    return "Nothing was found for the specified string."
+
+
+@input_error
 def show_birthdays_per_period(args, address_book):
     if not args:
         days = DEFAULT_PERIOD

@@ -1,5 +1,6 @@
 import os
 import pickle
+import re as regex
 from collections import UserDict, defaultdict
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -14,6 +15,7 @@ from modules.bot_assistant.models.exceptions import (
 )
 from modules.bot_assistant.utils.birthdays import is_valid_birth_date
 from modules.bot_assistant.utils.phone_numbers import is_valid_phone
+from modules.bot_assistant.utils.color_fillers import fill_background_color
 
 
 class Field:
@@ -124,6 +126,15 @@ class AddressBook(UserDict):
         if not self.__is_key_exist(name):
             raise ContactDoesNotExistError
         return self.data[name]
+
+    def find_record(self, symbols):
+        result = ""
+        for record in self.data.values():
+            occurrence = regex.findall(symbols, str(record))
+            if any(occurrence):
+                result += f"{fill_background_color(str(record), symbols)}\n"
+
+        return result
 
     def delete(self, name):
         if not self.__is_key_exist(name):

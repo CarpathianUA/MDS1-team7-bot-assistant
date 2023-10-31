@@ -12,6 +12,7 @@ COMMANDS = {
     "add-birthday": contact_handlers.add_birthday,
     "show-birthday": contact_handlers.show_birthday,
     "birthdays": contact_handlers.show_birthdays_per_period,
+    "find": contact_handlers.find_contact,
     "help": None,  # we define and call help in cli_handlers.py
 }
 
@@ -49,6 +50,10 @@ COMMANDS_INFO = {
         "Example: birthdays 30",
     ),
     "help": ("Show this help message.", "Example: help"),
+    "find": (
+        "Shows all contacts that contain the entered characters.",
+        "Example: find 050",
+    ),
 }
 
 EXIT_COMMANDS = ("close", "exit", "quit", "bye")
