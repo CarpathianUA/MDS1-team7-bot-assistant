@@ -130,7 +130,8 @@ class Record:
             return self.email
 
     def remove_email(self, email):
-        self.email = [p for p in self.email if p.value != email]
+        if self.email.value == email:
+            self.email.value = None
 
     def add_birthday(self, birthday):
         self.birthday = Birthday(birthday)
