@@ -7,6 +7,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         "prompt_toolkit==3.0.39",
+        "python-dateutil==2.8.2",
     ],
     author="Data Fusion Team",
     author_email="romanslipchenko@gmail.com, Spogoretskyi@gmail.com, eadors@gmail.com, e.churylov@gmail.com",

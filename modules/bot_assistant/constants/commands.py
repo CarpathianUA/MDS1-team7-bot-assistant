@@ -11,7 +11,7 @@ COMMANDS = {
     "all": contact_handlers.get_all_contacts,
     "add-birthday": contact_handlers.add_birthday,
     "show-birthday": contact_handlers.show_birthday,
-    "birthdays": contact_handlers.show_birthdays_per_week,
+    "birthdays": contact_handlers.show_birthdays_per_period,
     "find": contact_handlers.find_contact,
     "help": None,  # we define and call help in cli_handlers.py
 }
@@ -45,7 +45,10 @@ COMMANDS_INFO = {
         "Example: add-birthday AlanWake 30.10.1982",
     ),
     "show-birthday": ("Show a contact's birthday.", "Example: show-birthday AlanWake"),
-    "birthdays": ("Show all birthdays for the next week.", "Example: birthdays"),
+    "birthdays": (
+        "Show all birthdays for specified period in days. Default is 7 days.",
+        "Example: birthdays 30",
+    ),
     "help": ("Show this help message.", "Example: help"),
     "find": (
         "Shows all contacts that contain the entered characters.",
