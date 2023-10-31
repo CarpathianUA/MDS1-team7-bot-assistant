@@ -35,7 +35,7 @@ def edit_contact(args, address_book):
         return f"Contact's name {old_name} changed to a new one: {new_name}."
     else:
         raise exceptions.ContactDoesNotExistError
-    
+
 
 @input_error
 def add_phone(args, address_book):

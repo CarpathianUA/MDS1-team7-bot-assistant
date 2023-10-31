@@ -67,7 +67,10 @@ COMMANDS_INFO = {
         "Example: add-birthday AlanWake 30.10.1982",
     ),
     "show-birthday": ("Show a contact's birthday.", "Example: show-birthday AlanWake"),
-    "remove-birthday": ("Remove a contact`s birthday.", "Example: remove-birthday AlanWake 17.11.2005"),
+    "remove-birthday": (
+        "Remove a contact`s birthday.",
+        "Example: remove-birthday AlanWake 17.11.2005",
+    ),
     "birthdays": ("Show all birthdays for the next week.", "Example: birthdays"),
     "help": ("Show this help message.", "Example: help"),
 }
