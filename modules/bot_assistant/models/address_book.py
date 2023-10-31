@@ -2,13 +2,15 @@ import os
 import pickle
 from collections import UserDict, defaultdict
 from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
 
 from modules.bot_assistant.constants.file_paths import ADDRESS_BOOK_FILE
-from modules.bot_assistant.constants.weekend_days import WEEKEND_DAYS
+from modules.bot_assistant.constants.periods_ranges import MAX_PERIOD, PERIODS
 from modules.bot_assistant.models.exceptions import (
     InvalidPhoneError,
     InvalidBirthdayFormatError,
     ContactDoesNotExistError,
+    InvalidBirthdayRangeError,
 )
 from modules.bot_assistant.utils.birthdays import is_valid_birth_date
 from modules.bot_assistant.utils.phone_numbers import is_valid_phone
@@ -111,7 +113,6 @@ class Record:
         return f"Contact name: {self.name.value}, phones: {phones_str}, birthday: {birthday_str}"
 
 
-# TO-DO: Move birthdays methods to handlers
 class AddressBook(UserDict):
     def __is_key_exist(self, key):
         return key in self.data
@@ -130,52 +131,46 @@ class AddressBook(UserDict):
         self.data.pop(name, None)
         return f"Contact '{name}' has been deleted."
 
-    def get_birthdays_per_week(self):
-        today = datetime.today().date()
-        birthdays = defaultdict(list)
-
-        for record in self.data.values():
-            self.process_record_for_birthday(record, today, birthdays)
-
-        return birthdays
-
-    def process_record_for_birthday(self, record, today, birthdays):
+    def process_record_for_birthday(self, record, today, birthdays, end_date):
         name = record.name.value
         birthday_date = self.get_upcoming_birthday(record, today)
-        if birthday_date is None or birthday_date < today:
+        if birthday_date is None or birthday_date < today or birthday_date > end_date:
             return None
 
         day_to_say_happy_birthday = self.calculate_birthday_wish_day(
             birthday_date, today
         )
         if day_to_say_happy_birthday:
-            birthdays[day_to_say_happy_birthday].append(name)
+            birthdays[day_to_say_happy_birthday].append(
+                (name, birthday_date.strftime("%d.%m.%Y"))
+            )
 
-    def calculate_birthday_wish_day(self, birthday_date, today):
-        if birthday_date < today:
-            return None  # Skip birthdays that have already occurred
-        if birthday_date.weekday() in WEEKEND_DAYS:
-            return self.handle_weekend_birthday(birthday_date, today)
-        else:
-            return self.handle_weekday_birthday(birthday_date, today)
+    def get_birthdays_per_period(self, days):
+        if days > MAX_PERIOD:
+            raise InvalidBirthdayRangeError
+        today = datetime.today().date()
+        end_date = today + timedelta(days=days)
+        birthdays = defaultdict(list)
 
-    @staticmethod
-    def handle_weekend_birthday(birthday_date, today):
-        next_monday = today + timedelta(
-            (7 - today.weekday()) % 7
-        )  # Calculate next Monday
-        if birthday_date < next_monday:
-            return "Monday"
-        return None
+        for record in self.data.values():
+            self.process_record_for_birthday(record, today, birthdays, end_date)
+
+        return birthdays
 
     @staticmethod
-    def handle_weekday_birthday(birthday_date, today):
-        delta_days = (birthday_date - today).days
-        if delta_days < 7:
-            if birthday_date.weekday() == today.weekday():
-                return "Today"
-            else:
-                return birthday_date.strftime("%A")
+    def calculate_birthday_wish_day(birthday_date, today):
+        delta = relativedelta(birthday_date, today)
+
+        for period, label, unit in PERIODS:
+            if unit == "days":
+                if (birthday_date - today).days < period:
+                    return label
+            elif unit == "months":
+                # calculate the total number of months between two dates based on their relative difference
+                total_months = delta.years * 12 + delta.months
+                if total_months < period:
+                    return label
+
         return None
 
     @staticmethod
@@ -185,28 +180,12 @@ class AddressBook(UserDict):
 
         birthday_str = record.birthday.value
         birthday_date = datetime.strptime(birthday_str, "%d.%m.%Y").date()
+        birthday_date = birthday_date.replace(year=today.year)
 
-        # If birthday has already occurred this year, add one year
-        if today > birthday_date.replace(year=today.year):
+        if birthday_date < today:
             birthday_date = birthday_date.replace(year=today.year + 1)
-        else:
-            birthday_date = birthday_date.replace(year=today.year)
 
         return birthday_date
-
-    @staticmethod
-    def get_birthday_wish_day(today, birthday_date):
-        if today.weekday() in WEEKEND_DAYS:
-            if birthday_date.weekday() in WEEKEND_DAYS or today == birthday_date:
-                return "Monday (next week)"
-            else:
-                return None  # Skip showing this birthday
-        if birthday_date.weekday() in WEEKEND_DAYS:
-            return "Monday"
-        elif birthday_date == today:
-            return "Monday"
-        else:
-            return birthday_date.strftime("%A")
 
     def save_to_file(self):
         with open(ADDRESS_BOOK_FILE, "wb") as f:

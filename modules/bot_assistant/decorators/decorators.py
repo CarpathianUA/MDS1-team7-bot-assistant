@@ -22,5 +22,7 @@ def input_error(func):
             return "Invalid phone number. Phone number must contain 10 digits, with or without '+' sign"
         except exceptions.InvalidBirthdayFormatError:
             return "Invalid birthday format. Please use DD.MM.YYYY format."
+        except exceptions.InvalidBirthdayRangeError:
+            return "The period for showing birthdays is limited to 365 days."
 
     return wrapper
