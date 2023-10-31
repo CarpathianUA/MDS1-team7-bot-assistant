@@ -11,7 +11,7 @@ def input_error(func):
         try:
             return func(*args, **kwargs)
         except exceptions.InvalidArgsError:
-            return "Invalid number of arguments."
+            return "Invalid number of arguments. Type 'help' to see available commands and their usage."
         except exceptions.ContactAlreadyExistsError:
             return "Contact already exists."
         except exceptions.ContactDoesNotExistError:

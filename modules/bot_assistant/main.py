@@ -1,5 +1,9 @@
 import modules.bot_assistant.handlers.cli_handlers as cli_handlers
 from modules.bot_assistant.handlers.input_parsers import parse_input
+from modules.bot_assistant.constants.commands import COMMANDS, EXIT_COMMANDS
+
+from prompt_toolkit import prompt
+from prompt_toolkit.completion import WordCompleter
 from modules.bot_assistant.models.address_book import AddressBook
 
 
@@ -8,8 +12,12 @@ def main():
 
     print("Welcome to the assistant bot!")
 
+    command_completer = WordCompleter(
+        list(COMMANDS.keys()) + ["help"] + list(EXIT_COMMANDS), ignore_case=True
+    )
+
     while True:
-        user_input = input("Enter a command: ")
+        user_input = prompt("Enter a command: ", completer=command_completer)
         command, *args = parse_input(user_input)
 
         if cli_handlers.execute_command(command, args, address_book):

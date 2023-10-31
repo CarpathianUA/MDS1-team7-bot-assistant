@@ -1,6 +1,6 @@
+import modules.bot_assistant.models.exceptions as exceptions
 from modules.bot_assistant.decorators.decorators import input_error
 from modules.bot_assistant.models.address_book import Record
-import modules.bot_assistant.models.exceptions as exceptions
 
 
 def hello(address_book):
@@ -23,7 +23,7 @@ def add_contact(args, address_book):
 
 
 @input_error
-def change_contact(args, address_book):
+def add_phone(args, address_book):
     if len(args) != 2:
         raise exceptions.InvalidArgsError
     name, phone = args
@@ -31,9 +31,23 @@ def change_contact(args, address_book):
     if name in address_book:
         record = address_book.data[name]
         record.add_phone(phone)
-        return f"Contact {name} changed."
+        return f"Phone {phone} has been added to contact {name}."
     else:
         raise exceptions.ContactDoesNotExistError
+
+
+@input_error
+def edit_phone(args, address_book):
+    if len(args) != 3:
+        raise exceptions.InvalidArgsError
+    name, phone, new_phone = args
+
+    if name in address_book:
+        record = address_book.data[name]
+        record.edit_phone(phone, new_phone)
+        return f"Contact {name} phone changed to a new one: {new_phone}."
+    else:
+        raise exceptions.PhoneDoesNotExistError
 
 
 @input_error
