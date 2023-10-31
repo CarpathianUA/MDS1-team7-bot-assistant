@@ -225,7 +225,7 @@ def remove_birthday(args, address_book):
 
     if record.birthday and record.birthday.value == birthday:
         record.birthday.value = None
-        return f"Email {birthday} removed from {name}."
+        return f"Birthday {birthday} removed from {name}."
     else:
         raise exceptions.ContactWithThisBirthdayDoesNotExist
 
