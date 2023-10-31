@@ -9,7 +9,16 @@ def test_add_contact():
     print("test: add contact: passed! [Module: {}]".format(ab.__name__))
 
 
-def test_change_contact():
+def test_add_contact_phone():
+    book = ab.AddressBook()
+    book.add_record(ab.Record("AlanWake"))
+    book.find("AlanWake").add_phone("1111111111")
+
+    assert book.find("AlanWake").find_phone("1111111111") is not None
+    print("test: add contact phone: passed! [Module: {}]".format(ab.__name__))
+
+
+def test_edit_contact_phone():
     book = ab.AddressBook()
     book.add_record(ab.Record("AlanWake"))
     book.find("AlanWake").add_phone("1111111111")
@@ -18,7 +27,7 @@ def test_change_contact():
     book.find("AlanWake").edit_phone("1111111111", "3333333333")
     assert book.find("AlanWake").find_phone("3333333333") is not None
 
-    print("test: change contact: passed! [Module: {}]".format(ab.__name__))
+    print("test: edit contact phone: passed! [Module: {}]".format(ab.__name__))
 
 
 def test_get_contact_phone():
