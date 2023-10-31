@@ -20,3 +20,7 @@ class InvalidBirthdayFormatError(ValueError):
 
 class InvalidArgsError(ValueError):
     pass
+
+
+class InvalidBirthdayRangeError(ValueError):
+    pass
