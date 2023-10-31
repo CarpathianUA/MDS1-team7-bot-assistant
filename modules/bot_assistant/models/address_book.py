@@ -126,8 +126,8 @@ class Record:
             self.email.value = new_email
 
     def find_email(self, email):
-        if self.email and self.email.value == email:
-            self.email.value = new_email
+        if self.email.value == email:
+            return self.email
 
     def remove_email(self, email):
         self.email = [p for p in self.email if p.value != email]
