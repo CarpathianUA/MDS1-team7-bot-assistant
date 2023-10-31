@@ -3,6 +3,7 @@ from modules.bot_assistant.handlers import contact_handlers
 COMMANDS = {
     "hello": contact_handlers.hello,
     "add": contact_handlers.add_contact,
+    "edit": contact_handlers.edit_contact,
     "delete": contact_handlers.delete_contact,
     "add-phone": contact_handlers.add_phone,
     "edit-phone": contact_handlers.edit_phone,
@@ -24,6 +25,10 @@ COMMANDS_INFO = {
     "add": (
         "Add a new contact.",
         "Example: add AlanWake (that's a great game btw, try it!) 0987654321",
+    ),
+    "edit": (
+        "Edit a contact's name",
+        "Example: edit AlanWake AlanAwaken",
     ),
     "add-phone": (
         "Add a phone to contact's phones list",

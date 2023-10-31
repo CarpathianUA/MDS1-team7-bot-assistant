@@ -23,6 +23,21 @@ def add_contact(args, address_book):
 
 
 @input_error
+def edit_contact(args, address_book):
+    if len(args) != 2:
+        raise exceptions.InvalidArgsError
+    old_name, new_name = args
+
+    if old_name in address_book.data:
+        record = address_book.data.pop(old_name)
+        record.name.value = new_name
+        address_book.data[new_name] = record
+        return f"Contact's name {old_name} changed to a new one: {new_name}."
+    else:
+        raise exceptions.ContactDoesNotExistError
+    
+
+@input_error
 def add_phone(args, address_book):
     if len(args) != 2:
         raise exceptions.InvalidArgsError
