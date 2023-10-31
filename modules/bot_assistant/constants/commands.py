@@ -12,6 +12,7 @@ COMMANDS = {
     "add-birthday": contact_handlers.add_birthday,
     "show-birthday": contact_handlers.show_birthday,
     "birthdays": contact_handlers.show_birthdays_per_week,
+    "help": None,  # we define and call help in cli_handlers.py
 }
 
 COMMANDS_INFO = {
