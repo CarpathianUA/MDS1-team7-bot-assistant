@@ -137,11 +137,11 @@ def find_contact(args, address_book):
 
     if len(symbols) < 2:
         raise exceptions.InvalidSearchPatternError
-    
+
     result = address_book.find_record(symbols)
     if result:
         return result
-    return "Nothing was found for the specified string." 
+    return "Nothing was found for the specified string."
 
 
 def show_birthdays_per_week(address_book):

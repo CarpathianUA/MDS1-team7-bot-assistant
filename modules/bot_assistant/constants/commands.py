@@ -46,8 +46,11 @@ COMMANDS_INFO = {
     ),
     "show-birthday": ("Show a contact's birthday.", "Example: show-birthday AlanWake"),
     "birthdays": ("Show all birthdays for the next week.", "Example: birthdays"),
-    "help": ("Show this help message.", "Example: help"),    
-    "find": ("Shows all contacts that contain the entered characters.", "Example: find 050")
+    "help": ("Show this help message.", "Example: help"),
+    "find": (
+        "Shows all contacts that contain the entered characters.",
+        "Example: find 050",
+    ),
 }
 
 EXIT_COMMANDS = ("close", "exit", "quit", "bye")
