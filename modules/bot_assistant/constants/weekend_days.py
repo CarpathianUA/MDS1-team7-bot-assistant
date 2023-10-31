@@ -1,1 +1,0 @@
-WEEKEND_DAYS = (5, 6)

@@ -1,6 +1,7 @@
+import modules.bot_assistant.models.exceptions as exceptions
+from modules.bot_assistant.constants.periods_ranges import DEFAULT_PERIOD
 from modules.bot_assistant.decorators.decorators import input_error
 from modules.bot_assistant.models.address_book import Record
-import modules.bot_assistant.models.exceptions as exceptions
 
 
 def hello(address_book):
@@ -23,7 +24,7 @@ def add_contact(args, address_book):
 
 
 @input_error
-def change_contact(args, address_book):
+def add_phone(args, address_book):
     if len(args) != 2:
         raise exceptions.InvalidArgsError
     name, phone = args
@@ -31,9 +32,23 @@ def change_contact(args, address_book):
     if name in address_book:
         record = address_book.data[name]
         record.add_phone(phone)
-        return f"Contact {name} changed."
+        return f"Phone {phone} has been added to contact {name}."
     else:
         raise exceptions.ContactDoesNotExistError
+
+
+@input_error
+def edit_phone(args, address_book):
+    if len(args) != 3:
+        raise exceptions.InvalidArgsError
+    name, phone, new_phone = args
+
+    if name in address_book:
+        record = address_book.data[name]
+        record.edit_phone(phone, new_phone)
+        return f"Contact {name} phone changed to a new one: {new_phone}."
+    else:
+        raise exceptions.PhoneDoesNotExistError
 
 
 @input_error
@@ -157,25 +172,48 @@ def show_birthday(args, address_book):
     if name in address_book:
         record = address_book.data[name]
         if record.birthday.value:
-            return f"{name}'s birthday: {record.birthday}"
+            return f"{name}'s birthday: {record.birthday.value}"
     else:
         raise exceptions.ContactDoesNotExistError
 
 
-def show_birthdays_per_week(address_book):
-    birthdays = address_book.get_birthdays_per_week()
+@input_error
+def find_contact(args, address_book):
+    if len(args) != 1:
+        raise exceptions.InvalidArgsError
+    symbols = args[0]
+
+    if len(symbols) < 2:
+        raise exceptions.InvalidSearchPatternError
+
+    result = address_book.find_record(symbols)
+    if result:
+        return result
+    return "Nothing was found for the specified string."
+
+
+@input_error
+def show_birthdays_per_period(args, address_book):
+    if not args:
+        days = DEFAULT_PERIOD
+    else:
+        try:
+            days = int(args[0])
+            if days <= 0:
+                return "Please enter a positive number of days."
+        except ValueError:
+            return "Please enter a valid number."
+
+    birthdays = address_book.get_birthdays_per_period(days)
 
     if not birthdays:
-        return "No birthdays in the upcoming week."
+        return "No birthdays in the upcoming period."
 
-    result = ""
-    if "Today" in birthdays:
-        result += "Birthdays today:\n"
-        result += f"Today: {', '.join(birthdays.pop('Today'))} 🎉\n"
-
-    if birthdays:
-        result += "Birthdays in the upcoming week:\n"
-        for day, names in birthdays.items():
-            result += f"{day}: {', '.join(names)}\n"
+    result = f"Birthdays in the upcoming {days} days:\n"
+    for day, contacts in birthdays.items():
+        contacts_str = ", ".join(
+            f"{name} ({birthday_date})" for name, birthday_date in contacts
+        )
+        result += f"{day}: {contacts_str}\n"
 
     return result

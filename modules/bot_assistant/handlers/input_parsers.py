@@ -1,6 +1,7 @@
 from modules.bot_assistant.models.exceptions import InvalidArgsError
 from modules.bot_assistant.decorators.decorators import input_error
 
+
 @input_error
 def parse_input(user_input):
     """
