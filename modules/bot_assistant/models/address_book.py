@@ -6,6 +6,10 @@ from datetime import datetime, timedelta
 
 from modules.bot_assistant.constants.file_paths import ADDRESS_BOOK_FILE
 from modules.bot_assistant.constants.weekend_days import WEEKEND_DAYS
+from modules.bot_assistant.constants.colors import (
+    COLOR_CODE,
+    RESET_COLOR
+)
 from modules.bot_assistant.models.exceptions import (
     InvalidPhoneError,
     InvalidBirthdayFormatError,
@@ -130,9 +134,10 @@ class AddressBook(UserDict):
         for record in self.data.values():
             occurrence = regex.findall(symbols, str(record))
             if any(occurrence):  
-                result += f"{record}\n"
-        return result
+                result += f"{self.__fill_background_color(str(record), symbols)}\n"
 
+        return result
+    
     def delete(self, name):
         if not self.__is_key_exist(name):
             raise ContactDoesNotExistError
@@ -167,6 +172,21 @@ class AddressBook(UserDict):
             return self.handle_weekend_birthday(birthday_date, today)
         else:
             return self.handle_weekday_birthday(birthday_date, today)
+        
+    @staticmethod
+    def __fill_background_color(input_string, target_sequence):
+        output_string = ""
+        i = 0
+
+        while i < len(input_string):
+            if input_string[i:i + len(target_sequence)] == target_sequence:
+                output_string += f"{COLOR_CODE}{target_sequence}{RESET_COLOR}"
+                i += len(target_sequence)
+            else:
+                output_string += input_string[i]
+                i += 1
+
+        return output_string
 
     @staticmethod
     def handle_weekend_birthday(birthday_date, today):
