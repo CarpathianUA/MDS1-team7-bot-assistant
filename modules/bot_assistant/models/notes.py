@@ -73,15 +73,18 @@ class Note:
     def __init__(self, title):
         self.title = Title(title)
         self.text = ""
-        self.date = Date()
+        self.creation_date = Date()
+        self.edited = None
         self.status = Status()
         self.tags = []
 
     def edit_title(self, title):
         self.title = Title(title)
+        self.edited = Date()
 
     def change_status(self, status):
         self.status.value = status
+        self.edited = Date()
 
     def add_tag(self, tag):
         if Tag(tag) not in self.tags:
@@ -89,6 +92,7 @@ class Note:
 
     def edit_text(self, text):
         self.text = text
+        self.edited = Date()
 
     def __hash__(self):
         return hash(self.value)
@@ -102,7 +106,7 @@ class Note:
             if self.tags
             else "No tags available"
         )
-        return f"Note: title:{self.title} tags: {tags_str}, creatin date: {self.date}, status: {self.status}, text: {self.text}\n"
+        return f"Note: title:{self.title} tags: {tags_str}, creatin date: {self.creation_date}, edited: {self.edited}, status: {self.status}, text: {self.text}\n"
 
 
 class Notes(UserDict):

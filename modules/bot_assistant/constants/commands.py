@@ -1,4 +1,4 @@
-from modules.bot_assistant.handlers import contact_handlers
+from modules.bot_assistant.handlers import contact_handlers, notes_handlers
 
 COMMANDS = {
     "hello": contact_handlers.hello,
@@ -14,6 +14,19 @@ COMMANDS = {
     "birthdays": contact_handlers.show_birthdays_per_period,
     "find": contact_handlers.find_contact,
     "help": None,  # we define and call help in cli_handlers.py
+}
+
+NOTES_COMMANDS = {
+    "add-note": notes_handlers.add_note,
+    "add-tag": notes_handlers.add_tag,
+    "add-text": notes_handlers.add_text,
+    "delete-note": notes_handlers.delete_note,
+    "edit-title": notes_handlers.edit_title,
+    "edit-text": notes_handlers.edit_text,
+    "remove-tag": notes_handlers.remove_tag,
+    "notes": notes_handlers.get_all_notes,
+    "find-note": notes_handlers.find_note,
+    "find-note-filter": notes_handlers.find_note_by_filter,
 }
 
 COMMANDS_INFO = {
@@ -54,6 +67,41 @@ COMMANDS_INFO = {
         "Shows all contacts that contain the entered characters.",
         "Example: find 050",
     ),
+}
+
+NOTES_COMMANDS_INFO = {
+    "add-note": (
+        "Add a new note.",
+        "Example: add-note Weather",
+    ),
+    "add-tag": (
+        "Add a tag to note list",
+        "Example: add-tag Weather sunny",
+    ),
+    "add-text": (
+        "Add a text to note.",
+        "Example: add-text Weather good day...",
+    ),
+    "delete-note": ("Delete a note.", "Example: delete Weather"),
+    "edit-title": (
+        "Change a title.",
+        "Example: edit-title Weather Sun",
+    ),
+    "edit-text": (
+        "Change a text",
+        "Example: edit-text Weather one day...",
+    ),
+    "remove-tag": (
+        "Remove a tag.",
+        "Example: remove-tag Weather sunny",
+    ),
+    "notes": ("Show all notes.", "Example: notes"),
+    "find-note": (
+        "Shows all notes that contain the entered characters.",
+        "Example: find sun",
+    ),
+    "find-note-by-filter": ("Shows notes that contain the entered characters by filter.",
+                         "Example: find-note-filter sun sunny")
 }
 
 EXIT_COMMANDS = ("close", "exit", "quit", "bye")

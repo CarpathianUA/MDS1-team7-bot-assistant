@@ -1,16 +1,24 @@
 from modules.bot_assistant.constants.commands import (
     COMMANDS,
+    NOTES_COMMANDS,
     EXIT_COMMANDS,
     COMMANDS_INFO,
+    NOTES_COMMANDS_INFO
 )
 
 
 def show_help():
     print("Available commands:\n")
+    print("Contacts:")
     print(f"{'Command':<15} {'Description':<40} {'Example':<40}")
     print("\n")
     for command, (description, example) in COMMANDS_INFO.items():
         print(f"{command:<15} {description:<40} {example:<40}")
+    print("\n")
+    print("Notes:")
+    for command, (description, example) in NOTES_COMMANDS_INFO.items():
+        print(f"{command:<15} {description:<40} {example:<40}")
+    print("\n")
     print()
 
 
@@ -22,8 +30,9 @@ def execute_command(command, args, address_book):
     if command == "help":
         show_help()
         return False
-
-    handler = COMMANDS.get(command)
+    
+    commands = COMMANDS.update(NOTES_COMMANDS)
+    handler = commands.get(command)
     if handler:
         try:
             if command in ["hello", "all"]:
