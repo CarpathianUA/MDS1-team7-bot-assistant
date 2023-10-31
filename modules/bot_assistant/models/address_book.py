@@ -10,7 +10,7 @@ from modules.bot_assistant.constants.periods_ranges import MAX_PERIOD, PERIODS
 from modules.bot_assistant.models.exceptions import (
     InvalidPhoneError,
     InvalidBirthdayFormatError,
-    InvalidBirthdayRangeError
+    InvalidBirthdayRangeError,
     ContactDoesNotExistError,
     InvalidEmailError,
 )
