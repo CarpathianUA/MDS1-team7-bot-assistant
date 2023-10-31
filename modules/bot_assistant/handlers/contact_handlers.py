@@ -205,7 +205,7 @@ def edit_birthday(args, address_book):
         record = address_book.data[name]
         if record.birthday.value == birthday:
             record.birthday.value = new_birthday
-            return f"Contact {name} birthday changed to a new one: {new_birthday}."
+            return f"Contact`s {name} birthday changed to a new one: {new_birthday}."
         else:
             raise exceptions.ContactWithThisBirthdayDoesNotExist
     else:
