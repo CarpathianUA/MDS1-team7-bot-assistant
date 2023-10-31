@@ -195,24 +195,6 @@ def add_birthday(args, address_book):
 
 
 @input_error
-def edit_birthday(args, address_book):
-    if len(args) != 3:
-        raise exceptions.InvalidArgsError
-
-    name, birthday, new_birthday = args
-
-    if name in address_book.data:
-        record = address_book.data[name]
-        if record.birthday.value == birthday:
-            record.birthday.value = new_birthday
-            return f"Contact`s {name} birthday changed to a new one: {new_birthday}."
-        else:
-            raise exceptions.ContactWithThisBirthdayDoesNotExist
-    else:
-        raise exceptions.ContactDoesNotExistError
-
-
-@input_error
 def remove_birthday(args, address_book):
     if len(args) != 2:
         raise exceptions.InvalidArgsError

@@ -26,10 +26,6 @@ class EmailDoesNotExistError(ValueError):
     pass
 
 
-class ContactWithThisBirthdayDoesNotExist(ValueError):
-    pass
-
-
 class InvalidBirthdayFormatError(ValueError):
     pass
 

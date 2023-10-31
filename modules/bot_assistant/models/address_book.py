@@ -122,9 +122,8 @@ class Record:
             return self.email.value
 
     def edit_email(self, email, new_email):
-        for p in self.email:
-            if p.value == email:
-                p.email = new_email
+        if self.email and self.email.value == email:
+            self.email.value = new_email
 
     def find_email(self, email):
         for p in self.email:
