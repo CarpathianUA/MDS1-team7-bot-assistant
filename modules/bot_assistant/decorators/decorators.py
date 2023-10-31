@@ -25,7 +25,7 @@ def input_error(func):
         except exceptions.EmailDoesNotExistError:
             return "Email doesn`t exist"
         except exceptions.ContactWithThisBirthdayDoesNotExist:
-            return "Invalid birthday format. Please use DD.MM.YYYY format."
+            return "Contact with this birthday does not exist. Please, enter an existing birthday for a contact"
         except exceptions.InvalidBirthdayFormatError:
             return "Invalid birthday format. Please use DD.MM.YYYY format."
 
