@@ -32,3 +32,11 @@ class InvalidBirthdayFormatError(ValueError):
 
 class InvalidArgsError(ValueError):
     pass
+
+
+class InvalidBirthdayRangeError(ValueError):
+    pass
+
+
+class InvalidSearchPatternError(ValueError):
+    pass

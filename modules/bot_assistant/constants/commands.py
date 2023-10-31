@@ -13,11 +13,12 @@ COMMANDS = {
     "add-birthday": contact_handlers.add_birthday,
     "remove-birthday": contact_handlers.remove_birthday,
     "show-birthday": contact_handlers.show_birthday,
-    "birthdays": contact_handlers.show_birthdays_per_week,
     "add-email": contact_handlers.add_email,
     "show-email": contact_handlers.show_email,
     "edit-email": contact_handlers.edit_email,
     "remove-email": contact_handlers.remove_email,
+    "birthdays": contact_handlers.show_birthdays_per_period,
+    "find": contact_handlers.find_contact,
     "help": None,  # we define and call help in cli_handlers.py
 }
 
@@ -67,12 +68,15 @@ COMMANDS_INFO = {
         "Example: add-birthday AlanWake 30.10.1982",
     ),
     "show-birthday": ("Show a contact's birthday.", "Example: show-birthday AlanWake"),
-    "remove-birthday": (
-        "Remove a contact`s birthday.",
-        "Example: remove-birthday AlanWake 17.11.2005",
+    "birthdays": (
+        "Show all birthdays for specified period in days. Default is 7 days.",
+        "Example: birthdays 30",
     ),
-    "birthdays": ("Show all birthdays for the next week.", "Example: birthdays"),
     "help": ("Show this help message.", "Example: help"),
+    "find": (
+        "Shows all contacts that contain the entered characters.",
+        "Example: find 050",
+    ),
 }
 
 EXIT_COMMANDS = ("close", "exit", "quit", "bye")

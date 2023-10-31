@@ -26,7 +26,7 @@ def execute_command(command, args, address_book):
     handler = COMMANDS.get(command)
     if handler:
         try:
-            if command in ["hello", "all", "birthdays"]:
+            if command in ["hello", "all"]:
                 print(handler(address_book))  # no args for these commands
             else:
                 print(
