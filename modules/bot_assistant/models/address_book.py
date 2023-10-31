@@ -1,6 +1,6 @@
 import os
 import pickle
-import re as regex 
+import re as regex
 from collections import UserDict, defaultdict
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -126,16 +126,16 @@ class AddressBook(UserDict):
         if not self.__is_key_exist(name):
             raise ContactDoesNotExistError
         return self.data[name]
-    
+
     def find_record(self, symbols):
         result = ""
         for record in self.data.values():
             occurrence = regex.findall(symbols, str(record))
-            if any(occurrence):  
+            if any(occurrence):
                 result += f"{fill_background_color(str(record), symbols)}\n"
 
         return result
-    
+
     def delete(self, name):
         if not self.__is_key_exist(name):
             raise ContactDoesNotExistError
@@ -152,7 +152,7 @@ class AddressBook(UserDict):
             birthday_date, today
         )
         if day_to_say_happy_birthday:
-           birthdays[day_to_say_happy_birthday].append(
+            birthdays[day_to_say_happy_birthday].append(
                 (name, birthday_date.strftime("%d.%m.%Y"))
             )
 
