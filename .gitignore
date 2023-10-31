@@ -165,3 +165,7 @@ cython_debug/
 
 # serialized files
 *.pkl
+
+# Windows VM folder/files
+Scripts
+pyvenv.cfg
