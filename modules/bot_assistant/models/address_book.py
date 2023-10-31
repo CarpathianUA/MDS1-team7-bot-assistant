@@ -127,10 +127,10 @@ class AddressBook(UserDict):
     
     def find_record(self, symbols):
         result = ""
-        for record in self.data:
+        for record in self.data.values():
             occurrence = regex.findall(symbols, str(record))
-            print(occurrence)
-            result += f"{record}"
+            if any(occurrence):  
+                result += f"{record}\n"
         return result
 
     def delete(self, name):
