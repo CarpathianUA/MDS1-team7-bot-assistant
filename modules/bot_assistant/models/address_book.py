@@ -73,10 +73,12 @@ class Birthday(Field):
 
 
 class Record:
-    def __init__(self, name):
+    def __init__(self, name, phones=None, birthday=None):
         self.name = Name(name)
-        self.phones = list()
-        self.birthday = Birthday(None)
+        self.phones = [Phone(phone) for phone in (phones or [])]
+        # self.emails = [Email(email) for email in (emails or [])]
+        # self.address = Address(address)
+        self.birthday = Birthday(birthday)
 
     def add_phone(self, phone):
         self.phones.append(Phone(phone))
@@ -208,6 +210,16 @@ class AddressBook(UserDict):
             with open(ADDRESS_BOOK_FILE, "rb") as f:
                 return pickle.load(f)
         return cls()
+
+    def __setstate__(self, state):
+        self.__dict__.update(state)
+        # handle data compatibility with older versions
+        # example:
+        # for record in self.data.values():
+        #     if not hasattr(record, "emails"):
+        #         record.emails = []
+        #     if not hasattr(record, "address"):
+        #         record.address = Address(None)
 
     def __str__(self):
         return "\n".join(str(record) for record in self.data.values())
