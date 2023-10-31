@@ -11,6 +11,7 @@ COMMANDS = {
     "add-birthday": contact_handlers.add_birthday,
     "show-birthday": contact_handlers.show_birthday,
     "birthdays": contact_handlers.show_birthdays_per_week,
+    "find": contact_handlers.find_contact
 }
 
 COMMANDS_INFO = {
@@ -39,7 +40,8 @@ COMMANDS_INFO = {
     ),
     "show-birthday": ("Show a contact's birthday.", "Example: show-birthday AlanWake"),
     "birthdays": ("Show all birthdays for the next week.", "Example: birthdays"),
-    "help": ("Show this help message.", "Example: help"),
+    "help": ("Show this help message.", "Example: help"),    
+    "find": ("shows all contacts that contain the entered characters.", "Example: find 050")
 }
 
 EXIT_COMMANDS = ("close", "exit", "quit", "bye")
