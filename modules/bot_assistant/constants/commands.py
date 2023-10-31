@@ -4,7 +4,8 @@ COMMANDS = {
     "hello": contact_handlers.hello,
     "add": contact_handlers.add_contact,
     "delete": contact_handlers.delete_contact,
-    "change": contact_handlers.change_contact,
+    "add-phone": contact_handlers.add_phone,
+    "edit-phone": contact_handlers.edit_phone,
     "phone": contact_handlers.get_contact_phone,
     "remove-phone": contact_handlers.remove_phone,
     "all": contact_handlers.get_all_contacts,
@@ -19,14 +20,18 @@ COMMANDS_INFO = {
         "Add a new contact.",
         "Example: add AlanWake (that's a great game btw, try it!) 0987654321",
     ),
-    "change": (
-        "Change a one of contact's phones.",
-        "Example: change AlanWake 0987654322",
+    "add-phone": (
+        "Add a phone to contact's phones list",
+        "Example: add-phone AlanWake 0987654322",
     ),
     "delete": ("Delete a contact.", "Example: delete AlanWake"),
     "phone": (
         "Show a contact's phone.",
         "Example: phone AlanWake (don't try to call him, he's busy!)",
+    ),
+    "edit-phone": (
+        "Edit a contact's phone number",
+        "Example: edit-phone AlanWake 0987654321 0987654322",
     ),
     "remove-phone": (
         "Remove a contact's phone.",
