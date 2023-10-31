@@ -115,6 +115,18 @@ def show_birthday(args, address_book):
         raise exceptions.ContactDoesNotExistError
 
 
+@input_error
+def find_contact(args, address_book):
+    if len(args) != 1:
+        raise exceptions.InvalidArgsError
+    symbols = args[0]
+
+    if len(symbols) < 2:
+        raise exceptions.InvalidSearchPatternError
+    
+    return address_book.find_record(symbols)
+
+
 def show_birthdays_per_week(address_book):
     birthdays = address_book.get_birthdays_per_week()
 
