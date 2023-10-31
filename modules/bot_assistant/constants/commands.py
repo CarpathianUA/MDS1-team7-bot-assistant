@@ -12,6 +12,10 @@ COMMANDS = {
     "add-birthday": contact_handlers.add_birthday,
     "show-birthday": contact_handlers.show_birthday,
     "birthdays": contact_handlers.show_birthdays_per_week,
+    "add-email": contact_handlers.add_email,
+    "show-email": contact_handlers.show_email,
+    "edit-email": contact_handlers.edit_email,
+    "remove-email": contact_handlers.remove_email,
     "help": None,  # we define and call help in cli_handlers.py
 }
 
@@ -37,6 +41,19 @@ COMMANDS_INFO = {
     "remove-phone": (
         "Remove a contact's phone.",
         "Example: remove-phone AlanWake 0987654321",
+    ),
+    "add-email": (
+        "Add an email to a contact.",
+        "Example: add-email alanwake@email.com",
+    ),
+    "show-email": ("Shows an email of a contact.", "Example: show-email AlanWake"),
+    "edit-email": (
+        "Edits an email of a contact.",
+        "Example: edit-email alanwake@email.com alanwake1@email.com",
+    ),
+    "remove-email": (
+        "Remove a contact's email.",
+        "Example: remove-email AlanWake alanwake@email.com",
     ),
     "all": ("Show all contacts.", "Example: all"),
     "add-birthday": (

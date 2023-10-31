@@ -9,9 +9,11 @@ from modules.bot_assistant.models.exceptions import (
     InvalidPhoneError,
     InvalidBirthdayFormatError,
     ContactDoesNotExistError,
+    InvalidEmailError,
 )
 from modules.bot_assistant.utils.birthdays import is_valid_birth_date
 from modules.bot_assistant.utils.phone_numbers import is_valid_phone
+from modules.bot_assistant.utils.emails import is_valid_email
 
 
 class Field:
@@ -47,6 +49,27 @@ class Phone(Field):
         return is_valid_phone(phone)
 
 
+class Email(Field):
+    def __init__(self, value):
+        super().__init__(value)
+        self._value = None
+        self.value = value
+
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, value):
+        if value is not None and not self._validate_email(value):
+            raise InvalidEmailError
+        self._value = value
+
+    @staticmethod
+    def _validate_email(birthday):
+        return is_valid_email(birthday)
+
+
 class Birthday(Field):
     def __init__(self, value):
         super().__init__(value)
@@ -72,6 +95,7 @@ class Record:
     def __init__(self, name):
         self.name = Name(name)
         self.phones = list()
+        self.email = Email(None)
         self.birthday = Birthday(None)
 
     def add_phone(self, phone):
@@ -90,6 +114,26 @@ class Record:
     def remove_phone(self, phone):
         self.phones = [p for p in self.phones if p.value != phone]
 
+    def add_email(self, email):
+        self.email = Email(email)
+
+    def get_email(self):
+        if self.email and self.email.value:
+            return self.email.value
+
+    def edit_email(self, email, new_email):
+        for p in self.email:
+            if p.value == email:
+                p.email = new_email
+
+    def find_email(self, email):
+        for p in self.email:
+            if p.value == email:
+                return p
+
+    def remove_email(self, email):
+        self.phones = [p for p in self.email if p.value != email]
+
     def add_birthday(self, birthday):
         self.birthday = Birthday(birthday)
 
@@ -103,12 +147,17 @@ class Record:
             if self.phones
             else "No phones available"
         )
+        email_str = (
+            self.email.value
+            if self.email and self.email.value
+            else "No email available"
+        )
         birthday_str = (
             self.birthday.value
             if self.birthday and self.birthday.value
             else "No birthday available"
         )
-        return f"Contact name: {self.name.value}, phones: {phones_str}, birthday: {birthday_str}"
+        return f"Contact name: {self.name.value}, phones: {phones_str}, birthday: {birthday_str}, email: {email_str}"
 
 
 # TO-DO: Move birthdays methods to handlers
