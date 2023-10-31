@@ -28,3 +28,11 @@ class InvalidBirthdayRangeError(ValueError):
 
 class InvalidSearchPatternError(ValueError):
     pass
+
+
+class InvalidNoteStatusError(ValueError):
+    pass
+
+
+class TitleDoesNotExistError(ValueError):
+    pass

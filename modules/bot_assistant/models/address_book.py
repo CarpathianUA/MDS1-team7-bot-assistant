@@ -1,6 +1,7 @@
 import os
 import pickle
 import re as regex
+from field import Field
 from collections import UserDict, defaultdict
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
@@ -16,14 +17,6 @@ from modules.bot_assistant.models.exceptions import (
 from modules.bot_assistant.utils.birthdays import is_valid_birth_date
 from modules.bot_assistant.utils.phone_numbers import is_valid_phone
 from modules.bot_assistant.utils.color_fillers import fill_background_color
-
-
-class Field:
-    def __init__(self, value):
-        self.value = value
-
-    def __str__(self):
-        return str(self.value)
 
 
 class Name(Field):
