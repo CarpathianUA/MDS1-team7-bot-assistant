@@ -34,6 +34,7 @@ def input_error(func):
             return "Email already exists."
         except exceptions.EmailDoesNotExistError:
             return "Email doesn't exist"
+        except exceptions.AddressDoesNotExistError:
         except exceptions.InvalidBirthdayFormatError:
             return "Invalid birthday format. Please use DD.MM.YYYY format."
         except exceptions.InvalidBirthdayRangeError:

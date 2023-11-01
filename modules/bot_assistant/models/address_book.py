@@ -148,6 +148,7 @@ class Record:
     def remove_address(self, address):
         self.addresses = [p for p in self.addresses if p.value != address]
     
+=========
     def add_email(self, email):
         self.emails.append(Email(email))
 
@@ -187,13 +188,16 @@ class Record:
             if self.birthday and self.birthday.value
             else "No birthday available"
         )
+<<<<<<<<< Temporary merge branch 1
         address_str = (
             "; ".join(p.value for p in self.addresses)
             if self.addresses
             else "No address available"
         )
-        return f"Contact name: {self.name.value}, phones: {phones_str}, birthday: {birthday_str}, emails: {emails_str}, addresses: {address_str}"
-        
+        return f"Contact name: {self.name.value}, phones: {phones_str}, birthday: {birthday_str}, addresses: {address_str}"
+=========
+        return f"Contact name: {self.name.value}, phones: {phones_str}, birthday: {birthday_str}, emails: {emails_str}"
+>>>>>>>>> Temporary merge branch 2
 
 
 class AddressBook(UserDict):
