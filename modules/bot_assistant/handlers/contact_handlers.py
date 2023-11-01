@@ -156,8 +156,8 @@ def remove_email(args, address_book):
         return f"Email {email} removed from {name}."
     else:
         raise exceptions.EmailDoesNotExistError
-    
-   
+
+
 @input_error
 def delete_contact(args, address_book):
     if len(args) != 1:
