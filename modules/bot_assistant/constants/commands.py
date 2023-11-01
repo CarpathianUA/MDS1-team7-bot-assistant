@@ -1,6 +1,6 @@
 from modules.bot_assistant.handlers import contact_handlers, notes_handlers
 
-COMMANDS = {
+CONTACT_COMMANDS = {
     "hello": contact_handlers.hello,
     "add": contact_handlers.add_contact,
     "edit": contact_handlers.edit_contact,
@@ -32,10 +32,10 @@ NOTES_COMMANDS = {
     "remove-tag": notes_handlers.remove_tag,
     "notes": notes_handlers.get_all_notes,
     "find-note": notes_handlers.find_note,
-    "find-note-filter": notes_handlers.find_note_by_filter,
+    "find-note-filter": notes_handlers.find_note_by_filter
 }
 
-COMMANDS_INFO = {
+CONTACT_COMMANDS_INFO = {
     "hello": ("Say hello to the bot.", "Example: hello"),
     "add": (
         "Add a new contact.",
@@ -89,7 +89,6 @@ COMMANDS_INFO = {
         "Show all birthdays for specified period in days. Default is 7 days.",
         "Example: birthdays 30",
     ),
-    "help": ("Show this help message.", "Example: help"),
     "find": (
         "Shows all contacts that contain the entered characters.",
         "Example: find 050",
@@ -128,7 +127,12 @@ NOTES_COMMANDS_INFO = {
         "Example: find sun",
     ),
     "find-note-by-filter": ("Shows notes that contain the entered characters by filter.",
-                         "Example: find-note-filter sun sunny")
+                         "Example: find-note-filter sun sunny"),
+    "help": ("Show this help message.", "Example: help")
 }
 
 EXIT_COMMANDS = ("close", "exit", "quit", "bye")
+
+COMMANDS = {**CONTACT_COMMANDS, **NOTES_COMMANDS}
+
+COMMANDS_INFO = {**CONTACT_COMMANDS_INFO, **NOTES_COMMANDS_INFO}

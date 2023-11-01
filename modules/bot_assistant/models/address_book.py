@@ -1,11 +1,11 @@
 import os
 import pickle
 import re as regex
-from field import Field
 from collections import UserDict, defaultdict
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
+from modules.bot_assistant.models.field import Field
 from modules.bot_assistant.constants.file_paths import ADDRESS_BOOK_FILE
 from modules.bot_assistant.constants.periods_ranges import MAX_PERIOD, PERIODS
 from modules.bot_assistant.models.exceptions import (
@@ -27,7 +27,7 @@ class Name(Field):
 
 class Phone(Field):
     def __init__(self, value):
-        super().__init__(value)
+        # super().__init__(value)
         self._value = None
         self.value = value
 
