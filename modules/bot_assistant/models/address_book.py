@@ -65,13 +65,13 @@ class Email(Field):
 
     @value.setter
     def value(self, value):
-        if value is not None and not self._validate_email(value):
+        if not self._validate_email(value):
             raise InvalidEmailError
         self._value = value
 
     @staticmethod
-    def _validate_email(birthday):
-        return is_valid_email(birthday)
+    def _validate_email(email):
+        return is_valid_email(email)
 
 
 class Birthday(Field):
@@ -99,7 +99,7 @@ class Record:
     def __init__(self, name):
         self.name = Name(name)
         self.phones = list()
-        self.email = Email(None)
+        self.emails = list()
         self.birthday = Birthday(None)
 
     def add_phone(self, phone):
@@ -119,23 +119,20 @@ class Record:
         self.phones = [p for p in self.phones if p.value != phone]
 
     def add_email(self, email):
-        self.email = Email(email)
-
-    def get_email(self):
-        if self.email and self.email.value:
-            return self.email.value
+        self.emails.append(Email(email))
 
     def edit_email(self, email, new_email):
-        if self.email and self.email.value == email:
-            self.email.value = new_email
+        for e in self.emails:
+            if e.value == email:
+                e.value = new_email
 
     def find_email(self, email):
-        if self.email.value == email:
-            return self.email
+        for e in self.emails:
+            if e.value == email:
+                return e
 
     def remove_email(self, email):
-        if self.email.value == email:
-            self.email.value = None
+        self.emails = [e for e in self.emails if e.value != email]
 
     def add_birthday(self, birthday):
         self.birthday = Birthday(birthday)
@@ -150,9 +147,9 @@ class Record:
             if self.phones
             else "No phones available"
         )
-        email_str = (
-            self.email.value
-            if self.email and self.email.value
+        emails_str = (
+            "; ".join(e.value for e in self.emails)
+            if self.emails
             else "No email available"
         )
         birthday_str = (
@@ -160,7 +157,7 @@ class Record:
             if self.birthday and self.birthday.value
             else "No birthday available"
         )
-        return f"Contact name: {self.name.value}, phones: {phones_str}, birthday: {birthday_str}, email: {email_str}"
+        return f"Contact name: {self.name.value}, phones: {phones_str}, birthday: {birthday_str}, emails: {emails_str}"
 
 
 class AddressBook(UserDict):

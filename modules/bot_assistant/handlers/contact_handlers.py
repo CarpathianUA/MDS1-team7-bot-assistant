@@ -99,6 +99,66 @@ def remove_phone(args, address_book):
 
 
 @input_error
+def add_email(args, address_book):
+    if len(args) != 2:
+        raise exceptions.InvalidArgsError
+    name, email = args
+
+    if name in address_book:
+        record = address_book.data[name]
+        record.add_email(email)
+        return f"Email {email} has been added to contact {name}."
+    else:
+        raise exceptions.ContactDoesNotExistError
+
+
+@input_error
+def edit_email(args, address_book):
+    if len(args) != 3:
+        raise exceptions.InvalidArgsError
+    name, email, new_email = args
+
+    if name in address_book:
+        record = address_book.data[name]
+        record.edit_email(email, new_email)
+        return f"Contact`s {name} email changed to a new one: {new_email}."
+    else:
+        raise exceptions.PhoneDoesNotExistError
+
+
+@input_error
+def get_contact_email(args, address_book):
+    if len(args) != 1:
+        raise exceptions.InvalidArgsError
+    name = args[0]
+
+    if name in address_book:
+        record = address_book.data[name]
+        emails = [email.value for email in record.emails]
+        return f"Email: {', '.join(emails)}"
+    else:
+        raise exceptions.ContactDoesNotExistError
+
+
+@input_error
+def remove_email(args, address_book):
+    if len(args) != 2:
+        raise exceptions.InvalidArgsError
+
+    name, email = args
+
+    record = address_book.data.get(name)
+    if not record:
+        raise exceptions.ContactDoesNotExistError
+
+    if record.find_email(email):
+        record.remove_email(email)
+        return f"Email {email} removed from {name}."
+    else:
+        raise exceptions.PhoneDoesNotExistError
+    
+   
+@input_error
 def delete_contact(args, address_book):
     if len(args) != 1:
         raise exceptions.InvalidArgsError
@@ -115,70 +175,6 @@ def get_all_contacts(address_book):
     if not address_book:
         return "You don't have any contacts."
     return "\n".join(str(record) for record in address_book.data.values())
-
-
-@input_error
-def add_email(args, address_book):
-    if len(args) != 2:
-        raise exceptions.InvalidArgsError
-    name, email = args
-
-    if name in address_book:
-        record = address_book.data[name]
-        record.add_email(email)
-        return f"Email for {name} added."
-    else:
-        raise exceptions.ContactDoesNotExistError
-
-
-@input_error
-def show_email(args, address_book):
-    if len(args) != 1:
-        raise exceptions.InvalidArgsError
-    name = args[0]
-
-    if name in address_book:
-        record = address_book.data[name]
-        if record.email.value:
-            return f"{name}'s email: {record.email}"
-    else:
-        raise exceptions.ContactDoesNotExistError
-
-
-@input_error
-def edit_email(args, address_book):
-    if len(args) != 3:
-        raise exceptions.InvalidArgsError
-
-    name, email, new_email = args
-
-    if name in address_book.data:
-        record = address_book.data[name]
-        if record.email.value == email:
-            record.email.value = new_email
-            return f"Contact {name} email changed to a new one: {new_email}."
-        else:
-            raise exceptions.EmailDoesNotExistError
-    else:
-        raise exceptions.ContactDoesNotExistError
-
-
-@input_error
-def remove_email(args, address_book):
-    if len(args) != 2:
-        raise exceptions.InvalidArgsError
-
-    name, email = args
-
-    record = address_book.data.get(name)
-    if not record:
-        raise exceptions.ContactDoesNotExistError
-
-    if record.email and record.email.value == email:
-        record.email.value = None
-        return f"Email {email} removed from {name}."
-    else:
-        raise exceptions.EmailDoesNotExistError
 
 
 @input_error
