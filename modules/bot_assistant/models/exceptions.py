@@ -1,3 +1,7 @@
+class InvalidArgsError(ValueError):
+    pass
+
+
 class ContactDoesNotExistError(ValueError):
     pass
 
@@ -10,11 +14,30 @@ class PhoneDoesNotExistError(ValueError):
     pass
 
 
-class AddressDoesNotExistError(ValueError):
+class PhoneAlreadyExistsError(ValueError):
     pass
 
 
+class AddressDoesNotExistError(ValueError):
+    pass
+
 class InvalidPhoneError(ValueError):
+    pass
+
+
+class InvalidEmailFormatError(ValueError):
+    pass
+
+
+class InvalidEmailError(ValueError):
+    pass
+
+
+class EmailAlreadyExistsError(ValueError):
+    pass
+
+
+class EmailDoesNotExistError(ValueError):
     pass
 
 
@@ -22,11 +45,11 @@ class InvalidBirthdayFormatError(ValueError):
     pass
 
 
-class InvalidArgsError(ValueError):
+class InvalidBirthdayRangeError(ValueError):
     pass
 
 
-class InvalidBirthdayRangeError(ValueError):
+class BirthdayDoesNotExist(ValueError):
     pass
 
 
