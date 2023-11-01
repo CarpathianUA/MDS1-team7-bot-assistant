@@ -10,11 +10,13 @@ from modules.bot_assistant.constants.periods_ranges import MAX_PERIOD, PERIODS
 from modules.bot_assistant.models.exceptions import (
     InvalidPhoneError,
     InvalidBirthdayFormatError,
-    ContactDoesNotExistError,
     InvalidBirthdayRangeError,
+    ContactDoesNotExistError,
+    InvalidEmailError,
 )
 from modules.bot_assistant.utils.birthdays import is_valid_birth_date
 from modules.bot_assistant.utils.phone_numbers import is_valid_phone
+from modules.bot_assistant.utils.emails import is_valid_email
 from modules.bot_assistant.utils.color_fillers import fill_background_color
 
 
@@ -64,6 +66,27 @@ class Address(Field):
     def value(self, value):
         self._value = value
 
+class Email(Field):
+    def __init__(self, value):
+        super().__init__(value)
+        self._value = None
+        self.value = value
+
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, value):
+        if not self._validate_email(value):
+            raise InvalidEmailError
+        self._value = value
+
+    @staticmethod
+    def _validate_email(email):
+        return is_valid_email(email)
+
+
 class Birthday(Field):
     def __init__(self, value):
         super().__init__(value)
@@ -89,6 +112,7 @@ class Record:
     def __init__(self, name):
         self.name = Name(name)
         self.phones = list()
+        self.emails = list()
         self.birthday = Birthday(None)
         self.addresses = list()
 
@@ -124,6 +148,22 @@ class Record:
     def remove_address(self, address):
         self.addresses = [p for p in self.addresses if p.value != address]
     
+    def add_email(self, email):
+        self.emails.append(Email(email))
+
+    def edit_email(self, email, new_email):
+        for e in self.emails:
+            if e.value == email:
+                e.value = new_email
+
+    def find_email(self, email):
+        for e in self.emails:
+            if e.value == email:
+                return e
+
+    def remove_email(self, email):
+        self.emails = [e for e in self.emails if e.value != email]
+
     def add_birthday(self, birthday):
         self.birthday = Birthday(birthday)
 
@@ -137,6 +177,11 @@ class Record:
             if self.phones
             else "No phones available"
         )
+        emails_str = (
+            "; ".join(e.value for e in self.emails)
+            if self.emails
+            else "No emails available"
+        )
         birthday_str = (
             self.birthday.value
             if self.birthday and self.birthday.value
@@ -147,7 +192,8 @@ class Record:
             if self.addresses
             else "No address available"
         )
-        return f"Contact name: {self.name.value}, phones: {phones_str}, birthday: {birthday_str}, addresses: {address_str}"
+        return f"Contact name: {self.name.value}, phones: {phones_str}, birthday: {birthday_str}, emails: {emails_str}, addresses: {address_str}"
+        
 
 
 class AddressBook(UserDict):
