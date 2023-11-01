@@ -8,17 +8,23 @@ from modules.bot_assistant.constants.commands import (
 
 
 def show_help():
-    print("Available commands:\n")
-    print("Contacts:")
-    print(f"{'Command':<15} {'Description':<40} {'Example':<40}")
+    command_col_width = max(len(command) for command in COMMANDS_INFO.keys()) + 2
+    description_col_width = (
+        max(len(description) for _, (description, _) in COMMANDS_INFO.items()) + 2
+    )
+    example_col_width = (
+        max(len(example) for _, (_, example) in COMMANDS_INFO.items()) + 2
+    )
+
+    print(
+        f"{'Command':<{command_col_width}} {'Description':<{description_col_width}} {'Example':<{example_col_width}}"
+    )
     print("\n")
+
     for command, (description, example) in COMMANDS_INFO.items():
-        print(f"{command:<15} {description:<40} {example:<40}")
-    print("\n")
-    print("Notes:")
-    for command, (description, example) in NOTES_COMMANDS_INFO.items():
-        print(f"{command:<15} {description:<40} {example:<40}")
-    print("\n")
+        print(
+            f"{command:<{command_col_width}} {description:<{description_col_width}} {example:<{example_col_width}}"
+        )
     print()
 
 

@@ -53,6 +53,28 @@ def test_remove_contact_phone():
     print("test: remove contact phone: passed! [Module: {}]".format(ab.__name__))
 
 
+def test_add_contact_email():
+    book = ab.AddressBook()
+    book.add_record(ab.Record("AlanWake"))
+    book.find("AlanWake").add_email("alan.wake@remedy.com")
+
+    assert book.find("AlanWake").find_email("alan.wake@remedy.com") is not None
+
+    print("test: add contact email: passed! [Module: {}]".format(ab.__name__))
+
+
+def test_edit_contact_email():
+    book = ab.AddressBook()
+    book.add_record(ab.Record("AlanWake"))
+    book.find("AlanWake").add_email("alan.wake@remedy.com")
+
+    book.find("AlanWake").edit_email("alan.wake@remedy.com", "wake@remedy.com")
+
+    assert book.find("AlanWake").find_email("wake@remedy.com") is not None
+
+    print("test: edit contact email: passed! [Module: {}]".format(ab.__name__))
+
+
 def test_delete_contact():
     book = ab.AddressBook()
     book.add_record(ab.Record("AlanWake"))
@@ -70,9 +92,13 @@ def test_get_all_contacts():
     book.add_record(ab.Record("AlanWake"))
     book.find("AlanWake").add_phone("1111111111")
     book.find("AlanWake").add_phone("2222222222")
+    book.find("AlanWake").add_birthday("30.10.1982")
+    book.find("AlanWake").add_email("alan.wake@remedy.com")
 
     book.add_record(ab.Record("Jane"))
     book.find("Jane").add_phone("3333333333")
+    book.find("Jane").add_birthday("03.11.1989")
+    book.find("Jane").add_email("alan.wake@remedy.com")
 
     assert len(book.data) == 2
 
@@ -80,11 +106,11 @@ def test_get_all_contacts():
     assert result == [
         (
             "AlanWake",
-            "Contact name: AlanWake, phones: 1111111111; 2222222222, birthday: No birthday available",
+            "Contact name: AlanWake, phones: 1111111111; 2222222222, birthday: 30.10.1982, emails: alan.wake@remedy.com",
         ),
         (
             "Jane",
-            "Contact name: Jane, phones: 3333333333, birthday: No birthday available",
+            "Contact name: Jane, phones: 3333333333, birthday: 03.11.1989, emails: alan.wake@remedy.com",
         ),
     ]
 
