@@ -9,28 +9,45 @@ def add_note(args, notes):
     if len(args) < 1:
         raise exceptions.InvalidArgsError
     title = " ".join(args[0:])
-
-    note = Note(title)
-    notes.add_note(note)
-    return f"Note '{note}' added."
+    num = notes.add_note(title)
+    return f"Note #'{num}' added."
 
 
 @input_error
 def add_tag(args, notes):
-    if len(args) != 1:
+    if len(args) != 2:
         raise exceptions.InvalidArgsError
-    tag = args
+    try:
+        id = int(args[0])
+    except:
+        raise exceptions.InvalidIdValueError
 
-    if tag not in notes:
-        notes.add_tag(Tag(tag))
-        return f"Tag '{tag}' added."
-    else:
-        raise exceptions.TagAlreadyExistsError
+    tag = args[1]
+
+    notes.add_tag(id, tag)
+    return f"Note #'{id}': tag '{tag}' added."
+
+
+def change_status(args, notes):
+    if len(args) != 2:
+        raise exceptions.InvalidArgsError
+    try:
+        id = int(args[0])
+    except:
+        raise exceptions.InvalidIdValueError
+
+    status = args
+
+    notes.change_status(id, status)
+    return f"Note #'{id}': status changed to '{status}'."
 
 
 @input_error
-def delete_note(args, notes):
-    pass
+def remove_note(args, notes):
+    if len(args) != 1:
+        raise exceptions.InvalidArgsError
+    notes.remove_note(id)
+    return f"Note #'{id}' deleted"
 
 
 @input_error
@@ -40,18 +57,17 @@ def edit_title(args, notes):
 
 @input_error
 def add_text(args, notes):
-    if len(args) > 1:
+    if len(args) < 2:
         raise exceptions.InvalidArgsError
-    text = " ".join(args[0:])
+    try:
+        id = int(args[0])
+    except:
+        raise exceptions.InvalidIdValueError
 
-    txt = Text(text)
-    notes.add_text(txt)
-    return f"Text added."
+    text = " ".join(args[1:])
 
-
-@input_error
-def edit_text(args, notes):
-    pass
+    notes.add_text(id, text)
+    return f"Note #'{id}': text added."
 
 
 @input_error
@@ -60,7 +76,7 @@ def remove_tag(args, notes):
 
 
 @input_error
-def get_all_notes(notes):
+def notes(args, notes):
     return notes.get_all_notes()
 
 

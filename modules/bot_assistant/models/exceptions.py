@@ -2,6 +2,10 @@ class InvalidArgsError(ValueError):
     pass
 
 
+class InvalidIdValueError(ValueError):
+    pass
+
+
 class ContactDoesNotExistError(ValueError):
     pass
 
@@ -65,6 +69,7 @@ class InvalidSearchPatternError(ValueError):
 class InvalidTitleLengthError(ValueError):
     pass
 
+
 class InvalidTextLengthError(ValueError):
     pass
 
@@ -73,7 +78,7 @@ class InvalidNoteStatusError(ValueError):
     pass
 
 
-class TitleDoesNotExistError(ValueError):
+class NoteDoesNotExistError(ValueError):
     pass
 
 
@@ -82,4 +87,12 @@ class NoteAlreadyExistsError(ValueError):
 
 
 class TagAlreadyExistsError(ValueError):
+    pass
+
+
+class NoteDoesNotExistError(ValueError):
+    pass
+
+
+class NoteIdAlreadyExisrsError(ValueError):
     pass

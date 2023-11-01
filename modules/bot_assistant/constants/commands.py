@@ -30,13 +30,12 @@ NOTES_COMMANDS = {
     "add-note": notes_handlers.add_note,
     "add-tag": notes_handlers.add_tag,
     "add-text": notes_handlers.add_text,
-    "delete-note": notes_handlers.delete_note,
+    "remove-note": notes_handlers.remove_note,
     "edit-title": notes_handlers.edit_title,
-    "edit-text": notes_handlers.edit_text,
     "remove-tag": notes_handlers.remove_tag,
-    "notes": notes_handlers.get_all_notes,
+    "notes": notes_handlers.notes,
     "find-note": notes_handlers.find_note,
-    "find-note-filter": notes_handlers.find_note_by_filter
+    "find-note-filter": notes_handlers.find_note_by_filter,
 }
 
 CONTACT_COMMANDS_INFO = {
@@ -53,7 +52,7 @@ CONTACT_COMMANDS_INFO = {
         "Add a phone to contact's phones list",
         "Example: add-phone AlanWake 0987654322",
     ),
-    "delete": ("Delete a contact.", "Example: delete AlanWake"),
+    "remove": ("Delete a contact.", "Example: delete AlanWake"),
     "show-phone": (
         "Show a contact's phone.",
         "Example: phone AlanWake (don't try to call him, he's busy!)",
@@ -77,7 +76,8 @@ CONTACT_COMMANDS_INFO = {
     "show-address": ("Show a contact's address.", "Example: show-address AlanWake"),
     "remove-address": (
         "Remove a contact's address.",
-        "Example: remove-address AlanWake ave.Khmelnitsky,40/32"),
+        "Example: remove-address AlanWake ave.Khmelnitsky,40/32",
+    ),
     "add-email": (
         "Add an email to a contact.",
         "Example: add-email alanwake@email.com",
@@ -117,34 +117,32 @@ NOTES_COMMANDS_INFO = {
         "Example: add-note Weather",
     ),
     "add-tag": (
-        "Add a tag to note list",
-        "Example: add-tag Weather sunny",
+        "Add a tag to note list by id.",
+        "Example: add-tag 12 Weather sunny",
     ),
     "add-text": (
-        "Add a text to note.",
-        "Example: add-text Weather good day...",
+        "Add or change a text by id.",
+        "Example: add-text 12 Weather good day...",
     ),
-    "delete-note": ("Delete a note.", "Example: delete Weather"),
+    "remove-note": ("Removes a note by id.", "Example: remove-note 12"),
     "edit-title": (
-        "Change a title.",
-        "Example: edit-title Weather Sun",
-    ),
-    "edit-text": (
-        "Change a text",
-        "Example: edit-text Weather one day...",
+        "Change a title by id.",
+        "Example: edit-title 12 Sun",
     ),
     "remove-tag": (
-        "Remove a tag.",
-        "Example: remove-tag Weather sunny",
+        "Remove a tag by id.",
+        "Example: remove-tag 12 sunny",
     ),
     "notes": ("Show all notes.", "Example: notes"),
     "find-note": (
         "Shows all notes that contain the entered characters.",
         "Example: find sun",
     ),
-    "find-note-by-filter": ("Shows notes that contain the entered characters by filter.",
-                         "Example: find-note-filter sun sunny"),
-    "help": ("Show this help message.", "Example: help")
+    "find-note-by-filter": (
+        "Shows notes that contain the entered characters by filter.",
+        "Example: find-note-filter sun sunny",
+    ),
+    "help": ("Show this help message.", "Example: help"),
 }
 
 EXIT_COMMANDS = ("close", "exit", "quit", "bye")

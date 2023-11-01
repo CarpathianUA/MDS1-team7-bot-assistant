@@ -27,7 +27,7 @@ class Name(Field):
 
 class Phone(Field):
     def __init__(self, value):
-        # super().__init__(value)
+        super().__init__(value)
         self._value = None
         self.value = value
 
@@ -44,7 +44,8 @@ class Phone(Field):
     @staticmethod
     def _validate_phone(phone):
         return is_valid_phone(phone)
-    
+
+
 class Address(Field):
     def __init__(self, value):
         super().__init__(value)
@@ -54,10 +55,11 @@ class Address(Field):
     @property
     def value(self):
         return self._value
-    
+
     @value.setter
     def value(self, value):
         self._value = value
+
 
 class Email(Field):
     def __init__(self, value):
@@ -140,7 +142,7 @@ class Record:
 
     def remove_address(self, address):
         self.addresses = [p for p in self.addresses if p.value != address]
-    
+
     def add_email(self, email):
         self.emails.append(Email(email))
 

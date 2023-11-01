@@ -24,6 +24,7 @@ def main():
 
         if cli_handlers.execute_command(command, args, address_book, notes):
             address_book.save_to_file()
+            notes.save_to_file()
             break
 
 
