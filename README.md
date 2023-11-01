@@ -39,7 +39,6 @@ pip uninstall bot-assistant
 ```
 
 ---
-
 ## Development
 
 ### Setup

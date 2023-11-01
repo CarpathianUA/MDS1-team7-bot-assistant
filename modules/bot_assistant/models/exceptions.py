@@ -14,7 +14,15 @@ class PhoneDoesNotExistError(ValueError):
     pass
 
 
+class AddressDoesNotExistError(ValueError):
+    pass
+
+
 class PhoneAlreadyExistsError(ValueError):
+    pass
+
+
+class AddressAlreadyExistsError(ValueError):
     pass
 
 
