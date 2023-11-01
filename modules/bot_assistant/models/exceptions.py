@@ -26,9 +26,6 @@ class AddressAlreadyExistsError(ValueError):
     pass
 
 
-class AddressDoesNotExistError(ValueError):
-    pass
-
 class InvalidPhoneError(ValueError):
     pass
 
