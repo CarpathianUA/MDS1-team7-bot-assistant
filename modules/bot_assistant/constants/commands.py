@@ -59,7 +59,7 @@ COMMANDS_INFO = {
     ),
     "edit-address": (
         "Change a contact's address",
-        "Example: change-address AlanWake str.Sevchenko,18/5 ave.Khmelnitsky,40/32",
+        "Example: edit-address AlanWake str.Sevchenko,18/5 ave.Khmelnitsky,40/32",
     ),
     "show-address": ("Show a contact's address.", "Example: show-address AlanWake"),
     "remove-address": (
