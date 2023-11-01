@@ -116,7 +116,7 @@ def get_contact_address(args, address_book):
         addresses = [address.value for address in record.addresses]
         return f"{name}'s address(es): {', '.join(addresses)}"
     else:
-            raise exceptions.AddressDoesNotExistError
+        raise exceptions.AddressDoesNotExistError
 
 @input_error
 def remove_address(args, address_book):
