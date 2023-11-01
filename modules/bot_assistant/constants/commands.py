@@ -18,7 +18,7 @@ COMMANDS = {
     "remove-birthday": contact_handlers.remove_birthday,
     "show-birthday": contact_handlers.show_birthday,
     "add-email": contact_handlers.add_email,
-    "show-email": contact_handlers.show_email,
+    "show-email": contact_handlers.get_contact_email,
     "edit-email": contact_handlers.edit_email,
     "remove-email": contact_handlers.remove_email,
     "birthdays": contact_handlers.show_birthdays_per_period,
@@ -55,16 +55,17 @@ COMMANDS_INFO = {
     ),
     "add-address": (
         "Add a contact's address",
-        "Example: add-address AlanWake str.Sevchenko,18/5",
+        "Example: add-address AlanWake 6A,BrightFalls",
     ),
     "edit-address": (
         "Change a contact's address",
-        "Example: edit-address AlanWake str.Sevchenko,18/5 ave.Khmelnitsky,40/32",
+        "Example: edit-address AlanWake 6A,BrightFalls 8A,BrightFalls",
     ),
     "show-address": ("Show a contact's address.", "Example: show-address AlanWake"),
     "remove-address": (
         "Remove a contact's address.",
-        "Example: remove-address AlanWake ave.Khmelnitsky,40/32"),
+        "Example: remove-address AlanWake 6A,BrightFalls",
+    ),
     "add-email": (
         "Add an email to a contact.",
         "Example: add-email alanwake@email.com",

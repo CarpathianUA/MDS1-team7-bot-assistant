@@ -14,9 +14,10 @@ from modules.bot_assistant.models.exceptions import (
     ContactDoesNotExistError,
     InvalidEmailError,
 )
-from modules.bot_assistant.utils.birthdays import is_valid_birth_date
-from modules.bot_assistant.utils.phone_numbers import is_valid_phone
+
 from modules.bot_assistant.utils.emails import is_valid_email
+from modules.bot_assistant.utils.phone_numbers import is_valid_phone
+from modules.bot_assistant.utils.birthdays import is_valid_birth_date
 from modules.bot_assistant.utils.color_fillers import fill_background_color
 
 
@@ -51,7 +52,8 @@ class Phone(Field):
     @staticmethod
     def _validate_phone(phone):
         return is_valid_phone(phone)
-    
+
+
 class Address(Field):
     def __init__(self, value):
         super().__init__(value)
@@ -61,10 +63,11 @@ class Address(Field):
     @property
     def value(self):
         return self._value
-    
+
     @value.setter
     def value(self, value):
         self._value = value
+
 
 class Email(Field):
     def __init__(self, value):
@@ -147,7 +150,7 @@ class Record:
 
     def remove_address(self, address):
         self.addresses = [p for p in self.addresses if p.value != address]
-    
+
     def add_email(self, email):
         self.emails.append(Email(email))
 
@@ -193,7 +196,11 @@ class Record:
             if self.addresses
             else "No address available"
         )
-        return f"Contact name: {self.name.value}, phones: {phones_str}, birthday: {birthday_str}, emails: {emails_str}, addresses: {address_str}"
+        return (
+            f"Contact name: {self.name.value}, phones: {phones_str}, "
+            f"birthday: {birthday_str}, emails: {emails_str}, "
+            f"addresses: {address_str}"
+        )
 
 
 class AddressBook(UserDict):
