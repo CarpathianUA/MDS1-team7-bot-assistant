@@ -7,7 +7,7 @@ COMMANDS = {
     "delete": contact_handlers.delete_contact,
     "add-phone": contact_handlers.add_phone,
     "edit-phone": contact_handlers.edit_phone,
-    "phone": contact_handlers.get_contact_phone,
+    "show-phone": contact_handlers.get_contact_phone,
     "remove-phone": contact_handlers.remove_phone,
     "all": contact_handlers.get_all_contacts,
     "add-birthday": contact_handlers.add_birthday,
@@ -37,7 +37,7 @@ COMMANDS_INFO = {
         "Example: add-phone AlanWake 0987654322",
     ),
     "delete": ("Delete a contact.", "Example: delete AlanWake"),
-    "phone": (
+    "show-phone": (
         "Show a contact's phone.",
         "Example: phone AlanWake (don't try to call him, he's busy!)",
     ),
@@ -68,6 +68,10 @@ COMMANDS_INFO = {
         "Example: add-birthday AlanWake 30.10.1982",
     ),
     "show-birthday": ("Show a contact's birthday.", "Example: show-birthday AlanWake"),
+    "remove-birthday": (
+        "Remove a contact's birthday.",
+        "Example: remove-birthday AlanWake",
+    ),
     "birthdays": (
         "Show all birthdays for specified period in days. Default is 7 days.",
         "Example: birthdays 30",

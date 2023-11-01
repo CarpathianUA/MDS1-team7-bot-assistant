@@ -1,3 +1,7 @@
+class InvalidArgsError(ValueError):
+    pass
+
+
 class ContactDoesNotExistError(ValueError):
     pass
 
@@ -7,6 +11,10 @@ class ContactAlreadyExistsError(ValueError):
 
 
 class PhoneDoesNotExistError(ValueError):
+    pass
+
+
+class PhoneAlreadyExistsError(ValueError):
     pass
 
 
@@ -30,15 +38,11 @@ class InvalidBirthdayFormatError(ValueError):
     pass
 
 
-class InvalidArgsError(ValueError):
-    pass
-
-
 class InvalidBirthdayRangeError(ValueError):
     pass
 
 
-class ContactWithThisBirthdayDoesNotExist(ValueError):
+class BirthdayDoesNotExist(ValueError):
     pass
 
 

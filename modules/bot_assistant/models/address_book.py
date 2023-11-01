@@ -150,7 +150,7 @@ class Record:
         emails_str = (
             "; ".join(e.value for e in self.emails)
             if self.emails
-            else "No email available"
+            else "No emails available"
         )
         birthday_str = (
             self.birthday.value

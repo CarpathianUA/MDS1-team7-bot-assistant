@@ -44,6 +44,9 @@ def add_phone(args, address_book):
         raise exceptions.InvalidArgsError
     name, phone = args
 
+    if address_book.data[name].find_phone(phone):
+        raise exceptions.PhoneAlreadyExistsError
+
     if name in address_book:
         record = address_book.data[name]
         record.add_phone(phone)
@@ -121,9 +124,9 @@ def edit_email(args, address_book):
     if name in address_book:
         record = address_book.data[name]
         record.edit_email(email, new_email)
-        return f"Contact`s {name} email changed to a new one: {new_email}."
+        return f"Contact's {name} email changed to a new one: {new_email}."
     else:
-        raise exceptions.PhoneDoesNotExistError
+        raise exceptions.ContactDoesNotExistError
 
 
 @input_error
@@ -137,7 +140,7 @@ def show_email(args, address_book):
         emails = [email.value for email in record.emails]
         return f"Email: {', '.join(emails)}"
     else:
-        raise exceptions.ContactDoesNotExistError
+        raise exceptions.EmailDoesNotExistError
 
 
 @input_error
@@ -193,20 +196,20 @@ def add_birthday(args, address_book):
 
 @input_error
 def remove_birthday(args, address_book):
-    if len(args) != 2:
+    if len(args) != 1:
         raise exceptions.InvalidArgsError
 
-    name, birthday = args
+    name = args[0]
 
     record = address_book.data.get(name)
     if not record:
         raise exceptions.ContactDoesNotExistError
 
-    if record.birthday and record.birthday.value == birthday:
+    if record.birthday and record.birthday.value:
         record.birthday.value = None
-        return f"Birthday {birthday} removed from {name}."
+        return f"Birthday removed from {name}."
     else:
-        raise exceptions.ContactWithThisBirthdayDoesNotExist
+        raise exceptions.BirthdayDoesNotExist
 
 
 @input_error
