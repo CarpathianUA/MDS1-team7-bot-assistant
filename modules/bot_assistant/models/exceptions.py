@@ -14,7 +14,15 @@ class PhoneDoesNotExistError(ValueError):
     pass
 
 
+class AddressDoesNotExistError(ValueError):
+    pass
+
+
 class PhoneAlreadyExistsError(ValueError):
+    pass
+
+
+class AddressAlreadyExistsError(ValueError):
     pass
 
 
@@ -27,6 +35,10 @@ class InvalidEmailFormatError(ValueError):
 
 
 class InvalidEmailError(ValueError):
+    pass
+
+
+class EmailAlreadyExistsError(ValueError):
     pass
 
 
