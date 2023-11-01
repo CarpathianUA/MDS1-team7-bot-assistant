@@ -127,7 +127,7 @@ def edit_email(args, address_book):
 
 
 @input_error
-def get_contact_email(args, address_book):
+def show_email(args, address_book):
     if len(args) != 1:
         raise exceptions.InvalidArgsError
     name = args[0]
