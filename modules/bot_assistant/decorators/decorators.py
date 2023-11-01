@@ -18,6 +18,8 @@ def input_error(func):
             return "Contact doesn't exist."
         except exceptions.PhoneDoesNotExistError:
             return "Phone doesn't exist."
+        except exceptions.AddressDoesNotExistError:
+            return "Address doesn't exist."
         except exceptions.InvalidPhoneError:
             return "Invalid phone number. Phone number must contain 10 digits, with or without '+' sign"
         except exceptions.InvalidBirthdayFormatError:

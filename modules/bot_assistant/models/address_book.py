@@ -49,7 +49,20 @@ class Phone(Field):
     @staticmethod
     def _validate_phone(phone):
         return is_valid_phone(phone)
+    
+class Address(Field):
+    def __init__(self, value):
+        super().__init__(value)
+        self._value = None
+        self.value = value
 
+    @property
+    def value(self):
+        return self._value
+    
+    @value.setter
+    def value(self, value):
+        self._value = value
 
 class Birthday(Field):
     def __init__(self, value):
@@ -77,6 +90,7 @@ class Record:
         self.name = Name(name)
         self.phones = list()
         self.birthday = Birthday(None)
+        self.addresses = list()
 
     def add_phone(self, phone):
         self.phones.append(Phone(phone))
@@ -94,6 +108,22 @@ class Record:
     def remove_phone(self, phone):
         self.phones = [p for p in self.phones if p.value != phone]
 
+    def add_address(self, address):
+        self.addresses.append(Address(address))
+
+    def edit_address(self, address, new_address):
+        for p in self.addresses:
+            if p.value == address:
+                p.value = new_address
+
+    def find_address(self, address):
+        for p in self.addresses:
+            if p.value == address:
+                return p
+
+    def remove_address(self, address):
+        self.addresses = [p for p in self.addresses if p.value != address]
+    
     def add_birthday(self, birthday):
         self.birthday = Birthday(birthday)
 
@@ -112,7 +142,12 @@ class Record:
             if self.birthday and self.birthday.value
             else "No birthday available"
         )
-        return f"Contact name: {self.name.value}, phones: {phones_str}, birthday: {birthday_str}"
+        address_str = (
+            "; ".join(p.value for p in self.addresses)
+            if self.addresses
+            else "No address available"
+        )
+        return f"Contact name: {self.name.value}, phones: {phones_str}, birthday: {birthday_str}, addresses: {address_str}"
 
 
 class AddressBook(UserDict):
