@@ -155,7 +155,7 @@ def remove_email(args, address_book):
         record.remove_email(email)
         return f"Email {email} removed from {name}."
     else:
-        raise exceptions.PhoneDoesNotExistError
+        raise exceptions.EmailDoesNotExistError
     
    
 @input_error

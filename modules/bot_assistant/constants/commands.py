@@ -14,7 +14,7 @@ COMMANDS = {
     "remove-birthday": contact_handlers.remove_birthday,
     "show-birthday": contact_handlers.show_birthday,
     "add-email": contact_handlers.add_email,
-    "show-email": contact_handlers.show_email,
+    "show-email": contact_handlers.get_contact_email,
     "edit-email": contact_handlers.edit_email,
     "remove-email": contact_handlers.remove_email,
     "birthdays": contact_handlers.show_birthdays_per_period,

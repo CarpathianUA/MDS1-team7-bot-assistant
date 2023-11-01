@@ -38,5 +38,9 @@ class InvalidBirthdayRangeError(ValueError):
     pass
 
 
+class ContactWithThisBirthdayDoesNotExist(ValueError):
+    pass
+
+
 class InvalidSearchPatternError(ValueError):
     pass
