@@ -11,7 +11,7 @@ COMMANDS = {
     "remove-phone": contact_handlers.remove_phone,
     "add-address": contact_handlers.add_address,
     "edit-address": contact_handlers.edit_address,
-    "address": contact_handlers.get_contact_address,
+    "show-address": contact_handlers.get_contact_address,
     "remove-address": contact_handlers.remove_address,
     "all": contact_handlers.get_all_contacts,
     "add-birthday": contact_handlers.add_birthday,
@@ -57,7 +57,7 @@ COMMANDS_INFO = {
         "Add a contact's address",
         "Example: add-address AlanWake str.Sevchenko,18/5",
     ),
-    "change-address": (
+    "edit-address": (
         "Change a contact's address",
         "Example: change-address AlanWake str.Sevchenko,18/5 ave.Khmelnitsky,40/32",
     ),
