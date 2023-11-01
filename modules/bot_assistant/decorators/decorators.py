@@ -26,6 +26,8 @@ def input_error(func):
             return "Invalid phone number. Phone number must contain 10 digits, with or without '+' sign"
         except exceptions.InvalidEmailError:
             return "Invalid email format. Please use john@email.com format"
+        except exceptions.EmailAlreadyExistsError:
+            return "Email already exists."
         except exceptions.EmailDoesNotExistError:
             return "Email doesn't exist"
         except exceptions.InvalidBirthdayFormatError:

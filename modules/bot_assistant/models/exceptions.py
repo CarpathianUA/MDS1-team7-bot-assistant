@@ -30,6 +30,10 @@ class InvalidEmailError(ValueError):
     pass
 
 
+class EmailAlreadyExistsError(ValueError):
+    pass
+
+
 class EmailDoesNotExistError(ValueError):
     pass
 
