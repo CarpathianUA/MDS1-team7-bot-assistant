@@ -16,10 +16,18 @@ def input_error(func):
             return "Contact already exists."
         except exceptions.ContactDoesNotExistError:
             return "Contact doesn't exist."
+        except exceptions.BirthdayDoesNotExist:
+            return "Birthday doesn't exist."
         except exceptions.PhoneDoesNotExistError:
             return "Phone doesn't exist."
+        except exceptions.PhoneAlreadyExistsError:
+            return "Phone already exists."
         except exceptions.InvalidPhoneError:
             return "Invalid phone number. Phone number must contain 10 digits, with or without '+' sign"
+        except exceptions.InvalidEmailError:
+            return "Invalid email format. Please use john@email.com format"
+        except exceptions.EmailDoesNotExistError:
+            return "Email doesn't exist"
         except exceptions.InvalidBirthdayFormatError:
             return "Invalid birthday format. Please use DD.MM.YYYY format."
         except exceptions.InvalidBirthdayRangeError:
