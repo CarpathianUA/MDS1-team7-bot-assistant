@@ -15,9 +15,10 @@ from modules.bot_assistant.models.exceptions import (
     ContactDoesNotExistError,
     InvalidEmailError,
 )
-from modules.bot_assistant.utils.birthdays import is_valid_birth_date
-from modules.bot_assistant.utils.phone_numbers import is_valid_phone
+
 from modules.bot_assistant.utils.emails import is_valid_email
+from modules.bot_assistant.utils.phone_numbers import is_valid_phone
+from modules.bot_assistant.utils.birthdays import is_valid_birth_date
 from modules.bot_assistant.utils.color_fillers import fill_background_color
 
 
@@ -188,7 +189,11 @@ class Record:
             if self.addresses
             else "No address available"
         )
-        return f"Contact name: {self.name.value}, phones: {phones_str}, birthday: {birthday_str}, emails: {emails_str}, addresses: {address_str}"
+        return (
+            f"Contact name: {self.name.value}, phones: {phones_str}, "
+            f"birthday: {birthday_str}, emails: {emails_str}, "
+            f"addresses: {address_str}"
+        )
 
 
 class AddressBook(UserDict):

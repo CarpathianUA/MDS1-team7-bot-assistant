@@ -75,6 +75,55 @@ def test_edit_contact_email():
     print("test: edit contact email: passed! [Module: {}]".format(ab.__name__))
 
 
+def test_add_contact_address():
+    book = ab.AddressBook()
+    book.add_record(ab.Record("AlanWake"))
+    book.find("AlanWake").add_address("6A Bright Falls Ave")
+
+    assert book.find("AlanWake").find_address("6A Bright Falls Ave") is not None
+
+    print("test: add contact address: passed! [Module: {}]".format(ab.__name__))
+
+
+def test_edit_contact_address():
+    book = ab.AddressBook()
+    book.add_record(ab.Record("AlanWake"))
+    book.find("AlanWake").add_address("6A Bright Falls Ave")
+
+    book.find("AlanWake").edit_address(
+        "6A Bright Falls Ave", "6A Bright Falls Ave, Bright Falls, WA"
+    )
+
+    assert (
+        book.find("AlanWake").find_address("6A Bright Falls Ave, Bright Falls, WA")
+        is not None
+    )
+
+    print("test: edit contact address: passed! [Module: {}]".format(ab.__name__))
+
+
+def test_get_contact_address():
+    book = ab.AddressBook()
+    book.add_record(ab.Record("AlanWake"))
+    book.find("AlanWake").add_address("6A Bright Falls Ave")
+
+    assert book.find("AlanWake").find_address("6A Bright Falls Ave") is not None
+
+    print("test: get contact address: passed! [Module: {}]".format(ab.__name__))
+
+
+def test_remove_contact_address():
+    book = ab.AddressBook()
+    book.add_record(ab.Record("AlanWake"))
+    book.find("AlanWake").add_address("6A Bright Falls Ave")
+
+    book.find("AlanWake").remove_address("6A Bright Falls Ave")
+
+    assert book.find("AlanWake").find_address("6A Bright Falls Ave") is None
+
+    print("test: remove contact address: passed! [Module: {}]".format(ab.__name__))
+
+
 def test_delete_contact():
     book = ab.AddressBook()
     book.add_record(ab.Record("AlanWake"))
@@ -106,11 +155,14 @@ def test_get_all_contacts():
     assert result == [
         (
             "AlanWake",
-            "Contact name: AlanWake, phones: 1111111111; 2222222222, birthday: 30.10.1982, emails: alan.wake@remedy.com",
+            "Contact name: AlanWake, phones: 1111111111; 2222222222, "
+            "birthday: 30.10.1982, emails: alan.wake@remedy.com, "
+            "addresses: No address available",
         ),
         (
             "Jane",
-            "Contact name: Jane, phones: 3333333333, birthday: 03.11.1989, emails: alan.wake@remedy.com",
+            "Contact name: Jane, phones: 3333333333, birthday: 03.11.1989, "
+            "emails: alan.wake@remedy.com, addresses: No address available",
         ),
     ]
 
