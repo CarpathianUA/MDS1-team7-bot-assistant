@@ -100,9 +100,20 @@ def remove_phone(args, address_book):
 @input_error
 @contact_exists
 def add_address(args, address_book):
-    if len(args) != 2:
+    if len(args) < 2:
         raise exceptions.InvalidArgsError
-    name, address = args
+
+    name = args.pop(0)
+    address_str = ''
+    for arg in args:
+        if address_str == '':
+            address_str = address_str + arg
+        else:
+            address_str = address_str + " " + arg
+    
+    address = address_str
+    if name not in address_book.data:
+        raise exceptions.ContactDoesNotExistError
 
     record = address_book.data[name]
 
@@ -115,9 +126,24 @@ def add_address(args, address_book):
 @input_error
 @contact_exists
 def edit_address(args, address_book):
-    if len(args) != 3:
+    if len(args) < 3:
         raise exceptions.InvalidArgsError
-    name, address, new_address = args
+
+    name = args.pop(0)
+    address_str = ''
+    for arg in args:
+        if address_str == '':
+            address_str = address_str + arg
+        else:
+            address_str = address_str + " " + arg
+    addresses_list = address_str.split("; ")
+    if len(addresses_list) != 2:
+        raise exceptions.InvalidArgsError
+    else:
+        address = addresses_list[0]
+        new_address = addresses_list[1]
+    if name not in address_book.data:
+        raise exceptions.ContactDoesNotExistError
 
     record = address_book.data[name]
 
@@ -143,9 +169,19 @@ def get_contact_address(args, address_book):
 @input_error
 @contact_exists
 def remove_address(args, address_book):
-    if len(args) != 2:
+    if len(args) < 2:
         raise exceptions.InvalidArgsError
-    name, address = args
+
+    name = args.pop(0)
+    address_str = ''
+    for arg in args:
+        if address_str == '':
+            address_str = address_str + arg
+        else:
+            address_str = address_str + " " + arg
+    address = address_str
+    if name not in address_book.data:
+        raise exceptions.ContactDoesNotExistError
 
     record = address_book.data[name]
 
