@@ -7,109 +7,109 @@ from modules.bot_assistant.decorators.decorators import input_error
 
 
 @input_error
-def add_note(args, notes):
+def add_note(args, notes_engine):
     if len(args) < 1:
         raise InvalidArgsError
     title = " ".join(args[0:])
-    num = notes.add_note(title)
+    num = notes_engine.add_note(title)
     return f"Note #'{num}' added."
 
 
 @input_error
-def add_tag(args, notes):
+def add_tag(args, noteslist):
     if len(args) != 2:
         raise InvalidArgsError
     try:
-        id = int(args[0])
+        note_id = int(args[0])
     except ValueError as e:
         raise InvalidIdValueError from e
 
     tag = args[1]
 
-    notes.add_tag(id, tag)
-    return f"Note #'{id}': tag '{tag}' added."
+    noteslist.add_tag(note_id, tag)
+    return f"Note #'{note_id}': tag '{tag}' added."
 
 
 @input_error
-def change_status(args, notes):
+def change_status(args, notes_engine):
     if len(args) != 2:
         raise InvalidArgsError
     try:
-        id = int(args[0])
+        note_id = int(args[0])
     except ValueError as e:
         raise InvalidIdValueError from e
 
     status = args[1]
 
-    notes.change_status(id, status)
-    return f"Note #'{id}': status changed to '{status}'."
+    notes_engine.change_status(note_id, status)
+    return f"Note #'{note_id}': status changed to '{status}'."
 
 
 @input_error
-def remove_note(args, notes):
+def remove_note(args, notes_engine):
     if len(args) != 1:
         raise InvalidArgsError
     try:
-        id = int(args[0])
+        note_id = int(args[0])
     except ValueError as e:
         raise InvalidIdValueError from e
 
-    notes.remove_note(id)
-    return f"Note #'{id}' deleted"
+    notes_engine.remove_note(note_id)
+    return f"Note #'{note_id}' deleted"
 
 
 @input_error
-def edit_title(args, notes):
+def edit_title(args, notes_engine):
     if len(args) < 2:
         raise InvalidArgsError
     try:
-        id = int(args[0])
+        note_id = int(args[0])
     except ValueError as e:
         raise InvalidIdValueError from e
 
     title = " ".join(args[1:])
 
-    notes.edit_title(id, title)
-    return f"Note #'{id}': title edited."
+    notes_engine.edit_title(note_id, title)
+    return f"Note #'{note_id}': title edited."
 
 
 @input_error
-def add_text(args, notes):
+def add_text(args, notes_engine):
     if len(args) < 2:
         raise InvalidArgsError
     try:
-        id = int(args[0])
+        note_id = int(args[0])
     except ValueError as e:
         raise InvalidIdValueError from e
 
     text = " ".join(args[1:])
 
-    notes.add_text(id, text)
-    return f"Note #'{id}': text added."
+    notes_engine.add_text(note_id, text)
+    return f"Note #'{note_id}': text added."
 
 
 @input_error
-def remove_tag(args, notes):
+def remove_tag(args, notes_engine):
     if len(args) < 2:
         raise InvalidArgsError
     try:
-        id = int(args[0])
+        note_id = int(args[0])
     except ValueError as e:
         raise InvalidIdValueError from e
 
     tag = "".join(args[1])
 
-    notes.remove_tag(id, tag)
+    notes_engine.remove_tag(note_id, tag)
     return f"Note #'{id}': tag: {tag} removed."
 
 
 @input_error
-def notes(notes):
-    return notes.get_all_notes()
+def notes(notes_engine):
+    return notes_engine.get_all_notes()
 
 
 @input_error
-def find_note(args, notes):
+def find_note(args, notes_engine):
     if len(args) != 1:
         raise InvalidArgsError
     symbols = args[0]
@@ -117,7 +117,7 @@ def find_note(args, notes):
     if len(symbols) < 2:
         raise InvalidSearchPatternError
 
-    result = notes.find_note(symbols)
+    result = notes_engine.find_note(symbols)
     if result:
         return result
     return "Nothing was found for the specified string."

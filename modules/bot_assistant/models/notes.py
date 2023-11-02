@@ -138,8 +138,8 @@ class Status(Field):
 
 
 class Note:
-    def __init__(self, id, title):
-        self.id = id
+    def __init__(self, note_id, title):
+        self.id = note_id
         self.title = Title(title)
         self.text = ""
         self.creation_date = Date()
@@ -200,33 +200,33 @@ class Notes(UserDict):
         self.data[self.note_counter] = note
         return self.note_counter
 
-    def edit_title(self, id: int, title):
-        if self.__is_key_exist(id):
-            self.data[id].edit_title(title)
+    def edit_title(self, note_id: int, title):
+        if self.__is_key_exist(note_id):
+            self.data[note_id].edit_title(title)
         else:
             raise NoteIdAlreadyExisrsError
 
-    def add_tag(self, id: int, tag):
-        if self.__is_key_exist(id):
-            self.data[id].add_tag(Tag(tag))
+    def add_tag(self, note_id: int, tag):
+        if self.__is_key_exist(note_id):
+            self.data[note_id].add_tag(Tag(tag))
         else:
             raise NoteDoesNotExistError
 
-    def remove_tag(self, id: int, tag):
-        if self.__is_key_exist(id):
-            self.data[id].remove_tag(Tag(tag))
+    def remove_tag(self, note_id: int, tag):
+        if self.__is_key_exist(note_id):
+            self.data[note_id].remove_tag(Tag(tag))
         else:
             raise NoteDoesNotExistError
 
-    def add_text(self, id: int, text):
-        if self.__is_key_exist(id):
-            self.data[id].add_text(text)
+    def add_text(self, note_id: int, text):
+        if self.__is_key_exist(note_id):
+            self.data[note_id].add_text(text)
         else:
             raise NoteDoesNotExistError
 
-    def change_status(self, id: int, status):
-        if self.__is_key_exist(id):
-            self.data[id].change_status(status)
+    def change_status(self, note_id: int, status):
+        if self.__is_key_exist(note_id):
+            self.data[note_id].change_status(status)
         else:
             raise NoteDoesNotExistError
 
@@ -239,12 +239,12 @@ class Notes(UserDict):
 
         return result
 
-    def remove_note(self, id: int):
+    def remove_note(self, note_id: int):
         """Function removes note from notes."""
 
-        if not self.__is_key_exist(id):
+        if not self.__is_key_exist(note_id):
             raise NoteDoesNotExistError
-        self.data.pop(id, None)
+        self.data.pop(note_id, None)
 
     def get_all_notes(self):
         """Function returns notes in str()."""
