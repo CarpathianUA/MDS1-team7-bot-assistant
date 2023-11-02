@@ -17,7 +17,7 @@ from modules.bot_assistant.utils.color_fillers import fill_background_color
 from modules.bot_assistant.models.note_state import State, is_valid_state
 from modules.bot_assistant.constants.file_paths import NOTES_FILE, DATA_STORAGE_DIR
 from modules.bot_assistant.constants.notes_params import TITLE_LEN, TEXT_LEN
-from modules.bot_assistant.constants.date_format import DATE_FORMAT
+from modules.bot_assistant.constants.date_format import NOTES_DATE_FORMAT
 
 
 class Title(Field):
@@ -101,7 +101,7 @@ class Text(Field):
 
 class Date(Field):
     def __init__(self):
-        value = datetime.datetime.now().strftime(DATE_FORMAT)
+        value = datetime.datetime.now().strftime(NOTES_DATE_FORMAT)
         super().__init__(value)
         self._value = value
 

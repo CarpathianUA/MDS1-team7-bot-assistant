@@ -1,1 +1,1 @@
-DATE_FORMAT = "%d.%m.%Y %H:%M:%S"
+NOTES_DATE_FORMAT = "%d.%m.%Y %H:%M:%S"
