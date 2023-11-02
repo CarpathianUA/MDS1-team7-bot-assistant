@@ -5,11 +5,15 @@ from collections import UserDict, defaultdict
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from modules.bot_assistant.models.field import Field
+
 from modules.bot_assistant.constants.file_paths import (
     ADDRESS_BOOK_FILE,
     DATA_STORAGE_DIR,
 )
+
+from modules.bot_assistant.constants.date_format import BIRTHDAY_DATE_FORMAT
 from modules.bot_assistant.constants.periods_ranges import MAX_PERIOD, PERIODS
+
 from modules.bot_assistant.models.exceptions import (
     InvalidPhoneError,
     InvalidBirthdayFormatError,
@@ -236,7 +240,7 @@ class AddressBook(UserDict):
         )
         if day_to_say_happy_birthday:
             birthdays[day_to_say_happy_birthday].append(
-                (name, birthday_date.strftime("%d.%m.%Y"))
+                (name, birthday_date.strftime(BIRTHDAY_DATE_FORMAT))
             )
 
     def get_birthdays_per_period(self, days):
@@ -275,7 +279,7 @@ class AddressBook(UserDict):
             return None
 
         birthday_str = record.birthday.value
-        birthday_date = datetime.strptime(birthday_str, "%d.%m.%Y").date()
+        birthday_date = datetime.strptime(birthday_str, BIRTHDAY_DATE_FORMAT).date()
         birthday_date = birthday_date.replace(year=today.year)
 
         if birthday_date < today:

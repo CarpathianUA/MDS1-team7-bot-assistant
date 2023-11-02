@@ -186,7 +186,7 @@ class Note:
             "; ".join(p.value for p in self.tags) if self.tags else "No tags available"
         )
         return (
-            f"Note #{self.id!r}, title: {self.title!r}, tags: {tags_str}, "
+            f"Note #{self.id}, title: {self.title}, tags: {tags_str}, "
             f"creation date: {self.creation_date}, edited: {self.edited}, "
             f"status: {self.status!r}, text: {self.text}\n"
         )
