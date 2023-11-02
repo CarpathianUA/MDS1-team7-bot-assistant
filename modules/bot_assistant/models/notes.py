@@ -45,7 +45,7 @@ class Title(Field):
 
     @staticmethod
     def __is_valid(value):
-        return len(value) <= TITLE_LEN and len(value) > 0
+        return TITLE_LEN >= len(value) > 0
 
 
 class Tag(Field):
@@ -96,7 +96,7 @@ class Text(Field):
 
     @staticmethod
     def __is_valid(value):
-        return len(value) <= TEXT_LEN and len(value) > 0
+        return TEXT_LEN >= len(value) > 0
 
 
 class Date(Field):
@@ -185,7 +185,11 @@ class Note:
         tags_str = (
             "; ".join(p.value for p in self.tags) if self.tags else "No tags available"
         )
-        return f"Note #'{self.id}', title: '{self.title}', tags: {tags_str}, creation date: {self.creation_date}, edited: {self.edited}, status: '{self.status}', text: {self.text}\n"
+        return (
+            f"Note #{self.id!r}, title: {self.title!r}, tags: {tags_str}, "
+            f"creation date: {self.creation_date}, edited: {self.edited}, "
+            f"status: {self.status!r}, text: {self.text}\n"
+        )
 
 
 class Notes(UserDict):
