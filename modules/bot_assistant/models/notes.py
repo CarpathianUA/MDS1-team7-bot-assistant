@@ -188,7 +188,7 @@ class Note:
         return (
             f"Note #{self.id}, title: {self.title}, tags: {tags_str}, "
             f"creation date: {self.creation_date}, edited: {self.edited}, "
-            f"status: {self.status!r}, text: {self.text}\n"
+            f"status: {self.status}, text: {self.text}\n"
         )
 
 
