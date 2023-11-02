@@ -1,6 +1,6 @@
 import modules.bot_assistant.models.exceptions as exceptions
 from modules.bot_assistant.constants.periods_ranges import DEFAULT_PERIOD
-from modules.bot_assistant.decorators.decorators import input_error
+from modules.bot_assistant.decorators.decorators import input_error, contact_exists
 from modules.bot_assistant.models.address_book import Record
 
 
@@ -24,6 +24,7 @@ def add_contact(args, address_book):
 
 
 @input_error
+@contact_exists
 def edit_contact(args, address_book):
     if len(args) != 2:
         raise exceptions.InvalidArgsError
@@ -34,18 +35,14 @@ def edit_contact(args, address_book):
         record.name.value = new_name
         address_book.data[new_name] = record
         return f"Contact's name {old_name} changed to a new one: {new_name}."
-    else:
-        raise exceptions.ContactDoesNotExistError
 
 
 @input_error
+@contact_exists
 def add_phone(args, address_book):
     if len(args) != 2:
         raise exceptions.InvalidArgsError
     name, phone = args
-
-    if name not in address_book.data:
-        raise exceptions.ContactDoesNotExistError
 
     record = address_book.data[name]
 
@@ -56,13 +53,11 @@ def add_phone(args, address_book):
 
 
 @input_error
+@contact_exists
 def edit_phone(args, address_book):
     if len(args) != 3:
         raise exceptions.InvalidArgsError
     name, phone, new_phone = args
-
-    if name not in address_book.data:
-        raise exceptions.ContactDoesNotExistError
 
     record = address_book.data[name]
 
@@ -74,6 +69,7 @@ def edit_phone(args, address_book):
 
 
 @input_error
+@contact_exists
 def get_contact_phone(args, address_book):
     if len(args) != 1:
         raise exceptions.InvalidArgsError
@@ -83,18 +79,14 @@ def get_contact_phone(args, address_book):
         record = address_book.data[name]
         phones = [phone.value for phone in record.phones]
         return f"Phone: {', '.join(phones)}"
-    else:
-        raise exceptions.ContactDoesNotExistError
 
 
 @input_error
+@contact_exists
 def remove_phone(args, address_book):
     if len(args) != 2:
         raise exceptions.InvalidArgsError
     name, phone = args
-
-    if name not in address_book.data:
-        raise exceptions.ContactDoesNotExistError
 
     record = address_book.data[name]
 
@@ -106,9 +98,11 @@ def remove_phone(args, address_book):
 
 
 @input_error
+@contact_exists
 def add_address(args, address_book):
     if len(args) < 2:
         raise exceptions.InvalidArgsError
+
     name = args.pop(0)
     address_str = ''
     for arg in args:
@@ -130,10 +124,11 @@ def add_address(args, address_book):
 
 
 @input_error
+@contact_exists
 def edit_address(args, address_book):
     if len(args) < 3:
         raise exceptions.InvalidArgsError
-    #name, address, new_address = args
+
     name = args.pop(0)
     address_str = ''
     for arg in args:
@@ -159,6 +154,7 @@ def edit_address(args, address_book):
 
 
 @input_error
+@contact_exists
 def get_contact_address(args, address_book):
     if len(args) != 1:
         raise exceptions.InvalidArgsError
@@ -168,14 +164,14 @@ def get_contact_address(args, address_book):
         record = address_book.data[name]
         addresses = [address.value for address in record.addresses]
         return f"{name}'s address(es): {', '.join(addresses)}"
-    else:
-        raise exceptions.ContactDoesNotExistError
 
 
 @input_error
+@contact_exists
 def remove_address(args, address_book):
     if len(args) < 2:
         raise exceptions.InvalidArgsError
+
     name = args.pop(0)
     address_str = ''
     for arg in args:
@@ -197,13 +193,11 @@ def remove_address(args, address_book):
 
 
 @input_error
+@contact_exists
 def add_email(args, address_book):
     if len(args) != 2:
         raise exceptions.InvalidArgsError
     name, email = args
-
-    if name not in address_book.data:
-        raise exceptions.ContactDoesNotExistError
 
     record = address_book.data[name]
 
@@ -214,13 +208,11 @@ def add_email(args, address_book):
 
 
 @input_error
+@contact_exists
 def edit_email(args, address_book):
     if len(args) != 3:
         raise exceptions.InvalidArgsError
     name, email, new_email = args
-
-    if name not in address_book.data:
-        raise exceptions.ContactDoesNotExistError
 
     record = address_book.data[name]
 
@@ -232,6 +224,7 @@ def edit_email(args, address_book):
 
 
 @input_error
+@contact_exists
 def get_contact_email(args, address_book):
     if len(args) != 1:
         raise exceptions.InvalidArgsError
@@ -241,18 +234,14 @@ def get_contact_email(args, address_book):
         record = address_book.data[name]
         emails = [email.value for email in record.emails]
         return f"Email: {', '.join(emails)}"
-    else:
-        raise exceptions.ContactDoesNotExistError
 
 
 @input_error
+@contact_exists
 def remove_email(args, address_book):
     if len(args) != 2:
         raise exceptions.InvalidArgsError
     name, email = args
-
-    if name not in address_book.data:
-        raise exceptions.ContactDoesNotExistError
 
     record = address_book.data[name]
 
@@ -264,6 +253,7 @@ def remove_email(args, address_book):
 
 
 @input_error
+@contact_exists
 def delete_contact(args, address_book):
     if len(args) != 1:
         raise exceptions.InvalidArgsError
@@ -272,8 +262,6 @@ def delete_contact(args, address_book):
     if name in address_book:
         address_book.pop(name)
         return f"Contact {name} deleted."
-    else:
-        raise exceptions.ContactDoesNotExistError
 
 
 def get_all_contacts(address_book):
@@ -283,13 +271,11 @@ def get_all_contacts(address_book):
 
 
 @input_error
+@contact_exists
 def add_birthday(args, address_book):
     if len(args) != 2:
         raise exceptions.InvalidArgsError
     name, birthday = args
-
-    if name not in address_book.data:
-        raise exceptions.ContactDoesNotExistError
 
     record = address_book.data[name]
 
@@ -298,14 +284,12 @@ def add_birthday(args, address_book):
 
 
 @input_error
+@contact_exists
 def remove_birthday(args, address_book):
     if len(args) != 1:
         raise exceptions.InvalidArgsError
 
     name = args[0]
-
-    if name not in address_book.data:
-        raise exceptions.ContactDoesNotExistError
 
     record = address_book.data[name]
 
@@ -317,13 +301,11 @@ def remove_birthday(args, address_book):
 
 
 @input_error
+@contact_exists
 def show_birthday(args, address_book):
     if len(args) != 1:
         raise exceptions.InvalidArgsError
     name = args[0]
-
-    if name not in address_book.data:
-        raise exceptions.ContactDoesNotExistError
 
     record = address_book.data[name]
 
