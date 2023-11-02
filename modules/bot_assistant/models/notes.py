@@ -1,3 +1,7 @@
+#! ignore this line
+# pylint: disable=redefined-builtin
+
+"""Module providing an notes models."""
 import os
 import pickle
 import datetime
@@ -13,8 +17,8 @@ from modules.bot_assistant.models.exceptions import (
     TagAlreadyExistsError,
 )
 from modules.bot_assistant.utils.color_fillers import fill_background_color
-from modules.bot_assistant.utils.note_state import State, is_valid_state
-from modules.bot_assistant.constants.file_paths import NOTES_FILE, FILE_DIR
+from modules.bot_assistant.models.note_state import State, is_valid_state
+from modules.bot_assistant.constants.file_paths import NOTES_FILE, DATA_STORAGE_DIR
 from modules.bot_assistant.constants.notes_params import TITLE_LEN, TEXT_LEN
 from modules.bot_assistant.constants.date_format import DATE_FORMAT
 
@@ -278,15 +282,15 @@ class Notes(UserDict):
 
         # We store data state to user's home directory
         home_dir = os.path.expanduser("~")
-        address_book_dir = os.path.join(
-            home_dir, FILE_DIR
+        notes_dir = os.path.join(
+            home_dir, DATA_STORAGE_DIR
         )  # Hidden directory in home folder, where we store the file
-        os.makedirs(address_book_dir, exist_ok=True)
+        os.makedirs(notes_dir, exist_ok=True)
 
         # Define the path to the file within the directory
-        address_book_path = os.path.join(address_book_dir, NOTES_FILE)
+        notes_path = os.path.join(notes_dir, NOTES_FILE)
 
-        with open(address_book_path, "wb") as f:
+        with open(notes_path, "wb") as f:
             pickle.dump(self, f)
 
     @classmethod
@@ -295,12 +299,12 @@ class Notes(UserDict):
 
         # Define the path to the file
         home_dir = os.path.expanduser("~")
-        address_book_dir = os.path.join(home_dir, FILE_DIR)
-        address_book_path = os.path.join(address_book_dir, NOTES_FILE)
+        notes_dir = os.path.join(home_dir, DATA_STORAGE_DIR)
+        notes_path = os.path.join(notes_dir, NOTES_FILE)
 
         # Load the file if it exists
-        if os.path.exists(address_book_path):
-            with open(address_book_path, "rb") as f:
+        if os.path.exists(notes_path):
+            with open(notes_path, "rb") as f:
                 return pickle.load(f)
         return cls()
 

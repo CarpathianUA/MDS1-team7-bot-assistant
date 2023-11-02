@@ -1,3 +1,6 @@
+"""Module providing a simple class Field."""
+
+
 class Field:
     """Class representing a field"""
 

@@ -1,3 +1,4 @@
+"""Module providing periods."""
 MAX_PERIOD = 365
 
 DEFAULT_PERIOD = 7
