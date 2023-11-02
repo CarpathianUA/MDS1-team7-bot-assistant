@@ -289,13 +289,29 @@ class AddressBook(UserDict):
         return birthday_date
 
     def save_to_file(self):
-        with open(ADDRESS_BOOK_FILE, "wb") as f:
+        # We store data state to user's home directory
+        home_dir = os.path.expanduser("~")
+        address_book_dir = os.path.join(
+            home_dir, ".bot_assistant"
+        )  # Hidden directory in home folder, where we store the file
+        os.makedirs(address_book_dir, exist_ok=True)
+
+        # Define the path to the file within the directory
+        address_book_path = os.path.join(address_book_dir, ADDRESS_BOOK_FILE)
+
+        with open(address_book_path, "wb") as f:
             pickle.dump(self, f)
 
     @classmethod
     def load_from_file(cls):
-        if os.path.exists(ADDRESS_BOOK_FILE):
-            with open(ADDRESS_BOOK_FILE, "rb") as f:
+        # Define the path to the file
+        home_dir = os.path.expanduser("~")
+        address_book_dir = os.path.join(home_dir, ".bot_assistant")
+        address_book_path = os.path.join(address_book_dir, ADDRESS_BOOK_FILE)
+
+        # Load the file if it exists
+        if os.path.exists(address_book_path):
+            with open(address_book_path, "rb") as f:
                 return pickle.load(f)
         return cls()
 
