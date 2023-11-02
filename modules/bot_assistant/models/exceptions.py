@@ -90,9 +90,5 @@ class TagAlreadyExistsError(ValueError):
     pass
 
 
-class NoteDoesNotExistError(ValueError):
-    pass
-
-
 class NoteIdAlreadyExisrsError(ValueError):
     pass

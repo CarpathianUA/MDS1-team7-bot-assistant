@@ -1,6 +1,4 @@
-import sys
 import modules.bot_assistant.models.exceptions as exceptions
-from modules.bot_assistant.models.notes import Note, Tag, Text
 from modules.bot_assistant.decorators.decorators import input_error
 
 

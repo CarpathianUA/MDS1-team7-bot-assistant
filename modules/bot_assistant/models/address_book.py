@@ -7,7 +7,7 @@ from dateutil.relativedelta import relativedelta
 from modules.bot_assistant.models.field import Field
 from modules.bot_assistant.constants.file_paths import (
     ADDRESS_BOOK_FILE,
-    ADDRESS_BOOK_DIR,
+    FILE_DIR,
 )
 from modules.bot_assistant.constants.periods_ranges import MAX_PERIOD, PERIODS
 from modules.bot_assistant.models.exceptions import (
@@ -287,7 +287,7 @@ class AddressBook(UserDict):
         # We store data state to user's home directory
         home_dir = os.path.expanduser("~")
         address_book_dir = os.path.join(
-            home_dir, ADDRESS_BOOK_DIR
+            home_dir, FILE_DIR
         )  # Hidden directory in home folder, where we store the file
         os.makedirs(address_book_dir, exist_ok=True)
 
@@ -301,7 +301,7 @@ class AddressBook(UserDict):
     def load_from_file(cls):
         # Define the path to the file
         home_dir = os.path.expanduser("~")
-        address_book_dir = os.path.join(home_dir, ADDRESS_BOOK_DIR)
+        address_book_dir = os.path.join(home_dir, FILE_DIR)
         address_book_path = os.path.join(address_book_dir, ADDRESS_BOOK_FILE)
 
         # Load the file if it exists

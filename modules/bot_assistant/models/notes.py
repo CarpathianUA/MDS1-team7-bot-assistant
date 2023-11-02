@@ -3,7 +3,6 @@ import pickle
 import datetime
 import re as regex
 from collections import UserDict
-from constants.date_format import DATE_FORMAT
 from modules.bot_assistant.models.field import Field
 from modules.bot_assistant.models.exceptions import (
     InvalidTitleLengthError,
@@ -15,11 +14,14 @@ from modules.bot_assistant.models.exceptions import (
 )
 from modules.bot_assistant.utils.color_fillers import fill_background_color
 from modules.bot_assistant.utils.note_state import State, is_valid_state
-from modules.bot_assistant.constants.file_paths import NOTES_FILE
+from modules.bot_assistant.constants.file_paths import NOTES_FILE, FILE_DIR
 from modules.bot_assistant.constants.notes_params import TITLE_LEN, TEXT_LEN
+from modules.bot_assistant.constants.date_format import DATE_FORMAT
 
 
 class Title(Field):
+    """Class representing a note title"""
+
     def __init__(self, value):
         super().__init__(value)
         self._value = None
@@ -27,6 +29,8 @@ class Title(Field):
 
     @property
     def value(self):
+        """Function gets a value."""
+
         return self._value
 
     @value.setter
@@ -48,6 +52,8 @@ class Title(Field):
 
 
 class Tag(Field):
+    """Class representing a note tag"""
+
     def __init__(self, value):
         super().__init__(value)
         self._value = None
@@ -55,6 +61,8 @@ class Tag(Field):
 
     @property
     def value(self):
+        """Function gets a value."""
+
         return self._value
 
     @value.setter
@@ -69,6 +77,8 @@ class Tag(Field):
 
 
 class Text(Field):
+    """Class representing a note text"""
+
     def __init__(self, value):
         super().__init__(value)
         self._value = None
@@ -76,6 +86,8 @@ class Text(Field):
 
     @property
     def value(self):
+        """Function gets a value."""
+
         return self._value
 
     @value.setter
@@ -96,6 +108,8 @@ class Text(Field):
 
 
 class Date(Field):
+    """Class representing a note creation/ editing date"""
+
     def __init__(self):
         value = datetime.datetime.now().strftime(DATE_FORMAT)
         super().__init__(value)
@@ -112,6 +126,8 @@ class Date(Field):
 
 
 class Status(Field):
+    """Class representing a note status"""
+
     def __init__(self):
         value = State.NOTSTARTED
         super().__init__(value)
@@ -120,6 +136,8 @@ class Status(Field):
 
     @property
     def value(self):
+        """Function gets a value."""
+
         return self._value
 
     @value.setter
@@ -134,6 +152,8 @@ class Status(Field):
 
 
 class Note:
+    """Class representing a note"""
+
     def __init__(self, id, title):
         self.id = id
         self.title = Title(title)
@@ -144,10 +164,14 @@ class Note:
         self.tags = []
 
     def edit_title(self, title):
+        """Function edits a title."""
+
         self.title = Title(title)
         self.edited = Date()
 
     def change_status(self, status):
+        """Function changes a status."""
+
         if is_valid_state(status):
             self.status.value = State[status.upper()]
             self.edited = Date()
@@ -155,21 +179,25 @@ class Note:
             raise InvalidNoteStatusError
 
     def add_tag(self, tag):
+        """Function adds a tag."""
+
         if tag not in self.tags:
             self.tags.append(tag)
         else:
             raise TagAlreadyExistsError
 
     def add_text(self, text):
+        """Function adds a text."""
+
         if any(self.text):
             self.edited = Date()
         self.text = text
 
     def __hash__(self):
-        return hash(self.value)
+        return hash(self)
 
     def __eq__(self, other):
-        return self.value == other.value
+        return self == other
 
     def __str__(self):
         tags_str = (
@@ -179,10 +207,14 @@ class Note:
 
 
 class Notes(UserDict):
+    """Class representing a collection of notes"""
+
     # for quick access to a specific note
     note_counter = 0
 
     def add_note(self, title):
+        """Function adds a note."""
+
         self.note_counter += 1
         if self.__is_key_exist(self.note_counter):
             raise NoteIdAlreadyExisrsError
@@ -191,24 +223,32 @@ class Notes(UserDict):
         return self.note_counter
 
     def add_tag(self, id: int, tag):
+        """Function adds a tag."""
+
         if self.__is_key_exist(id):
             self.data[id].add_tag(Tag(tag))
         else:
             raise NoteDoesNotExistError
 
     def add_text(self, id: int, text):
+        """Function adds a text."""
+
         if self.__is_key_exist(id):
             self.data[id].add_text(text)
         else:
             raise NoteDoesNotExistError
 
     def change_status(self, id: int, status):
+        """Function changes a status."""
+
         if self.__is_key_exist(id):
             self.data[id].change_status(status)
         else:
             raise NoteDoesNotExistError
 
     def find_note(self, symbols):
+        """Function finds notes by symbols."""
+
         result = ""
         for note in self.data.values():
             occurrence = regex.findall(symbols, str(note))
@@ -222,21 +262,45 @@ class Notes(UserDict):
         pass
 
     def remove_note(self, id: int):
+        """Function removes note from notes."""
+
         if not self.__is_key_exist(id):
             raise NoteDoesNotExistError
         self.data.pop(id, None)
 
     def get_all_notes(self):
+        """Function returns notes in str()."""
+
         return self
 
     def save_to_file(self):
-        with open(NOTES_FILE, "wb") as f:
+        """Function save data to file."""
+
+        # We store data state to user's home directory
+        home_dir = os.path.expanduser("~")
+        address_book_dir = os.path.join(
+            home_dir, FILE_DIR
+        )  # Hidden directory in home folder, where we store the file
+        os.makedirs(address_book_dir, exist_ok=True)
+
+        # Define the path to the file within the directory
+        address_book_path = os.path.join(address_book_dir, NOTES_FILE)
+
+        with open(address_book_path, "wb") as f:
             pickle.dump(self, f)
 
     @classmethod
     def load_from_file(cls):
-        if os.path.exists(NOTES_FILE):
-            with open(NOTES_FILE, "rb") as f:
+        """Function loads file."""
+
+        # Define the path to the file
+        home_dir = os.path.expanduser("~")
+        address_book_dir = os.path.join(home_dir, FILE_DIR)
+        address_book_path = os.path.join(address_book_dir, NOTES_FILE)
+
+        # Load the file if it exists
+        if os.path.exists(address_book_path):
+            with open(address_book_path, "rb") as f:
                 return pickle.load(f)
         return cls()
 
@@ -250,7 +314,6 @@ class Notes(UserDict):
 
     def __setstate__(self, value):
         self.__dict__ = value
-        self.is_unpacking = True
 
     def __str__(self):
         return "\n".join(str(note) for note in self.data.values())
