@@ -42,3 +42,17 @@ def input_error(func):
             return "Invalid symbols length. Please enter two or more symbols."
 
     return wrapper
+
+
+def contact_exists(func):
+    def wrapper(args, address_book, *func_args, **func_kwargs):
+        if len(args) < 1:
+            raise exceptions.InvalidArgsError
+
+        name = args[0]
+        if name not in address_book.data:
+            raise exceptions.ContactDoesNotExistError
+
+        return func(args, address_book, *func_args, **func_kwargs)
+
+    return wrapper
