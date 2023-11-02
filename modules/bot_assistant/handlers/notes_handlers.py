@@ -39,6 +39,7 @@ def add_tag(args, notes):
     return f"Note #'{id}': tag '{tag}' added."
 
 
+@input_error
 def change_status(args, notes):
     """Function changes a status."""
 
@@ -143,8 +144,3 @@ def find_note(args, notes):
     if result:
         return result
     return "Nothing was found for the specified string."
-
-
-@input_error
-def find_note_by_filter(args, notes):
-    pass

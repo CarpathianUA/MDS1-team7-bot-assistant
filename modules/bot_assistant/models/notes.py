@@ -289,10 +289,6 @@ class Notes(UserDict):
 
         return result
 
-    # TODO: add filter
-    def find_note_by_filter(self, symbols, filter):
-        pass
-
     def remove_note(self, id: int):
         """Function removes note from notes."""
 

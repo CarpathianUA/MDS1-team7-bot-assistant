@@ -36,7 +36,6 @@ NOTES_COMMANDS = {
     "remove-tag": notes_handlers.remove_tag,
     "notes": notes_handlers.notes,
     "find-note": notes_handlers.find_note,
-    "find-note-filter": notes_handlers.find_note_by_filter,
 }
 
 CONTACT_COMMANDS_INFO = {
@@ -142,10 +141,6 @@ NOTES_COMMANDS_INFO = {
     "find-note": (
         "Shows all notes that contain the entered characters.",
         "Example: find sun",
-    ),
-    "find-note-by-filter": (
-        "Shows notes that contain the entered characters by filter.",
-        "Example: find-note-filter sun sunny",
     ),
     "help": ("Show this help message.", "Example: help"),
 }
