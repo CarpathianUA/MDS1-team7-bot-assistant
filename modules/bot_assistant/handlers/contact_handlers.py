@@ -104,16 +104,14 @@ def add_address(args, address_book):
         raise exceptions.InvalidArgsError
 
     name = args.pop(0)
-    address_str = ''
+    address_str = ""
     for arg in args:
-        if address_str == '':
-            address_str = address_str + arg
+        if not address_str:
+            address_str += arg
         else:
-            address_str = address_str + " " + arg
-    
+            address_str += " " + arg
+
     address = address_str
-    if name not in address_book.data:
-        raise exceptions.ContactDoesNotExistError
 
     record = address_book.data[name]
 
@@ -130,20 +128,19 @@ def edit_address(args, address_book):
         raise exceptions.InvalidArgsError
 
     name = args.pop(0)
-    address_str = ''
+    address_str = ""
     for arg in args:
-        if address_str == '':
-            address_str = address_str + arg
+        if not address_str:
+            address_str += arg
         else:
-            address_str = address_str + " " + arg
-    addresses_list = address_str.split("; ")
+            address_str += " " + arg
+    addresses_list = [element.strip() for element in address_str.split(";")]
+
     if len(addresses_list) != 2:
         raise exceptions.InvalidArgsError
     else:
-        address = addresses_list[0]
-        new_address = addresses_list[1]
-    if name not in address_book.data:
-        raise exceptions.ContactDoesNotExistError
+        address = addresses_list[0].strip()
+        new_address = addresses_list[1].strip()
 
     record = address_book.data[name]
 
@@ -173,15 +170,13 @@ def remove_address(args, address_book):
         raise exceptions.InvalidArgsError
 
     name = args.pop(0)
-    address_str = ''
+    address_str = ""
     for arg in args:
-        if address_str == '':
-            address_str = address_str + arg
+        if not address_str:
+            address_str += arg
         else:
-            address_str = address_str + " " + arg
+            address_str += " " + arg
     address = address_str
-    if name not in address_book.data:
-        raise exceptions.ContactDoesNotExistError
 
     record = address_book.data[name]
 

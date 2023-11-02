@@ -55,29 +55,29 @@ COMMANDS_INFO = {
     ),
     "add-address": (
         "Add a contact's address",
-        "Example: add-address AlanWake 6A,BrightFalls",
+        "Example: add-address AlanWake 6A Bright Falls Ave",
     ),
     "edit-address": (
         "Change a contact's address",
-        "Example: edit-address AlanWake 6A,BrightFalls 8A,BrightFalls",
+        "Example: edit-address AlanWake 6A Bright Falls Ave 6A Bright Falls Ave, Bright Falls, WA",
     ),
     "show-address": ("Show a contact's address.", "Example: show-address AlanWake"),
     "remove-address": (
         "Remove a contact's address.",
-        "Example: remove-address AlanWake 6A,BrightFalls",
+        "Example: remove-address AlanWake 6A Bright Falls Ave",
     ),
     "add-email": (
         "Add an email to a contact.",
-        "Example: add-email alanwake@email.com",
+        "Example: add-email alanwake@remedy.com",
     ),
     "show-email": ("Shows an email of a contact.", "Example: show-email AlanWake"),
     "edit-email": (
         "Edits an email of a contact.",
-        "Example: edit-email alanwake@email.com alanwake1@email.com",
+        "Example: edit-email alanwake@email.com alanwake1@remedy.com",
     ),
     "remove-email": (
         "Remove a contact's email.",
-        "Example: remove-email AlanWake alanwake@email.com",
+        "Example: remove-email AlanWake alanwake@remedy.com",
     ),
     "all": ("Show all contacts.", "Example: all"),
     "add-birthday": (
