@@ -251,11 +251,13 @@ class AddressBook(UserDict):
 
     @staticmethod
     def calculate_birthday_wish_day(birthday_date, today):
+        if birthday_date == today:
+            return "Today 🎉"
         delta = relativedelta(birthday_date, today)
 
         for period, label, unit in PERIODS:
             if unit == "days":
-                if (birthday_date - today).days < period:
+                if (birthday_date - today).days <= period:
                     return label
             elif unit == "months":
                 # calculate the total number of months between two dates based on their relative difference
