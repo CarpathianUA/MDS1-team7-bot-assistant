@@ -75,6 +75,18 @@ def test_edit_contact_email():
     print("test: edit contact email: passed! [Module: {}]".format(ab.__name__))
 
 
+def remove_contact_email():
+    book = ab.AddressBook()
+    book.add_record(ab.Record("AlanWake"))
+    book.find("AlanWake").add_email("alan.wake@remedy.com")
+
+    book.find("AlanWake").remove_email("alan.wake@remedy.com")
+
+    assert book.find("AlanWake").find_email("alan.wake@remedy.com") is None
+
+    print("test: remove contact email: passed! [Module: {}]".format(ab.__name__))
+
+
 def test_add_contact_address():
     book = ab.AddressBook()
     book.add_record(ab.Record("AlanWake"))
@@ -100,23 +112,6 @@ def test_edit_contact_address():
     )
 
     print("test: edit contact address: passed! [Module: {}]".format(ab.__name__))
-
-
-def test_change_edit_address():
-    book = ab.AddressBook()
-    book.add_record(ab.Record("AlanWake"))
-    book.find("AlanWake").add_address("6A Bright Falls Ave")
-
-    book.find("AlanWake").change_address(
-        "6A Bright Falls Ave", "6A Bright Falls Ave, Bright Falls, WA"
-    )
-
-    assert (
-        book.find("AlanWake").find_address("6A Bright Falls Ave, Bright Falls, WA")
-        is not None
-    )
-
-    print("test: change contact address: passed! [Module: {}]".format(ab.__name__))
 
 
 def test_get_contact_address():

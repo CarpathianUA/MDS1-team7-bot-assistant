@@ -58,8 +58,8 @@ COMMANDS_INFO = {
         "Example: add-address AlanWake 6A Bright Falls Ave",
     ),
     "edit-address": (
-        "Change a contact's address",
-        "Example: edit-address AlanWake 6A Bright Falls Ave 6A Bright Falls Ave, Bright Falls, WA",
+        "Change a contact's address. Please set new address after ';' separator.",
+        "Example: edit-address AlanWake 6A Bright Falls Ave; 6A Bright Falls Ave, Bright Falls, WA",
     ),
     "show-address": ("Show a contact's address.", "Example: show-address AlanWake"),
     "remove-address": (
