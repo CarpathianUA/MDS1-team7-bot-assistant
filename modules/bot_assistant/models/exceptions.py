@@ -2,6 +2,10 @@ class InvalidArgsError(ValueError):
     pass
 
 
+class InvalidIdValueError(ValueError):
+    pass
+
+
 class ContactDoesNotExistError(ValueError):
     pass
 
@@ -59,4 +63,36 @@ class BirthdayDoesNotExist(ValueError):
 
 
 class InvalidSearchPatternError(ValueError):
+    pass
+
+
+class InvalidTitleLengthError(ValueError):
+    pass
+
+
+class InvalidTextLengthError(ValueError):
+    pass
+
+
+class InvalidNoteStatusError(ValueError):
+    pass
+
+
+class NoteDoesNotExistError(ValueError):
+    pass
+
+
+class NoteAlreadyExistsError(ValueError):
+    pass
+
+
+class TagAlreadyExistsError(ValueError):
+    pass
+
+
+class TagDoesNotExistsError(ValueError):
+    pass
+
+
+class NoteIdAlreadyExisrsError(ValueError):
     pass

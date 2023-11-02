@@ -4,10 +4,10 @@ import re as regex
 from collections import UserDict, defaultdict
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
-
+from modules.bot_assistant.models.field import Field
 from modules.bot_assistant.constants.file_paths import (
     ADDRESS_BOOK_FILE,
-    ADDRESS_BOOK_DIR,
+    DATA_STORAGE_DIR,
 )
 from modules.bot_assistant.constants.periods_ranges import MAX_PERIOD, PERIODS
 from modules.bot_assistant.models.exceptions import (
@@ -22,14 +22,6 @@ from modules.bot_assistant.utils.emails import is_valid_email
 from modules.bot_assistant.utils.phone_numbers import is_valid_phone
 from modules.bot_assistant.utils.birthdays import is_valid_birth_date
 from modules.bot_assistant.utils.color_fillers import fill_background_color
-
-
-class Field:
-    def __init__(self, value):
-        self.value = value
-
-    def __str__(self):
-        return str(self.value)
 
 
 class Name(Field):
@@ -295,7 +287,7 @@ class AddressBook(UserDict):
         # We store data state to user's home directory
         home_dir = os.path.expanduser("~")
         address_book_dir = os.path.join(
-            home_dir, ADDRESS_BOOK_DIR
+            home_dir, DATA_STORAGE_DIR
         )  # Hidden directory in home folder, where we store the file
         os.makedirs(address_book_dir, exist_ok=True)
 
@@ -309,7 +301,7 @@ class AddressBook(UserDict):
     def load_from_file(cls):
         # Define the path to the file
         home_dir = os.path.expanduser("~")
-        address_book_dir = os.path.join(home_dir, ADDRESS_BOOK_DIR)
+        address_book_dir = os.path.join(home_dir, DATA_STORAGE_DIR)
         address_book_path = os.path.join(address_book_dir, ADDRESS_BOOK_FILE)
 
         # Load the file if it exists

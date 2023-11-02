@@ -1,6 +1,6 @@
-from modules.bot_assistant.handlers import contact_handlers
+from modules.bot_assistant.handlers import contact_handlers, notes_handlers
 
-COMMANDS = {
+CONTACT_COMMANDS = {
     "hello": contact_handlers.hello,
     "add": contact_handlers.add_contact,
     "edit": contact_handlers.edit_contact,
@@ -26,7 +26,19 @@ COMMANDS = {
     "help": None,  # we define and call help in cli_handlers.py
 }
 
-COMMANDS_INFO = {
+NOTES_COMMANDS = {
+    "add-note": notes_handlers.add_note,
+    "add-tag": notes_handlers.add_tag,
+    "add-text": notes_handlers.add_text,
+    "change-status": notes_handlers.change_status,
+    "remove-note": notes_handlers.remove_note,
+    "edit-title": notes_handlers.edit_title,
+    "remove-tag": notes_handlers.remove_tag,
+    "notes": notes_handlers.notes,
+    "find-note": notes_handlers.find_note,
+}
+
+CONTACT_COMMANDS_INFO = {
     "hello": ("Say hello to the bot.", "Example: hello"),
     "add": (
         "Add a new contact.",
@@ -40,7 +52,7 @@ COMMANDS_INFO = {
         "Add a phone to contact's phones list",
         "Example: add-phone AlanWake 0987654322",
     ),
-    "delete": ("Delete a contact.", "Example: delete AlanWake"),
+    "remove": ("Delete a contact.", "Example: delete AlanWake"),
     "show-phone": (
         "Show a contact's phone.",
         "Example: phone AlanWake (don't try to call him, he's busy!)",
@@ -93,11 +105,48 @@ COMMANDS_INFO = {
         "Show all birthdays for specified period in days. Default is 7 days.",
         "Example: birthdays 30",
     ),
-    "help": ("Show this help message.", "Example: help"),
     "find": (
         "Shows all contacts that contain the entered characters.",
         "Example: find 050",
     ),
 }
 
+NOTES_COMMANDS_INFO = {
+    "add-note": (
+        "Add a new note.",
+        "Example: add-note Weather",
+    ),
+    "add-tag": (
+        "Add a tag to note list by id.",
+        "Example: add-tag 12 sunny",
+    ),
+    "add-text": (
+        "Add or change a text by id.",
+        "Example: add-text 12 Weather good day...",
+    ),
+    "change-status": (
+        "Changes a status by id.",
+        "Example: change-status 12 inprogress",
+    ),
+    "remove-note": ("Removes a note by id.", "Example: remove-note 12"),
+    "edit-title": (
+        "Change a title by id.",
+        "Example: edit-title 12 Sun",
+    ),
+    "remove-tag": (
+        "Remove a tag by id.",
+        "Example: remove-tag 12 sunny",
+    ),
+    "notes": ("Show all notes.", "Example: notes"),
+    "find-note": (
+        "Shows all notes that contain the entered characters.",
+        "Example: find sun",
+    ),
+    "help": ("Show this help message.", "Example: help"),
+}
+
 EXIT_COMMANDS = ("close", "exit", "quit", "bye")
+
+COMMANDS = {**CONTACT_COMMANDS, **NOTES_COMMANDS}
+
+COMMANDS_INFO = {**CONTACT_COMMANDS_INFO, **NOTES_COMMANDS_INFO}

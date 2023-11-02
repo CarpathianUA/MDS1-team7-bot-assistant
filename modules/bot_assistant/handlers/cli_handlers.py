@@ -1,5 +1,7 @@
 from modules.bot_assistant.constants.commands import (
     COMMANDS,
+    CONTACT_COMMANDS,
+    NOTES_COMMANDS,
     EXIT_COMMANDS,
     COMMANDS_INFO,
 )
@@ -26,7 +28,7 @@ def show_help():
     print()
 
 
-def execute_command(command, args, address_book):
+def execute_command(command, args, address_book, notes):
     if command in EXIT_COMMANDS:
         print("Good bye!")
         return True
@@ -35,18 +37,23 @@ def execute_command(command, args, address_book):
         show_help()
         return False
 
-    handler = COMMANDS.get(command)
-    if handler:
-        try:
-            if command in ["hello", "all"]:
-                print(handler(address_book))  # no args for these commands
-            else:
-                print(
-                    handler(args, address_book)
-                )  # address_book is required for rest of the commands
-        except TypeError as e:
-            print(f"Error executing command {command}: {str(e)}")
+    if command in CONTACT_COMMANDS:
+        process_command(command, args, CONTACT_COMMANDS.get(command), address_book)
+    elif command in NOTES_COMMANDS:
+        process_command(command, args, NOTES_COMMANDS.get(command), notes)
     else:
         print("Invalid command. Available commands: " + ", ".join(COMMANDS.keys()))
 
     return False
+
+
+def process_command(command, args, handler, entity):
+    try:
+        if command in ["hello", "all", "notes"]:
+            print(handler(entity))  # no args for these commands
+        else:
+            print(
+                handler(args, entity)
+            )  # address_book is required for rest of the commands
+    except TypeError as e:
+        print(f"Error executing command {command}: {str(e)}")

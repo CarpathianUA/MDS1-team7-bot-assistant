@@ -40,6 +40,24 @@ def input_error(func):
             return "The period for showing birthdays is limited to 365 days."
         except exceptions.InvalidSearchPatternError:
             return "Invalid symbols length. Please enter two or more symbols."
+        except exceptions.NoteIdAlreadyExisrsError:
+            return "Note Id already exists."
+        except exceptions.TagDoesNotExistsError:
+            return "Tag doesn't exist."
+        except exceptions.TagAlreadyExistsError:
+            return "Tag already exists."
+        except exceptions.NoteAlreadyExistsError:
+            return "Note already exists."
+        except exceptions.NoteDoesNotExistError:
+            return "Note doesn't exist."
+        except exceptions.InvalidNoteStatusError:
+            return "Invalid status. Status must be 'not_started', 'in_progress', 'completed' or 'postponed'"
+        except exceptions.InvalidTextLengthError:
+            return "Invalid text length. Text must be maximum 250 symbols."
+        except exceptions.InvalidTitleLengthError:
+            return "Invalid title length. Title must be maximum 15 symbols."
+        except exceptions.InvalidIdValueError:
+            return "Invalid Id value. Id must be integer."
 
     return wrapper
 
