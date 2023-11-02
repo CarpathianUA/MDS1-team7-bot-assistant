@@ -1,10 +1,7 @@
-"""Module providing a note state model."""
 from enum import Enum
 
 
 class State(Enum):
-    """Class representing a note state"""
-
     NOT_STARTED = 1
     IN_PROGRESS = 2
     COMPLETED = 3
@@ -22,8 +19,6 @@ class State(Enum):
 
 
 def is_valid_state(state_string_or_enum):
-    """Function validates a state."""
-
     if isinstance(state_string_or_enum, str):
         try:
             if State[state_string_or_enum.upper()]:

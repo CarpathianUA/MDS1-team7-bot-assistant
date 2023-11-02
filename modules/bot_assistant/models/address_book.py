@@ -1,4 +1,3 @@
-"""Module providing an adress book models."""
 import os
 import pickle
 import re as regex

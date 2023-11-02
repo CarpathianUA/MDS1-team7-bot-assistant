@@ -1,9 +1,4 @@
-"""Module providing a simple class Field."""
-
-
 class Field:
-    """Class representing a field"""
-
     def __init__(self, value):
         self.value = value
 

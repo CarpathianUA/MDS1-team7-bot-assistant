@@ -1,8 +1,3 @@
-#! ignore this line
-# pylint: disable=redefined-builtin
-# pylint: disable=redefined-outer-name
-
-"""Module providing handlers for notes."""
 from modules.bot_assistant.models.exceptions import (
     InvalidArgsError,
     InvalidIdValueError,
@@ -13,8 +8,6 @@ from modules.bot_assistant.decorators.decorators import input_error
 
 @input_error
 def add_note(args, notes):
-    """Function adds a note."""
-
     if len(args) < 1:
         raise InvalidArgsError
     title = " ".join(args[0:])
@@ -24,8 +17,6 @@ def add_note(args, notes):
 
 @input_error
 def add_tag(args, notes):
-    """Function adds a tag."""
-
     if len(args) != 2:
         raise InvalidArgsError
     try:
@@ -41,8 +32,6 @@ def add_tag(args, notes):
 
 @input_error
 def change_status(args, notes):
-    """Function changes a status."""
-
     if len(args) != 2:
         raise InvalidArgsError
     try:
@@ -58,8 +47,6 @@ def change_status(args, notes):
 
 @input_error
 def remove_note(args, notes):
-    """Function removes a note."""
-
     if len(args) != 1:
         raise InvalidArgsError
     try:
@@ -73,8 +60,6 @@ def remove_note(args, notes):
 
 @input_error
 def edit_title(args, notes):
-    """Function edits a title."""
-
     if len(args) < 2:
         raise InvalidArgsError
     try:
@@ -90,8 +75,6 @@ def edit_title(args, notes):
 
 @input_error
 def add_text(args, notes):
-    """Function adds a text."""
-
     if len(args) < 2:
         raise InvalidArgsError
     try:
@@ -107,8 +90,6 @@ def add_text(args, notes):
 
 @input_error
 def remove_tag(args, notes):
-    """Function adds a text."""
-
     if len(args) < 2:
         raise InvalidArgsError
     try:
@@ -124,15 +105,11 @@ def remove_tag(args, notes):
 
 @input_error
 def notes(notes):
-    """Function shows all notes."""
-
     return notes.get_all_notes()
 
 
 @input_error
 def find_note(args, notes):
-    """Function finds notes by symbols."""
-
     if len(args) != 1:
         raise InvalidArgsError
     symbols = args[0]

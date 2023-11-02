@@ -1,7 +1,3 @@
-#! ignore this line
-# pylint: disable=redefined-builtin
-
-"""Module providing an notes models."""
 import os
 import pickle
 import datetime
@@ -25,8 +21,6 @@ from modules.bot_assistant.constants.date_format import DATE_FORMAT
 
 
 class Title(Field):
-    """Class representing a note title"""
-
     def __init__(self, value):
         super().__init__(value)
         self._value = None
@@ -34,8 +28,6 @@ class Title(Field):
 
     @property
     def value(self):
-        """Function gets a value."""
-
         return self._value
 
     @value.setter
@@ -57,8 +49,6 @@ class Title(Field):
 
 
 class Tag(Field):
-    """Class representing a note tag"""
-
     def __init__(self, value):
         super().__init__(value)
         self._value = None
@@ -66,8 +56,6 @@ class Tag(Field):
 
     @property
     def value(self):
-        """Function gets a value."""
-
         return self._value
 
     @value.setter
@@ -85,8 +73,6 @@ class Tag(Field):
 
 
 class Text(Field):
-    """Class representing a note text"""
-
     def __init__(self, value):
         super().__init__(value)
         self._value = None
@@ -94,8 +80,6 @@ class Text(Field):
 
     @property
     def value(self):
-        """Function gets a value."""
-
         return self._value
 
     @value.setter
@@ -116,8 +100,6 @@ class Text(Field):
 
 
 class Date(Field):
-    """Class representing a note creation/ editing date"""
-
     def __init__(self):
         value = datetime.datetime.now().strftime(DATE_FORMAT)
         super().__init__(value)
@@ -134,8 +116,6 @@ class Date(Field):
 
 
 class Status(Field):
-    """Class representing a note status"""
-
     def __init__(self):
         value = State.NOT_STARTED
         super().__init__(value)
@@ -144,8 +124,6 @@ class Status(Field):
 
     @property
     def value(self):
-        """Function gets a value."""
-
         return self._value
 
     @value.setter
@@ -160,8 +138,6 @@ class Status(Field):
 
 
 class Note:
-    """Class representing a note"""
-
     def __init__(self, id, title):
         self.id = id
         self.title = Title(title)
@@ -172,14 +148,10 @@ class Note:
         self.tags = []
 
     def edit_title(self, title):
-        """Function edits a title."""
-
         self.title = Title(title)
         self.edited = Date()
 
     def change_status(self, status):
-        """Function changes a status."""
-
         if is_valid_state(status):
             self.status.value = State[status.upper()]
             self.edited = Date()
@@ -187,24 +159,18 @@ class Note:
             raise InvalidNoteStatusError
 
     def add_tag(self, tag):
-        """Function adds a tag."""
-
         if tag not in self.tags:
             self.tags.append(tag)
         else:
             raise TagAlreadyExistsError
 
     def remove_tag(self, tag):
-        """Function removes a tag."""
-
         if tag in self.tags:
             self.tags.remove(tag)
         else:
             raise TagDoesNotExistsError
 
     def add_text(self, text):
-        """Function adds a text."""
-
         if any(self.text):
             self.edited = Date()
         self.text = text
@@ -223,14 +189,10 @@ class Note:
 
 
 class Notes(UserDict):
-    """Class representing a collection of notes"""
-
     # for quick access to a specific note
     note_counter = 0
 
     def add_note(self, title):
-        """Function adds a note."""
-
         self.note_counter += 1
         if self.__is_key_exist(self.note_counter):
             raise NoteIdAlreadyExisrsError
@@ -239,48 +201,36 @@ class Notes(UserDict):
         return self.note_counter
 
     def edit_title(self, id: int, title):
-        """Function adds a note."""
-
         if self.__is_key_exist(id):
             self.data[id].edit_title(title)
         else:
             raise NoteIdAlreadyExisrsError
 
     def add_tag(self, id: int, tag):
-        """Function adds a tag."""
-
         if self.__is_key_exist(id):
             self.data[id].add_tag(Tag(tag))
         else:
             raise NoteDoesNotExistError
 
     def remove_tag(self, id: int, tag):
-        """Function rmoves a tag."""
-
         if self.__is_key_exist(id):
             self.data[id].remove_tag(Tag(tag))
         else:
             raise NoteDoesNotExistError
 
     def add_text(self, id: int, text):
-        """Function adds a text."""
-
         if self.__is_key_exist(id):
             self.data[id].add_text(text)
         else:
             raise NoteDoesNotExistError
 
     def change_status(self, id: int, status):
-        """Function changes a status."""
-
         if self.__is_key_exist(id):
             self.data[id].change_status(status)
         else:
             raise NoteDoesNotExistError
 
     def find_note(self, symbols):
-        """Function finds notes by symbols."""
-
         result = ""
         for note in self.data.values():
             occurrence = regex.findall(str.lower(symbols), str.lower(str(note)))
