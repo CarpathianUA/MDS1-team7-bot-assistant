@@ -45,7 +45,7 @@ def input_error(func):
 
 
 def contact_exists(func):
-    def wrapper(args, address_book, *func_args, **func_kwargs):
+    def wrapper(args, address_book):
         if len(args) < 1:
             raise exceptions.InvalidArgsError
 
@@ -53,6 +53,6 @@ def contact_exists(func):
         if name not in address_book.data:
             raise exceptions.ContactDoesNotExistError
 
-        return func(args, address_book, *func_args, **func_kwargs)
+        return func(args, address_book)
 
     return wrapper
