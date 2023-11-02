@@ -49,7 +49,7 @@ def change_status(args, notes):
     except ValueError as e:
         raise InvalidIdValueError from e
 
-    status = args
+    status = args[1]
 
     notes.change_status(id, status)
     return f"Note #'{id}': status changed to '{status}'."
@@ -61,13 +61,30 @@ def remove_note(args, notes):
 
     if len(args) != 1:
         raise InvalidArgsError
+    try:
+        id = int(args[0])
+    except ValueError as e:
+        raise InvalidIdValueError from e
+
     notes.remove_note(id)
     return f"Note #'{id}' deleted"
 
 
 @input_error
 def edit_title(args, notes):
-    pass
+    """Function edits a title."""
+
+    if len(args) < 2:
+        raise InvalidArgsError
+    try:
+        id = int(args[0])
+    except ValueError as e:
+        raise InvalidIdValueError from e
+
+    title = " ".join(args[0:])
+
+    notes.edit_title(id, title)
+    return f"Note #'{id}': title added."
 
 
 @input_error
@@ -89,11 +106,23 @@ def add_text(args, notes):
 
 @input_error
 def remove_tag(args, notes):
-    pass
+    """Function adds a text."""
+
+    if len(args) < 2:
+        raise InvalidArgsError
+    try:
+        id = int(args[0])
+    except ValueError as e:
+        raise InvalidIdValueError from e
+
+    tag = "".join(args[1])
+
+    notes.remove_tag(id, tag)
+    return f"Note #'{id}': tag: {tag} removed."
 
 
 @input_error
-def notes(args, notes):
+def notes(notes):
     """Function shows all notes."""
 
     return notes.get_all_notes()

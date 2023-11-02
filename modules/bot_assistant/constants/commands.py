@@ -30,6 +30,7 @@ NOTES_COMMANDS = {
     "add-note": notes_handlers.add_note,
     "add-tag": notes_handlers.add_tag,
     "add-text": notes_handlers.add_text,
+    "change-status": notes_handlers.change_status,
     "remove-note": notes_handlers.remove_note,
     "edit-title": notes_handlers.edit_title,
     "remove-tag": notes_handlers.remove_tag,
@@ -123,6 +124,10 @@ NOTES_COMMANDS_INFO = {
     "add-text": (
         "Add or change a text by id.",
         "Example: add-text 12 Weather good day...",
+    ),
+    "change-status": (
+        "Changes a status by id.",
+        "Example: change-status 12 inprogress",
     ),
     "remove-note": ("Removes a note by id.", "Example: remove-note 12"),
     "edit-title": (

@@ -15,6 +15,7 @@ from modules.bot_assistant.models.exceptions import (
     NoteIdAlreadyExisrsError,
     NoteDoesNotExistError,
     TagAlreadyExistsError,
+    TagDoesNotExistsError,
 )
 from modules.bot_assistant.utils.color_fillers import fill_background_color
 from modules.bot_assistant.models.note_state import State, is_valid_state
@@ -77,7 +78,7 @@ class Tag(Field):
         return hash(self.value)
 
     def __eq__(self, other):
-        return self.value == other.value
+        return self._value == other.value
 
 
 class Text(Field):
@@ -190,6 +191,14 @@ class Note:
         else:
             raise TagAlreadyExistsError
 
+    def remove_tag(self, tag):
+        """Function removes a tag."""
+
+        if tag in self.tags:
+            self.tags.remove(tag)
+        else:
+            raise TagDoesNotExistsError
+
     def add_text(self, text):
         """Function adds a text."""
 
@@ -226,11 +235,27 @@ class Notes(UserDict):
         self.data[self.note_counter] = note
         return self.note_counter
 
+    def edit_title(self, id: int, title):
+        """Function adds a note."""
+
+        if self.__is_key_exist(id):
+            self.data[id].edit_title(title)
+        else:
+            raise NoteIdAlreadyExisrsError
+
     def add_tag(self, id: int, tag):
         """Function adds a tag."""
 
         if self.__is_key_exist(id):
             self.data[id].add_tag(Tag(tag))
+        else:
+            raise NoteDoesNotExistError
+
+    def remove_tag(self, id: int, tag):
+        """Function rmoves a tag."""
+
+        if self.__is_key_exist(id):
+            self.data[id].remove_tag(Tag(tag))
         else:
             raise NoteDoesNotExistError
 

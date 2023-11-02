@@ -49,7 +49,7 @@ def execute_command(command, args, address_book, notes):
 
 def process_command(command, args, handler, entity):
     try:
-        if command in ["hello", "all"]:
+        if command in ["hello", "all", "notes"]:
             print(handler(entity))  # no args for these commands
         else:
             print(
