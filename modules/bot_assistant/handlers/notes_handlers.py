@@ -81,10 +81,10 @@ def edit_title(args, notes):
     except ValueError as e:
         raise InvalidIdValueError from e
 
-    title = " ".join(args[0:])
+    title = " ".join(args[1:])
 
     notes.edit_title(id, title)
-    return f"Note #'{id}': title added."
+    return f"Note #'{id}': title edited."
 
 
 @input_error

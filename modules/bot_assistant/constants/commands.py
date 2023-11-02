@@ -119,7 +119,7 @@ NOTES_COMMANDS_INFO = {
     ),
     "add-tag": (
         "Add a tag to note list by id.",
-        "Example: add-tag 12 Weather sunny",
+        "Example: add-tag 12 sunny",
     ),
     "add-text": (
         "Add or change a text by id.",

@@ -80,6 +80,9 @@ class Tag(Field):
     def __eq__(self, other):
         return self._value == other.value
 
+    def __str__(self):
+        return f"{self._value}"
+
 
 class Text(Field):
     """Class representing a note text"""
@@ -134,7 +137,7 @@ class Status(Field):
     """Class representing a note status"""
 
     def __init__(self):
-        value = State.NOTSTARTED
+        value = State.NOT_STARTED
         super().__init__(value)
         self._value = None
         self.value = value
@@ -216,7 +219,7 @@ class Note:
         tags_str = (
             "; ".join(p.value for p in self.tags) if self.tags else "No tags available"
         )
-        return f"Note #'{self.id}', title: '{self.title}', tags: {tags_str}, creatin date: {self.creation_date}, edited: {self.edited}, status: '{self.status}', text: {self.text}\n"
+        return f"Note #'{self.id}', title: '{self.title}', tags: {tags_str}, creation date: {self.creation_date}, edited: {self.edited}, status: '{self.status}', text: {self.text}\n"
 
 
 class Notes(UserDict):
@@ -280,7 +283,7 @@ class Notes(UserDict):
 
         result = ""
         for note in self.data.values():
-            occurrence = regex.findall(symbols, str(note))
+            occurrence = regex.findall(str.lower(symbols), str.lower(str(note)))
             if any(occurrence):
                 result += f"{fill_background_color(str(note), symbols)}\n"
 
