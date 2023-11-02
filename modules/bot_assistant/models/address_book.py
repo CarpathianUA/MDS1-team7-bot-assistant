@@ -295,7 +295,7 @@ class AddressBook(UserDict):
         # We store data state to user's home directory
         home_dir = os.path.expanduser("~")
         address_book_dir = os.path.join(
-            home_dir, ".bot_assistant"
+            home_dir, "ADDRESS_BOOK_DIR"
         )  # Hidden directory in home folder, where we store the file
         os.makedirs(address_book_dir, exist_ok=True)
 
