@@ -5,7 +5,10 @@ from collections import UserDict, defaultdict
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
-from modules.bot_assistant.constants.file_paths import ADDRESS_BOOK_FILE
+from modules.bot_assistant.constants.file_paths import (
+    ADDRESS_BOOK_FILE,
+    ADDRESS_BOOK_DIR,
+)
 from modules.bot_assistant.constants.periods_ranges import MAX_PERIOD, PERIODS
 from modules.bot_assistant.models.exceptions import (
     InvalidPhoneError,
@@ -306,7 +309,7 @@ class AddressBook(UserDict):
     def load_from_file(cls):
         # Define the path to the file
         home_dir = os.path.expanduser("~")
-        address_book_dir = os.path.join(home_dir, ".bot_assistant")
+        address_book_dir = os.path.join(home_dir, ADDRESS_BOOK_DIR)
         address_book_path = os.path.join(address_book_dir, ADDRESS_BOOK_FILE)
 
         # Load the file if it exists
