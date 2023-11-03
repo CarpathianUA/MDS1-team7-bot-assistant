@@ -12,19 +12,26 @@ from modules.bot_assistant.models.exceptions import (
     NoteDoesNotExistError,
     TagAlreadyExistsError,
     TagDoesNotExistsError,
+    InvalidTagLengthError,
 )
 from modules.bot_assistant.utils.color_fillers import fill_background_color
-from modules.bot_assistant.models.note_state import State, is_valid_state
+from modules.bot_assistant.utils.format_note import format_note
+from modules.bot_assistant.utils.state import is_valid_state
+from modules.bot_assistant.models.note_state import State
 from modules.bot_assistant.constants.file_paths import NOTES_FILE, DATA_STORAGE_DIR
-from modules.bot_assistant.constants.notes_params import TITLE_LEN, TEXT_LEN
+from modules.bot_assistant.constants.notes_params import TITLE_LEN, TAG_LEN, TEXT_LEN
 from modules.bot_assistant.constants.date_formats import NOTES_DATE_FORMAT
+from modules.bot_assistant.constants.note_formatting import TITLE
 
 
 class Title(Field):
     def __init__(self, value):
-        super().__init__(value)
-        self._value = None
-        self.value = value
+        if self.__is_valid(value):
+            super().__init__(value)
+            self._value = None
+            self.value = value
+        else:
+            raise InvalidTitleLengthError
 
     @property
     def value(self):
@@ -32,10 +39,7 @@ class Title(Field):
 
     @value.setter
     def value(self, value):
-        if self.__is_valid(value):
-            self._value = value
-        else:
-            raise InvalidTitleLengthError
+        self._value = value
 
     def __hash__(self):
         return hash(self.value)
@@ -50,9 +54,12 @@ class Title(Field):
 
 class Tag(Field):
     def __init__(self, value):
-        super().__init__(value)
-        self._value = None
-        self.value = value
+        if self.__is_valid(value):
+            super().__init__(value)
+            self._value = None
+            self.value = value
+        else:
+            raise InvalidTagLengthError
 
     @property
     def value(self):
@@ -71,12 +78,18 @@ class Tag(Field):
     def __str__(self):
         return f"{self._value}"
 
+    @staticmethod
+    def __is_valid(value):
+        return TAG_LEN >= len(value) > 0
+
 
 class Text(Field):
     def __init__(self, value):
-        super().__init__(value)
-        self._value = None
-        self.value = value
+        if self.__is_valid(value):
+            super().__init__(value)
+            self._value = None
+            self.value = value
+        raise InvalidTextLengthError
 
     @property
     def value(self):
@@ -84,9 +97,7 @@ class Text(Field):
 
     @value.setter
     def value(self, value):
-        if self.__is_valid(value):
-            self._value = value
-        raise InvalidTextLengthError
+        self._value = value
 
     def __hash__(self):
         return hash(self.value)
@@ -143,7 +154,7 @@ class Note:
         self.title = Title(title)
         self.text = ""
         self.creation_date = Date()
-        self.edited = None
+        self.edited = Field("")
         self.status = Status()
         self.tags = []
 
@@ -172,8 +183,14 @@ class Note:
 
     def add_text(self, text):
         if any(self.text):
+            self.text += f" {text}"
             self.edited = Date()
+            return
         self.text = text
+
+    def override_text(self, text):
+        self.text = text
+        self.edited = Date()
 
     def __hash__(self):
         return hash(self)
@@ -182,14 +199,7 @@ class Note:
         return self == other
 
     def __str__(self):
-        tags_str = (
-            "; ".join(p.value for p in self.tags) if self.tags else "No tags available"
-        )
-        return (
-            f"Note #{self.id}, title: {self.title}, tags: {tags_str}, "
-            f"creation date: {self.creation_date}, edited: {self.edited}, "
-            f"status: {self.status}, text: {self.text}\n"
-        )
+        return format_note(self)
 
 
 class Notes(UserDict):
@@ -228,6 +238,12 @@ class Notes(UserDict):
         else:
             raise NoteDoesNotExistError
 
+    def override_text(self, note_id: int, text):
+        if self.__is_key_exist(note_id):
+            self.data[note_id].override_text(text)
+        else:
+            raise NoteDoesNotExistError
+
     def change_status(self, note_id: int, status):
         if self.__is_key_exist(note_id):
             self.data[note_id].change_status(status)
@@ -239,9 +255,9 @@ class Notes(UserDict):
         for note in self.data.values():
             occurrence = regex.findall(str.lower(symbols), str.lower(str(note)))
             if any(occurrence):
-                result += f"{fill_background_color(str(note), symbols)}\n"
+                result += f"{fill_background_color(format_note(note), symbols)}\n"
 
-        return result
+        return TITLE + result
 
     def remove_note(self, note_id: int):
         if not self.__is_key_exist(note_id):
@@ -249,7 +265,14 @@ class Notes(UserDict):
         self.data.pop(note_id, None)
 
     def get_all_notes(self):
-        return self
+        if any(self.data):
+            return TITLE + str(self)
+        return "You don’t have any notes"
+
+    def show_note(self, note_id):
+        if not self.__is_key_exist(note_id):
+            raise NoteDoesNotExistError
+        return TITLE + str(self.data[note_id])
 
     def save_to_file(self):
         # We store data state to user's home directory

@@ -1,4 +1,5 @@
 import modules.bot_assistant.models.exceptions as exceptions
+from modules.bot_assistant.models.exceptions import InvalidIdValueError
 
 
 # Mapping of exceptions to their corresponding error messages
@@ -48,6 +49,7 @@ exception_to_message = {
         "Invalid title length. Title must be maximum 15 symbols."
     ),
     exceptions.InvalidIdValueError: "Invalid Id value. Id must be integer.",
+    exceptions.InvalidTagLengthError: "Invalid tag length. Tag must be maximum 10 symbols.",
 }
 
 
@@ -71,5 +73,17 @@ def contact_exists(func):
             raise exceptions.ContactDoesNotExistError
 
         return func(args, address_book)
+
+    return wrapper
+
+
+def validate_id(func):
+    def wrapper(args, notes):
+        try:
+            int(args[0])
+        except ValueError as e:
+            raise InvalidIdValueError from e
+
+        return func(args, notes)
 
     return wrapper

@@ -30,11 +30,13 @@ NOTES_COMMANDS = {
     "add-note": notes_handlers.add_note,
     "add-tag": notes_handlers.add_tag,
     "add-text": notes_handlers.add_text,
-    "change-status": notes_handlers.change_status,
+    "override-text": notes_handlers.override_text,
+    "change-note-status": notes_handlers.change_status,
     "remove-note": notes_handlers.remove_note,
-    "edit-title": notes_handlers.edit_title,
+    "edit-note-title": notes_handlers.edit_title,
     "remove-tag": notes_handlers.remove_tag,
     "notes": notes_handlers.notes,
+    "show-note": notes_handlers.show_note,
     "find-note": notes_handlers.find_note,
 }
 
@@ -122,22 +124,27 @@ NOTES_COMMANDS_INFO = {
     ),
     "add-text": (
         "Add or change a text by id.",
-        "Example: add-text 12 Weather good day...",
+        "Example: add-text 12 Good day...",
     ),
-    "change-status": (
-        "Changes a status by id.",
-        "Example: change-status 12 inprogress",
+    "override-text": (
+        "overrides text by id.",
+        "Example: override-text 12 Sun is shine...",
+    ),
+    "change-note-status": (
+        "Changes note status by id.",
+        "Example: change-note-status12 in_progress",
     ),
     "remove-note": ("Removes a note by id.", "Example: remove-note 12"),
-    "edit-title": (
-        "Change a title by id.",
-        "Example: edit-title 12 Sun",
+    "edit-note-title": (
+        "Change note's title by id.",
+        "Example:  edit-note-title 12 Sun",
     ),
     "remove-tag": (
         "Remove a tag by id.",
         "Example: remove-tag 12 sunny",
     ),
-    "notes": ("Show all notes.", "Example: notes"),
+    "notes": ("Shows all notes.", "Example: notes"),
+    "show-note": ("Shows specific notes by id", "Example: show-note 12"),
     "find-note": (
         "Shows all notes that contain the entered characters.",
         "Example: find sun",
