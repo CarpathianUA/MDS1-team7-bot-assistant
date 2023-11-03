@@ -1,5 +1,4 @@
 import modules.bot_assistant.models.exceptions as exceptions
-from modules.bot_assistant.models.exceptions import InvalidIdValueError
 
 
 # Mapping of exceptions to their corresponding error messages
@@ -89,7 +88,7 @@ def validate_id(func):
                 raise exceptions.InvalidArgsError
 
         except ValueError as e:
-            raise InvalidIdValueError from e
+            raise exceptions.InvalidIdValueError from e
 
         return func(args, notes)
 
