@@ -138,7 +138,7 @@ NOTES_COMMANDS_INFO = {
     "remove-note": ("Remove a note by id.", "Example: remove-note 1"),
     "edit-note-title": (
         "Change note's title by note id.",
-        "Example:  edit-note-title 1 detective_work",
+        "Example: edit-note-title 1 detective_work",
     ),
     "remove-tag": (
         "Remove a tag of the note by note id.",
