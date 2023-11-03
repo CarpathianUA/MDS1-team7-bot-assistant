@@ -26,9 +26,12 @@ from modules.bot_assistant.constants.note_formatting import TITLE
 
 class Title(Field):
     def __init__(self, value):
-        super().__init__(value)
-        self._value = None
-        self.value = value
+        if self.__is_valid(value):
+            super().__init__(value)
+            self._value = None
+            self.value = value
+        else:
+            raise InvalidTitleLengthError
 
     @property
     def value(self):
@@ -36,10 +39,7 @@ class Title(Field):
 
     @value.setter
     def value(self, value):
-        if self.__is_valid(value):
-            self._value = value
-        else:
-            raise InvalidTitleLengthError
+        self._value = value
 
     def __hash__(self):
         return hash(self.value)
@@ -54,9 +54,12 @@ class Title(Field):
 
 class Tag(Field):
     def __init__(self, value):
-        super().__init__(value)
-        self._value = None
-        self.value = value
+        if self.__is_valid(value):
+            super().__init__(value)
+            self._value = None
+            self.value = value
+        else:
+            raise InvalidTagLengthError
 
     @property
     def value(self):
@@ -64,10 +67,7 @@ class Tag(Field):
 
     @value.setter
     def value(self, value):
-        if self.__is_valid(value):
-            self._value = value
-        else:
-            InvalidTagLengthError
+        self._value = value
 
     def __hash__(self):
         return hash(self.value)
@@ -85,9 +85,11 @@ class Tag(Field):
 
 class Text(Field):
     def __init__(self, value):
-        super().__init__(value)
-        self._value = None
-        self.value = value
+        if self.__is_valid(value):
+            super().__init__(value)
+            self._value = None
+            self.value = value
+        raise InvalidTextLengthError
 
     @property
     def value(self):
@@ -95,9 +97,7 @@ class Text(Field):
 
     @value.setter
     def value(self, value):
-        if self.__is_valid(value):
-            self._value = value
-        raise InvalidTextLengthError
+        self._value = value
 
     def __hash__(self):
         return hash(self.value)
