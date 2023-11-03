@@ -7,7 +7,7 @@ def fill_background_color(input_string, target_sequence):
     i = 0
 
     while i < len(input_string):
-        if str.lower(input_string[i : i + len(target)]) == target:
+        if str.lower(input_string[i:i + len(target)]) == target:
             output_string += f"{COLOR_CODE}{str.upper(target)}{RESET_COLOR}"
             i += len(target)
         else:

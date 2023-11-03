@@ -32,7 +32,7 @@ exception_to_message = {
     exceptions.InvalidSearchPatternError: (
         "Invalid symbols length. Please enter two or more symbols."
     ),
-    exceptions.NoteIdAlreadyExisrsError: "Note Id already exists.",
+    exceptions.NoteIdAlreadyExistsError: "Note Id already exists.",
     exceptions.TagDoesNotExistsError: "Tag doesn't exist.",
     exceptions.TagAlreadyExistsError: "Tag already exists.",
     exceptions.NoteAlreadyExistsError: "Note already exists.",

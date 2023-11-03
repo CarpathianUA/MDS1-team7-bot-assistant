@@ -10,7 +10,7 @@ if __name__ == "__main__":
     test_address_book.test_add_contact_email()
     test_address_book.test_add_invalid_contact_email()
     test_address_book.test_edit_contact_email()
-    test_address_book.remove_contact_email()
+    test_address_book.test_remove_contact_email()
     test_address_book.test_add_contact_address()
     test_address_book.test_edit_contact_address()
     test_address_book.test_get_contact_address()

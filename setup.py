@@ -9,6 +9,7 @@ setup(
         "prompt_toolkit==3.0.39",
         "python-dateutil==2.8.2",
     ],
+    python_requires=">=3.8",
     author="Data Fusion Team",
     author_email="romanslipchenko@gmail.com, Spogoretskyi@gmail.com, eadors@gmail.com, e.churylov@gmail.com",
     license="MIT",

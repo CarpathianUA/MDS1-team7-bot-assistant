@@ -8,7 +8,7 @@ from modules.bot_assistant.models.exceptions import (
     InvalidTitleLengthError,
     InvalidTextLengthError,
     InvalidNoteStatusError,
-    NoteIdAlreadyExisrsError,
+    NoteIdAlreadyExistsError,
     NoteDoesNotExistError,
     TagAlreadyExistsError,
     TagDoesNotExistsError,
@@ -209,7 +209,7 @@ class Notes(UserDict):
     def add_note(self, title):
         self.note_counter += 1
         if self.__is_key_exist(self.note_counter):
-            raise NoteIdAlreadyExisrsError
+            raise NoteIdAlreadyExistsError
         note = Note(self.note_counter, title)
         self.data[self.note_counter] = note
         return self.note_counter
@@ -218,7 +218,7 @@ class Notes(UserDict):
         if self.__is_key_exist(note_id):
             self.data[note_id].edit_title(title)
         else:
-            raise NoteIdAlreadyExisrsError
+            raise NoteIdAlreadyExistsError
 
     def add_tag(self, note_id: int, tag):
         if self.__is_key_exist(note_id):
@@ -264,16 +264,15 @@ class Notes(UserDict):
     def find_notes_by_tag(self, tag):
         result = ""
         for note in self.data.values():
-            if note.tags:
-                if Tag(tag) in note.tags:
-                    # move searchable tag to the first position
-                    filtered_tags = (
-                        str(tag)
-                        + "; "
-                        + "; ".join([p.value for p in note.tags if p != Tag(tag)])
-                    )
-                    tags = fill_background_color(filtered_tags, str(tag))
-                    result += f"{format_note_with_tags(note, tags)}\n"
+            if note.tags and Tag(tag) in note.tags:
+                # move searchable tag to the first position
+                filtered_tags = (
+                    str(tag)
+                    + "; "
+                    + "; ".join([p.value for p in note.tags if p != Tag(tag)])
+                )
+                tags = fill_background_color(filtered_tags, str(tag))
+                result += f"{format_note_with_tags(note, tags)}\n"
 
         if result:
             return TITLE + result

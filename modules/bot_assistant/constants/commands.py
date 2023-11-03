@@ -87,7 +87,7 @@ CONTACT_COMMANDS_INFO = {
     ),
     "show-email": ("Shows an email of a contact.", "Example: show-email AlanWake"),
     "edit-email": (
-        "Edits an email of a contact.",
+        "Edit an email of a contact.",
         "Example: edit-email AlanWake alanwake@email.com alanwake1@remedy.com",
     ),
     "remove-email": (
@@ -109,7 +109,7 @@ CONTACT_COMMANDS_INFO = {
         "Example: birthdays 30",
     ),
     "find": (
-        "Shows all contacts that contain the entered characters.",
+        "Shows all contact records which contain the entered characters.",
         "Example: find 050",
     ),
 }
@@ -117,42 +117,42 @@ CONTACT_COMMANDS_INFO = {
 NOTES_COMMANDS_INFO = {
     "add-note": (
         "Add a new note.",
-        "Example: add-note Weather",
+        "Example: add-note Investigation",
     ),
     "add-tag": (
-        "Add a tag to note list by id.",
-        "Example: add-tag 12 sunny",
+        "Add a tag to note by note id.",
+        "Example: add-tag 1 research",
     ),
     "add-text": (
-        "Add or change a text by id.",
-        "Example: add-text 12 Good day...",
+        "Add text to note by note id.",
+        "Example: add-text 1 We start research on Monday.",
     ),
     "override-text": (
-        "overrides text by id.",
-        "Example: override-text 12 Sun is shine...",
+        "overrides note's text by note id.",
+        "Example: override-text 1 Research moved to Tuesday.",
     ),
     "change-note-status": (
-        "Changes note status by id. Statuses could be: not_started; in_progress; completed; postponed",
-        "Example: change-note-status12 in_progress",
+        "Change note's status by note id. Statuses can be: not_started; in_progress; completed; postponed",
+        "Example: change-note-status 1 in_progress",
     ),
-    "remove-note": ("Removes a note by id.", "Example: remove-note 12"),
+    "remove-note": ("Remove a note by id.", "Example: remove-note 1"),
     "edit-note-title": (
-        "Change note's title by id.",
-        "Example:  edit-note-title 12 Sun",
+        "Change note's title by note id.",
+        "Example:  edit-note-title 1 detective_work",
     ),
     "remove-tag": (
-        "Remove a tag by id.",
+        "Remove a tag of the note by note id.",
         "Example: remove-tag 12 sunny",
     ),
     "notes": ("Shows all notes.", "Example: notes"),
-    "show-note": ("Shows specific notes by id", "Example: show-note 12"),
+    "show-note": ("Shows specific notes by note id", "Example: show-note 1"),
     "find-note": (
-        "Shows all notes that contain the entered characters.",
+        "Shows all notes which contain the entered characters.",
         "Example: find-note sun",
     ),
     "find-notes-by-tag": (
         "Shows notes by specified tag.",
-        "Example: find-notes-by-tag sun",
+        "Example: find-notes-by-tag research",
     ),
     "help": ("Show this help message.", "Example: help"),
 }

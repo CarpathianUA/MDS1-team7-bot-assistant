@@ -87,7 +87,7 @@ def test_edit_contact_email():
     print("test: edit contact email: passed! [Module: {}]".format(ab.__name__))
 
 
-def remove_contact_email():
+def test_remove_contact_email():
     book = ab.AddressBook()
     book.add_record(ab.Record("AlanWake"))
     book.find("AlanWake").add_email("alan.wake@remedy.com")
