@@ -88,7 +88,7 @@ def override_text(args, notes_engine):
     text = " ".join(args[1:])
 
     notes_engine.override_text(note_id, text)
-    return f"Note #'{note_id}': text overrideв."
+    return f"Note #'{note_id}': text override."
 
 
 @input_error
