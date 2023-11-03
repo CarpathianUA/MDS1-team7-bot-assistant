@@ -6,7 +6,7 @@ def validate_e164(phone):
     Validate phone number in a basic E.164 format.
     :param phone:
     """
-    pattern = re.compile(r"^\+?\d{10}$")
+    pattern = re.compile(r"^\+?\d{10,12}$")
     return bool(pattern.match(phone))
 
 

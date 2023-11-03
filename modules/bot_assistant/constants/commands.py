@@ -82,12 +82,12 @@ CONTACT_COMMANDS_INFO = {
     ),
     "add-email": (
         "Add an email to a contact.",
-        "Example: add-email alanwake@remedy.com",
+        "Example: add-email AlanWake alanwake@remedy.com",
     ),
     "show-email": ("Shows an email of a contact.", "Example: show-email AlanWake"),
     "edit-email": (
         "Edits an email of a contact.",
-        "Example: edit-email alanwake@email.com alanwake1@remedy.com",
+        "Example: edit-email AlanWake alanwake@email.com alanwake1@remedy.com",
     ),
     "remove-email": (
         "Remove a contact's email.",
