@@ -16,11 +16,11 @@ exception_to_message = {
     exceptions.PhoneAlreadyExistsError: "Phone already exists.",
     exceptions.AddressAlreadyExistsError: "Address already exists.",
     exceptions.InvalidPhoneError: (
-        "Invalid phone number. Phone number must contain 10 digits, with or "
+        "Invalid phone number. Phone number must contain from 10 to 12 digits, with or "
         "without '+' sign."
     ),
     exceptions.InvalidEmailError: (
-        "Invalid email format. Please use john@email.com format."
+        "Invalid email format. Please use alan@wake.com format."
     ),
     exceptions.EmailAlreadyExistsError: "Email already exists.",
     exceptions.EmailDoesNotExistError: "Email doesn't exist",
@@ -57,6 +57,9 @@ def input_error(func):
     def wrapper(*args, **kwargs):
         try:
             return func(*args, **kwargs)
+        # We inherit custom exceptions from ValueError
+        # which inherits from Exception base class
+        # pylint: disable=E0712
         except tuple(exception_to_message) as e:
             return exception_to_message[type(e)]
 

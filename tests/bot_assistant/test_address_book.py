@@ -63,6 +63,18 @@ def test_add_contact_email():
     print("test: add contact email: passed! [Module: {}]".format(ab.__name__))
 
 
+def test_add_invalid_contact_email():
+    book = ab.AddressBook()
+    book.add_record(ab.Record("AlanWake"))
+
+    try:
+        book.find("AlanWake").add_email("alan.wakeremedy.com")
+    except ValueError:
+        pass
+
+    print("test: add invalid contact email: passed! [Module: {}]".format(ab.__name__))
+
+
 def test_edit_contact_email():
     book = ab.AddressBook()
     book.add_record(ab.Record("AlanWake"))
