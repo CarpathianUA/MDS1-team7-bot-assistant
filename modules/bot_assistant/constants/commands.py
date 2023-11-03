@@ -35,6 +35,7 @@ NOTES_COMMANDS = {
     "edit-title": notes_handlers.edit_title,
     "remove-tag": notes_handlers.remove_tag,
     "notes": notes_handlers.notes,
+    "show-note": notes_handlers.show_note,
     "find-note": notes_handlers.find_note,
 }
 
@@ -137,7 +138,8 @@ NOTES_COMMANDS_INFO = {
         "Remove a tag by id.",
         "Example: remove-tag 12 sunny",
     ),
-    "notes": ("Show all notes.", "Example: notes"),
+    "notes": ("Shows all notes.", "Example: notes"),
+    "show-note": ("Shows specific notes by id", "Example: show-note 12"),
     "find-note": (
         "Shows all notes that contain the entered characters.",
         "Example: find sun",

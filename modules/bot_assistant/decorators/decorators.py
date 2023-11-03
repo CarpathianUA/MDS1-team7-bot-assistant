@@ -1,4 +1,5 @@
 import modules.bot_assistant.models.exceptions as exceptions
+from modules.bot_assistant.models.exceptions import InvalidIdValueError
 
 
 # Mapping of exceptions to their corresponding error messages
@@ -71,5 +72,17 @@ def contact_exists(func):
             raise exceptions.ContactDoesNotExistError
 
         return func(args, address_book)
+
+    return wrapper
+
+
+def validate_id(func):
+    def wrapper(args, notes):
+        try:
+            int(args[0])
+        except ValueError as e:
+            raise InvalidIdValueError from e
+
+        return func(args, notes)
 
     return wrapper

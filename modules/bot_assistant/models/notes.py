@@ -251,6 +251,11 @@ class Notes(UserDict):
     def get_all_notes(self):
         return self
 
+    def show_note(self, note_id):
+        if not self.__is_key_exist(note_id):
+            raise NoteDoesNotExistError
+        return self.data[note_id]
+
     def save_to_file(self):
         # We store data state to user's home directory
         home_dir = os.path.expanduser("~")
