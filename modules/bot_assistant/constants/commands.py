@@ -55,7 +55,7 @@ CONTACT_COMMANDS_INFO = {
         "Add a phone to contact's phones list",
         "Example: add-phone AlanWake 0987654322",
     ),
-    "remove": ("Delete a contact.", "Example: delete AlanWake"),
+    "delete": ("Delete a contact.", "Example: delete AlanWake"),
     "show-phone": (
         "Show a contact's phone.",
         "Example: phone AlanWake (don't try to call him, he's busy!)",
