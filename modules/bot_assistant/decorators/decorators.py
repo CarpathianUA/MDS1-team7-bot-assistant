@@ -49,6 +49,7 @@ exception_to_message = {
         "Invalid title length. Title must be maximum 15 symbols."
     ),
     exceptions.InvalidIdValueError: "Invalid Id value. Id must be integer.",
+    exceptions.InvalidTagLengthError: "Invalid tag length. Tag must be maximum 10 symbols.",
 }
 
 

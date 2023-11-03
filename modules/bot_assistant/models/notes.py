@@ -18,7 +18,7 @@ from modules.bot_assistant.utils.format_note import format_note
 from modules.bot_assistant.utils.state import is_valid_state
 from modules.bot_assistant.models.note_state import State
 from modules.bot_assistant.constants.file_paths import NOTES_FILE, DATA_STORAGE_DIR
-from modules.bot_assistant.constants.notes_params import TITLE_LEN, TEXT_LEN
+from modules.bot_assistant.constants.notes_params import TITLE_LEN, TAG_LEN, TEXT_LEN
 from modules.bot_assistant.constants.date_formats import NOTES_DATE_FORMAT
 from modules.bot_assistant.constants.note_formatting import TITLE
 
@@ -63,7 +63,10 @@ class Tag(Field):
 
     @value.setter
     def value(self, value):
-        self._value = value
+        if self.__is_valid(value):
+            self._value = value
+        else:
+            InvalidTagLengthError
 
     def __hash__(self):
         return hash(self.value)
@@ -73,6 +76,10 @@ class Tag(Field):
 
     def __str__(self):
         return f"{self._value}"
+
+    @staticmethod
+    def __is_valid(value):
+        return TAG_LEN >= len(value) > 0
 
 
 class Text(Field):

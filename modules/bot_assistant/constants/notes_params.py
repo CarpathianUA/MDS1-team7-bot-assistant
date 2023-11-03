@@ -1,3 +1,5 @@
 TITLE_LEN = 15
 
+TAG_LEN = 10
+
 TEXT_LEN = 250

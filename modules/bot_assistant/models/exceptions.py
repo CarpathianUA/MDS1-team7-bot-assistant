@@ -70,6 +70,10 @@ class InvalidTitleLengthError(ValueError):
     pass
 
 
+class InvalidTagLengthError(ValueError):
+    pass
+
+
 class InvalidTextLengthError(ValueError):
     pass
 
