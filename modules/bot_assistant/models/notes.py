@@ -15,7 +15,7 @@ from modules.bot_assistant.models.exceptions import (
     InvalidTagLengthError,
 )
 from modules.bot_assistant.utils.color_fillers import fill_background_color
-from modules.bot_assistant.utils.format_note import format_note
+from modules.bot_assistant.utils.format_note import format_note, format_note_with_tags
 from modules.bot_assistant.utils.state import is_valid_state
 from modules.bot_assistant.models.note_state import State
 from modules.bot_assistant.constants.file_paths import NOTES_FILE, DATA_STORAGE_DIR
@@ -257,7 +257,27 @@ class Notes(UserDict):
             if any(occurrence):
                 result += f"{fill_background_color(format_note(note), symbols)}\n"
 
-        return TITLE + result
+        if result:
+            return TITLE + result
+        return "Nothing was found for the specified symbols."
+
+    def find_notes_by_tag(self, tag):
+        result = ""
+        for note in self.data.values():
+            if Tag(tag) in note.tags:
+                if note.tags:
+                    # move searchable tag to the first position
+                    filtered_tags = (
+                        str(tag)
+                        + "; "
+                        + "; ".join([p.value for p in note.tags if p != Tag(tag)])
+                    )
+                    tags = fill_background_color(filtered_tags, str(tag))
+                    result += f"{format_note_with_tags(note, tags)}\n"
+
+        if result:
+            return TITLE + result
+        return "Nothing was found for the specified tag."
 
     def remove_note(self, note_id: int):
         if not self.__is_key_exist(note_id):
