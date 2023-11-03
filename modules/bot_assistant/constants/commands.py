@@ -30,6 +30,7 @@ NOTES_COMMANDS = {
     "add-note": notes_handlers.add_note,
     "add-tag": notes_handlers.add_tag,
     "add-text": notes_handlers.add_text,
+    "override-text": notes_handlers.override_text,
     "change-note-status": notes_handlers.change_status,
     "remove-note": notes_handlers.remove_note,
     "edit-note-title": notes_handlers.edit_title,
@@ -123,7 +124,11 @@ NOTES_COMMANDS_INFO = {
     ),
     "add-text": (
         "Add or change a text by id.",
-        "Example: add-text 12 Weather good day...",
+        "Example: add-text 12 Good day...",
+    ),
+    "override-text": (
+        "overrides text by id.",
+        "Example: override-text 12 Sun is shine...",
     ),
     "change-note-status": (
         "Changes note status by id.",

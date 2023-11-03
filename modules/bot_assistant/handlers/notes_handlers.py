@@ -80,6 +80,19 @@ def add_text(args, notes_engine):
 
 @input_error
 @validate_id
+def override_text(args, notes_engine):
+    if len(args) < 2:
+        raise InvalidArgsError
+
+    note_id = int(args[0])
+    text = " ".join(args[1:])
+
+    notes_engine.override_text(note_id, text)
+    return f"Note #'{note_id}': text overrideв."
+
+
+@input_error
+@validate_id
 def remove_tag(args, notes_engine):
     if len(args) < 2:
         raise InvalidArgsError

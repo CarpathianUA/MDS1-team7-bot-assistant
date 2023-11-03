@@ -183,8 +183,14 @@ class Note:
 
     def add_text(self, text):
         if any(self.text):
+            self.text += f" {text}"
             self.edited = Date()
+            return
         self.text = text
+
+    def override_text(self, text):
+        self.text = text
+        self.edited = Date()
 
     def __hash__(self):
         return hash(self)
@@ -229,6 +235,12 @@ class Notes(UserDict):
     def add_text(self, note_id: int, text):
         if self.__is_key_exist(note_id):
             self.data[note_id].add_text(text)
+        else:
+            raise NoteDoesNotExistError
+
+    def override_text(self, note_id: int, text):
+        if self.__is_key_exist(note_id):
+            self.data[note_id].override_text(text)
         else:
             raise NoteDoesNotExistError
 
