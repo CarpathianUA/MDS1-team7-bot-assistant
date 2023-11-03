@@ -32,7 +32,7 @@ NOTES_COMMANDS = {
     "add-text": notes_handlers.add_text,
     "change-status": notes_handlers.change_status,
     "remove-note": notes_handlers.remove_note,
-    "edit-title": notes_handlers.edit_title,
+    "edit-note-title": notes_handlers.edit_title,
     "remove-tag": notes_handlers.remove_tag,
     "notes": notes_handlers.notes,
     "show-note": notes_handlers.show_note,
@@ -127,12 +127,12 @@ NOTES_COMMANDS_INFO = {
     ),
     "change-status": (
         "Changes a status by id.",
-        "Example: change-status 12 inprogress",
+        "Example: change-status 12 in_progress",
     ),
     "remove-note": ("Removes a note by id.", "Example: remove-note 12"),
-    "edit-title": (
-        "Change a title by id.",
-        "Example: edit-title 12 Sun",
+    "edit-note-title": (
+        "Change note's title by id.",
+        "Example:  edit-note-title 12 Sun",
     ),
     "remove-tag": (
         "Remove a tag by id.",
