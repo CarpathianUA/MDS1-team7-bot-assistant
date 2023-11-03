@@ -14,10 +14,12 @@ from modules.bot_assistant.models.exceptions import (
     TagDoesNotExistsError,
 )
 from modules.bot_assistant.utils.color_fillers import fill_background_color
+from modules.bot_assistant.utils.format_note import formmat_note
 from modules.bot_assistant.models.note_state import State, is_valid_state
 from modules.bot_assistant.constants.file_paths import NOTES_FILE, DATA_STORAGE_DIR
 from modules.bot_assistant.constants.notes_params import TITLE_LEN, TEXT_LEN
 from modules.bot_assistant.constants.date_formats import NOTES_DATE_FORMAT
+from modules.bot_assistant.constants.note_formatting import TITLE
 
 
 class Title(Field):
@@ -182,14 +184,7 @@ class Note:
         return self == other
 
     def __str__(self):
-        tags_str = (
-            "; ".join(p.value for p in self.tags) if self.tags else "No tags available"
-        )
-        return (
-            f"Note #{self.id}, title: {self.title}, tags: {tags_str}, "
-            f"creation date: {self.creation_date}, edited: {self.edited}, "
-            f"status: {self.status}, text: {self.text}\n"
-        )
+        return formmat_note(self)
 
 
 class Notes(UserDict):
@@ -239,9 +234,9 @@ class Notes(UserDict):
         for note in self.data.values():
             occurrence = regex.findall(str.lower(symbols), str.lower(str(note)))
             if any(occurrence):
-                result += f"{fill_background_color(str(note), symbols)}\n"
+                result += f"{fill_background_color(formmat_note(note), symbols)}\n"
 
-        return result
+        return TITLE + result
 
     def remove_note(self, note_id: int):
         if not self.__is_key_exist(note_id):
@@ -249,12 +244,12 @@ class Notes(UserDict):
         self.data.pop(note_id, None)
 
     def get_all_notes(self):
-        return self
+        return TITLE + str(self)
 
     def show_note(self, note_id):
         if not self.__is_key_exist(note_id):
             raise NoteDoesNotExistError
-        return self.data[note_id]
+        return TITLE + str(self.data[note_id])
 
     def save_to_file(self):
         # We store data state to user's home directory
