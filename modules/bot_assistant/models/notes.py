@@ -14,7 +14,7 @@ from modules.bot_assistant.models.exceptions import (
     TagDoesNotExistsError,
 )
 from modules.bot_assistant.utils.color_fillers import fill_background_color
-from modules.bot_assistant.utils.format_note import formmat_note
+from modules.bot_assistant.utils.format_note import format_note
 from modules.bot_assistant.utils.state import is_valid_state
 from modules.bot_assistant.models.note_state import State
 from modules.bot_assistant.constants.file_paths import NOTES_FILE, DATA_STORAGE_DIR
@@ -146,7 +146,7 @@ class Note:
         self.title = Title(title)
         self.text = ""
         self.creation_date = Date()
-        self.edited = None
+        self.edited = Field("")
         self.status = Status()
         self.tags = []
 
@@ -185,7 +185,7 @@ class Note:
         return self == other
 
     def __str__(self):
-        return formmat_note(self)
+        return format_note(self)
 
 
 class Notes(UserDict):
@@ -235,7 +235,7 @@ class Notes(UserDict):
         for note in self.data.values():
             occurrence = regex.findall(str.lower(symbols), str.lower(str(note)))
             if any(occurrence):
-                result += f"{fill_background_color(formmat_note(note), symbols)}\n"
+                result += f"{fill_background_color(format_note(note), symbols)}\n"
 
         return TITLE + result
 
