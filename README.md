@@ -1,4 +1,4 @@
-## Bot Assistant
+# Bot Assistant
 
 Bot Assistant is a command-line application that helps you manage your contacts and notes.
 
