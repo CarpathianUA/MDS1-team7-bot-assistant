@@ -3,6 +3,10 @@ def format_note(note):
     return f"{note.id:<4}\t{note.title.value:<15}\t{tags_str:<30}\t{note.creation_date.value:<20}\t{note.edited.value:<20}\t{note.status.value:<12}\t{note.text:<100}"
 
 
+def format_note_with_tags(note, tags):
+    return f"{note.id:<4}\t{note.title.value:<15}\t{tags:<30}\t{note.creation_date.value:<20}\t{note.edited.value:<20}\t{note.status.value:<12}\t{note.text:<100}"
+
+
 def format_text(text, max_line_width):
     lines = text.split("\n")
     formatted_lines = []

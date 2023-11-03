@@ -129,7 +129,13 @@ def find_note(args, notes_engine):
     if len(symbols) < 2:
         raise InvalidSearchPatternError
 
-    result = notes_engine.find_note(symbols)
-    if result:
-        return result
-    return "Nothing was found for the specified string."
+    return notes_engine.find_note(symbols)
+
+
+@input_error
+def find_notes_by_tag(args, notes_engine):
+    if len(args) != 1:
+        raise InvalidArgsError
+    tag_text = args[0]
+
+    return notes_engine.find_notes_by_tag(tag_text)

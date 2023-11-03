@@ -38,6 +38,7 @@ NOTES_COMMANDS = {
     "notes": notes_handlers.notes,
     "show-note": notes_handlers.show_note,
     "find-note": notes_handlers.find_note,
+    "find-notes-by-tag": notes_handlers.find_notes_by_tag,
 }
 
 CONTACT_COMMANDS_INFO = {
@@ -131,7 +132,7 @@ NOTES_COMMANDS_INFO = {
         "Example: override-text 12 Sun is shine...",
     ),
     "change-note-status": (
-        "Changes note status by id.",
+        "Changes note status by id. Statuses could be: not_started; in_progress; completed; postponed",
         "Example: change-note-status12 in_progress",
     ),
     "remove-note": ("Removes a note by id.", "Example: remove-note 12"),
@@ -147,7 +148,11 @@ NOTES_COMMANDS_INFO = {
     "show-note": ("Shows specific notes by id", "Example: show-note 12"),
     "find-note": (
         "Shows all notes that contain the entered characters.",
-        "Example: find sun",
+        "Example: find-note sun",
+    ),
+    "find-notes-by-tag": (
+        "Shows notes by specified tag.",
+        "Example: find-notes-by-tag sun",
     ),
     "help": ("Show this help message.", "Example: help"),
 }
