@@ -12,6 +12,7 @@ from modules.bot_assistant.models.exceptions import (
     NoteDoesNotExistError,
     TagAlreadyExistsError,
     TagDoesNotExistsError,
+    InvalidTagLengthError,
 )
 from modules.bot_assistant.utils.color_fillers import fill_background_color
 from modules.bot_assistant.utils.format_note import format_note
