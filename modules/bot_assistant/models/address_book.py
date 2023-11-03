@@ -11,7 +11,7 @@ from modules.bot_assistant.constants.file_paths import (
     DATA_STORAGE_DIR,
 )
 
-from modules.bot_assistant.constants.date_format import BIRTHDAY_DATE_FORMAT
+from modules.bot_assistant.constants.date_formats import BIRTHDAY_DATE_FORMAT
 from modules.bot_assistant.constants.periods_ranges import MAX_PERIOD, PERIODS
 
 from modules.bot_assistant.models.exceptions import (
