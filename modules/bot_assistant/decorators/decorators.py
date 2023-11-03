@@ -81,12 +81,11 @@ def contact_exists(func):
 
 def validate_id(func):
     def wrapper(args, notes):
-        if any(args):
-            note_id = args[0]
-            if not note_id.isdigit():
-                raise exceptions.InvalidIdValueError
-            else:
-                raise exceptions.InvalidArgsError
+        if len(args) < 1:
+            raise exceptions.InvalidArgsError
+        notes_id = args[0]
+        if not notes_id.isdigit():
+            raise exceptions.InvalidIdValueError
 
         return func(args, notes)
 
