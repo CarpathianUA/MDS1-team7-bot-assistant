@@ -88,7 +88,7 @@ def remove_tag(args, notes_engine):
     tag = "".join(args[1])
 
     notes_engine.remove_tag(note_id, tag)
-    return f"Note #'{id}': tag: {tag} removed."
+    return f"Note #'{note_id}': tag: '{tag}' removed."
 
 
 @input_error
