@@ -80,7 +80,11 @@ def contact_exists(func):
 def validate_id(func):
     def wrapper(args, notes):
         try:
-            int(args[0])
+            if any(args):
+                int(args[0])
+            else:
+                raise exceptions.InvalidArgsError
+
         except ValueError as e:
             raise InvalidIdValueError from e
 

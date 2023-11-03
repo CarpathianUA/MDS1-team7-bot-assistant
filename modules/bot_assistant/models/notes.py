@@ -264,8 +264,8 @@ class Notes(UserDict):
     def find_notes_by_tag(self, tag):
         result = ""
         for note in self.data.values():
-            if Tag(tag) in note.tags:
-                if note.tags:
+            if note.tags:
+                if Tag(tag) in note.tags:
                     # move searchable tag to the first position
                     filtered_tags = (
                         str(tag)

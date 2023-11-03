@@ -132,7 +132,7 @@ NOTES_COMMANDS_INFO = {
         "Example: override-text 12 Sun is shine...",
     ),
     "change-note-status": (
-        "Changes note status by id.",
+        "Changes note status by id. Statuses could be: not_started; in_progress; completed; postponed",
         "Example: change-note-status12 in_progress",
     ),
     "remove-note": ("Removes a note by id.", "Example: remove-note 12"),
