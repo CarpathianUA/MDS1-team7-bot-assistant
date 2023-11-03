@@ -90,7 +90,20 @@ For managing your notes, here's what you can do:
 | `edit-note-title`   | Change note's title by id.            | `edit-note-title 1 detective_work`              |
 | `remove-tag`        | Remove a tag of the note by id.       | `remove-tag 12 sunny`                           |
 | `notes`             | Shows all notes.                      | `notes`                                         |
+| `show-note`         | Shows specific notes by note id.              | `show-note 1`                               |
+| `find-note`         | Shows all notes which contain the entered characters. | `find-note sun`                     |
+| `find-notes-by-tag` | Shows notes by specified tag.                 | `find-notes-by-tag research`                |
+| `help`              | Show this help message.                       | `help`                                      |
 
+
+## Exit Commands
+
+When you are done with your tasks, you can close the Bot-Assistant using any of these commands:
+
+- `close`
+- `exit`
+- `quit`
+- `bye`
 
 ## Remove the bot from your machine
 
