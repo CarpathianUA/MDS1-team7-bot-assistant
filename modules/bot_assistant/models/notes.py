@@ -15,7 +15,8 @@ from modules.bot_assistant.models.exceptions import (
 )
 from modules.bot_assistant.utils.color_fillers import fill_background_color
 from modules.bot_assistant.utils.format_note import formmat_note
-from modules.bot_assistant.models.note_state import State, is_valid_state
+from modules.bot_assistant.utils.state import is_valid_state
+from modules.bot_assistant.models.note_state import State
 from modules.bot_assistant.constants.file_paths import NOTES_FILE, DATA_STORAGE_DIR
 from modules.bot_assistant.constants.notes_params import TITLE_LEN, TEXT_LEN
 from modules.bot_assistant.constants.date_formats import NOTES_DATE_FORMAT
@@ -244,7 +245,9 @@ class Notes(UserDict):
         self.data.pop(note_id, None)
 
     def get_all_notes(self):
-        return TITLE + str(self)
+        if any(self.data):
+            return TITLE + str(self)
+        return "You don’t have any notes"
 
     def show_note(self, note_id):
         if not self.__is_key_exist(note_id):
