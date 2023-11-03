@@ -295,7 +295,6 @@ class AddressBook(UserDict):
         )  # Hidden directory in home folder, where we store the file
         os.makedirs(address_book_dir, exist_ok=True)
 
-        # Define the path to the file within the directory
         address_book_path = os.path.join(address_book_dir, ADDRESS_BOOK_FILE)
 
         with open(address_book_path, "wb") as f:
@@ -308,7 +307,6 @@ class AddressBook(UserDict):
         address_book_dir = os.path.join(home_dir, DATA_STORAGE_DIR)
         address_book_path = os.path.join(address_book_dir, ADDRESS_BOOK_FILE)
 
-        # Load the file if it exists
         if os.path.exists(address_book_path):
             with open(address_book_path, "rb") as f:
                 return pickle.load(f)

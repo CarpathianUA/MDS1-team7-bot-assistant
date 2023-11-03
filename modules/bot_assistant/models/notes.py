@@ -244,20 +244,14 @@ class Notes(UserDict):
         return result
 
     def remove_note(self, note_id: int):
-        """Function removes note from notes."""
-
         if not self.__is_key_exist(note_id):
             raise NoteDoesNotExistError
         self.data.pop(note_id, None)
 
     def get_all_notes(self):
-        """Function returns notes in str()."""
-
         return self
 
     def save_to_file(self):
-        """Function save data to file."""
-
         # We store data state to user's home directory
         home_dir = os.path.expanduser("~")
         notes_dir = os.path.join(
@@ -273,14 +267,11 @@ class Notes(UserDict):
 
     @classmethod
     def load_from_file(cls):
-        """Function loads file."""
-
         # Define the path to the file
         home_dir = os.path.expanduser("~")
         notes_dir = os.path.join(home_dir, DATA_STORAGE_DIR)
         notes_path = os.path.join(notes_dir, NOTES_FILE)
 
-        # Load the file if it exists
         if os.path.exists(notes_path):
             with open(notes_path, "rb") as f:
                 return pickle.load(f)

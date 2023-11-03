@@ -71,7 +71,7 @@ CONTACT_COMMANDS_INFO = {
     ),
     "edit-address": (
         "Change a contact's address. Set new address after ';'",
-        "Example: edit-address AlanWake 6A Bright Falls Ave; 6A Bright Falls Ave, Bright Falls, WA",
+        "Example: edit-address AlanWake 6A Bright Falls Ave; 7A Bright Falls Ave",
     ),
     "show-address": ("Show a contact's address.", "Example: show-address AlanWake"),
     "remove-address": (

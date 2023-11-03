@@ -21,7 +21,7 @@ def show_help():
     )
     print("\n")
 
-    for command, (description, example) in COMMANDS_INFO.items():
+    for command, (description, example) in sorted(COMMANDS_INFO.items()):
         print(
             f"{command:<{command_col_width}} {description:<{description_col_width}} {example:<{example_col_width}}"
         )
@@ -42,7 +42,10 @@ def execute_command(command, args, address_book, notes):
     elif command in NOTES_COMMANDS:
         process_command(command, args, NOTES_COMMANDS.get(command), notes)
     else:
-        print("Invalid command. Available commands: " + ", ".join(COMMANDS.keys()))
+        print(
+            "Invalid command.\nAvailable commands: "
+            + ", ".join(sorted(COMMANDS.keys()))
+        )
 
     return False
 
