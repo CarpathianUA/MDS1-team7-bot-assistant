@@ -16,7 +16,7 @@ pip install .
 
 ## Usage
 
-### Bot Assistant
+To run the bot, simply type the following command in your terminal:
 
 ```bash
 bot-assistant
@@ -43,7 +43,7 @@ Our bot comes with a suite of commands that allow you to add, modify, delete, an
 
 ## Getting Started
 
-To get started, simply run the `bot-assistant` program on your local machine after installation.
+To get started, simply run the `bot-assistant` program in your terminal after installation.
 
 
 ## Contact Commands
