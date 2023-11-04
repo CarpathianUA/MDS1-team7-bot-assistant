@@ -177,23 +177,23 @@ class Record:
         phones_str = (
             "; ".join(p.value for p in self.phones)
             if self.phones
-            else "No phones available"
+            else "no phones available"
         )
         emails_str = (
             "; ".join(e.value for e in self.emails)
             if self.emails
-            else "No emails available"
+            else "no emails available"
         )
         birthday_str = (
             self.birthday.value
             if self.birthday and self.birthday.value
-            else "Birthday not set"
+            else "not set"
         )
 
         address_str = (
             "; ".join(p.value for p in self.addresses)
             if self.addresses
-            else "No address available"
+            else "no address available"
         )
 
         contact_info = (
