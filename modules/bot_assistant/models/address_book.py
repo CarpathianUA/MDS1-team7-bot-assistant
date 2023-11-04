@@ -229,6 +229,18 @@ class AddressBook(UserDict):
         self.data.pop(name, None)
         return f"Contact '{name}' has been deleted."
 
+    def get_birthdays_per_period(self, days):
+        if days > MAX_PERIOD:
+            raise InvalidBirthdayRangeError
+        today = datetime.today().date()
+        end_date = today + timedelta(days=days)
+        birthdays = defaultdict(list)
+
+        for record in self.data.values():
+            self.process_record_for_birthday(record, today, birthdays, end_date)
+
+        return birthdays
+
     def process_record_for_birthday(self, record, today, birthdays, end_date):
         name = record.name.value
         birthday_date = self.get_upcoming_birthday(record, today)
@@ -243,36 +255,6 @@ class AddressBook(UserDict):
                 (name, birthday_date.strftime(BIRTHDAY_DATE_FORMAT))
             )
 
-    def get_birthdays_per_period(self, days):
-        if days > MAX_PERIOD:
-            raise InvalidBirthdayRangeError
-        today = datetime.today().date()
-        end_date = today + timedelta(days=days)
-        birthdays = defaultdict(list)
-
-        for record in self.data.values():
-            self.process_record_for_birthday(record, today, birthdays, end_date)
-
-        return birthdays
-
-    @staticmethod
-    def calculate_birthday_wish_day(birthday_date, today):
-        if birthday_date == today:
-            return "Today 🎉"
-        delta = relativedelta(birthday_date, today)
-
-        for period, label, unit in PERIODS:
-            if unit == "days":
-                if (birthday_date - today).days <= period:
-                    return label
-            elif unit == "months":
-                # calculate the total number of months between two dates based on their relative difference
-                total_months = delta.years * 12 + delta.months
-                if total_months < period:
-                    return label
-
-        return None
-
     @staticmethod
     def get_upcoming_birthday(record, today):
         if not record.birthday or not record.birthday.value:
@@ -286,6 +268,24 @@ class AddressBook(UserDict):
             birthday_date = birthday_date.replace(year=today.year + 1)
 
         return birthday_date
+
+    @staticmethod
+    def calculate_birthday_wish_day(birthday_date, today):
+        if birthday_date == today:
+            return "Today 🎉"
+        delta = relativedelta(birthday_date, today)
+
+        for period, label, unit in PERIODS:
+            if unit == "days":
+                if (birthday_date - today).days <= period:
+                    return label
+            elif unit == "months":
+                # Calculate the total number of months between two dates based on their relative difference
+                total_months = delta.years * 12 + delta.months
+                if total_months < period:
+                    return label
+
+        return None
 
     def save_to_file(self):
         # We store data state to user's home directory
