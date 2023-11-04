@@ -11,9 +11,5 @@ def validate_e164(phone):
 
 
 def is_valid_phone(phone):
-    """
-    Check if phone number is valid.
-    :param phone:
-    """
     if validate_e164(phone):
         return phone

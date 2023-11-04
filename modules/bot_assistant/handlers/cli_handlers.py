@@ -57,6 +57,6 @@ def process_command(command, args, handler, entity):
         else:
             print(
                 handler(args, entity)
-            )  # address_book is required for rest of the commands
+            )  # address_book or notes are required for rest of the commands
     except TypeError as e:
         print(f"Error executing command {command}: {str(e)}")
