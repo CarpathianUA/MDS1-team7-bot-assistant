@@ -102,7 +102,7 @@ For managing your notes, here's what you can do:
 
 ## Exit Commands
 
-When you are done with your tasks, you can close the Bot-Assistant using any of these commands:
+When you are done with your tasks, you can close the Bot Assistant using any of these commands:
 
 - `close`
 - `exit`
