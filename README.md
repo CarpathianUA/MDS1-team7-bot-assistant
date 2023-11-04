@@ -4,6 +4,10 @@ Bot Assistant is a command-line application that helps you manage your contacts 
 
 ---
 
+## Pre-requisites
+
+* Python 3.8 or higher
+
 ## Installation
 
 From the root directory of the project, run the following command:
