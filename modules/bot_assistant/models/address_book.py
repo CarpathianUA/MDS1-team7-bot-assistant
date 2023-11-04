@@ -187,7 +187,7 @@ class Record:
         birthday_str = (
             self.birthday.value
             if self.birthday and self.birthday.value
-            else "No birthday available"
+            else "Birthday not set"
         )
 
         address_str = (
@@ -195,11 +195,16 @@ class Record:
             if self.addresses
             else "No address available"
         )
-        return (
+
+        contact_info = (
             f"Contact name: {self.name.value}, phones: {phones_str}, "
             f"birthday: {birthday_str}, emails: {emails_str}, "
-            f"addresses: {address_str}"
+            f"addresses: {address_str}\n"
         )
+
+        delimiter = '-' * len(contact_info)
+
+        return contact_info + delimiter
 
 
 class AddressBook(UserDict):
@@ -280,7 +285,7 @@ class AddressBook(UserDict):
                 if (birthday_date - today).days <= period:
                     return label
             elif unit == "months":
-                # Calculate the total number of months between two dates based on their relative difference
+                # Cbyealculate the total number of months between two dates based on their relative difference
                 total_months = delta.years * 12 + delta.months
                 if total_months < period:
                     return label
