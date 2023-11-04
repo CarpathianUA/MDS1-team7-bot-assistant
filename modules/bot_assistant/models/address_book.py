@@ -193,7 +193,7 @@ class Record:
         address_str = (
             "; ".join(p.value for p in self.addresses)
             if self.addresses
-            else "no address available"
+            else "no addresses available"
         )
 
         contact_info = (

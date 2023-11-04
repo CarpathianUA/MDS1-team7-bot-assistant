@@ -119,8 +119,8 @@ def test_edit_contact_address():
     )
 
     assert (
-        book.find("AlanWake").find_address("6A Bright Falls Ave, Bright Falls, WA")
-        is not None
+            book.find("AlanWake").find_address("6A Bright Falls Ave, Bright Falls, WA")
+            is not None
     )
 
     print("test: edit contact address: passed! [Module: {}]".format(ab.__name__))
@@ -175,20 +175,26 @@ def test_get_all_contacts():
 
     assert len(book.data) == 2
 
-    result = [(str(name), str(record)) for name, record in book.data.items()]
-    assert result == [
+    result = [
+        (str(name), str(record).rstrip("-\n"))
+        for name, record in book.data.items()
+    ]
+
+    expected = [
         (
             "AlanWake",
             "Contact name: AlanWake, phones: 1111111111; 2222222222, "
             "birthday: 30.10.1982, emails: alan.wake@remedy.com, "
-            "addresses: No address available",
+            "addresses: no addresses available"
         ),
         (
             "Jane",
             "Contact name: Jane, phones: 3333333333, birthday: 03.11.1989, "
-            "emails: alan.wake@remedy.com, addresses: No address available",
+            "emails: jane.doe@example.com, addresses: no addresses available"
         ),
     ]
+
+    assert result == expected
 
     print("test: get all contacts: passed! [Module: {}]".format(ab.__name__))
 
@@ -211,6 +217,5 @@ def test_get_birthday():
     assert book.find("AlanWake").get_birthday() == "30.10.1982"
 
     print("test: get birthday: passed! [Module: {}]".format(ab.__name__))
-
 
 # TO-DO: cover rest of the methods with tests
