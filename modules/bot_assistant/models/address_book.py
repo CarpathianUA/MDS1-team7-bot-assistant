@@ -285,7 +285,7 @@ class AddressBook(UserDict):
                 if (birthday_date - today).days <= period:
                     return label
             elif unit == "months":
-                # Cbyealculate the total number of months between two dates based on their relative difference
+                # Calculate the total number of months between two dates based on their relative difference
                 total_months = delta.years * 12 + delta.months
                 if total_months < period:
                     return label
