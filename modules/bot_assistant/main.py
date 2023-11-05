@@ -15,7 +15,7 @@ def main():
     print("Welcome to the assistant bot!")
 
     command_completer = WordCompleter(
-        list(COMMANDS.keys()) + ["help"] + list(EXIT_COMMANDS), ignore_case=True
+        list(COMMANDS.keys()) + ["help"] + list(EXIT_COMMANDS), ignore_case=True, sentence=True
     )
 
     while True:
