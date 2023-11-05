@@ -180,7 +180,6 @@ def test_get_all_contacts():
         for name, record in book.data.items()
     ]
 
-    print(result)
     expected = [
         (
             "AlanWake",
