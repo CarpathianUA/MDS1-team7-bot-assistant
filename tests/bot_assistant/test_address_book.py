@@ -171,7 +171,7 @@ def test_get_all_contacts():
     book.add_record(ab.Record("Jane"))
     book.find("Jane").add_phone("3333333333")
     book.find("Jane").add_birthday("03.11.1989")
-    book.find("Jane").add_email("alan.wake@remedy.com")
+    book.find("Jane").add_email("jane.doe@example.com")
 
     assert len(book.data) == 2
 
@@ -180,6 +180,7 @@ def test_get_all_contacts():
         for name, record in book.data.items()
     ]
 
+    print(result)
     expected = [
         (
             "AlanWake",
