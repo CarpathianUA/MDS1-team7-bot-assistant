@@ -10,6 +10,12 @@ Bot Assistant is a command-line application that helps you manage your contacts 
 
 ## Installation
 
+Clone the repository:
+
+```bash
+git clone https://github.com/CarpathianUA/MDS1-team7-bot-assistant.git
+```
+
 From the root directory of the project, run the following command:
 
 ```bash
